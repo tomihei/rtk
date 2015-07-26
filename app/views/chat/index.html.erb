@@ -1,0 +1,56 @@
+<h1>Chatテスト</h1>
+
+<!-- チャット表示部分 -->
+<ul id="chat_area">
+</ul>
+
+<!-- コメントフォーム -->
+<input id="name" type="text">
+<input id="comment" type="text">
+<input id="send" type="button" value="送信">
+<input id="op" type="button" value="おっぱい">
+
+<script>
+var group_id = "test"
+var dispatcher = new WebSocketRails("localhost:3000/websocket");
+var channel = dispatcher.subscribe(group_id);
+
+// メッセージ受信時の処理
+channel.bind("websocket_chat",function(message){
+  
+  var message_li = document.createElement("li");
+
+  message_li.textContent = message["name"] +":"+ message["body"];
+  
+  document.getElementById("chat_area").appendChild(message_li);
+
+})
+
+channel.bind("websocket_oppai",function(data){
+  
+  var message_li = document.createElement("li");
+
+  message_li.textContent = data;
+  
+  document.getElementById("chat_area").appendChild(message_li);
+
+})
+
+// メッセージ送信時の処理
+document.getElementById("send").onclick =  function(){
+
+  　　var msg_body = document.getElementById("comment").value;
+      var user_name = document.getElementById("name").value; 
+      
+      channel.trigger("websocket_chat",{name: user_name, body:msg_body,group_id: group_id})
+  　　}
+
+document.getElementById("op").onclick = function(){
+
+
+
+  channel.trigger("websocket_oppai","おっぱい")
+
+  
+}
+</script>
