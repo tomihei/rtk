@@ -8,11 +8,10 @@
 <input id="name" type="text">
 <input id="comment" type="text">
 <input id="send" type="button" value="送信">
-<input id="op" type="button" value="おっぱい">
-
+<%= debug(params) if Rails.env.development? %>
 <script>
 var group_id = "test"
-var dispatcher = new WebSocketRails("morning-earth-1499.herokuapp.com/websocket");
+var dispatcher = new WebSocketRails("localhost:3000/websocket");
 var channel = dispatcher.subscribe(group_id);
 
 // メッセージ受信時の処理
@@ -20,22 +19,23 @@ channel.bind("websocket_chat",function(message){
   
   var message_li = document.createElement("li");
 
-  message_li.textContent = message["name"] +":"+ message["body"];
+  message_li.textContent = message["name"] +" : "+ message["body"] ;
   
   document.getElementById("chat_area").appendChild(message_li);
 
 })
-
-channel.bind("websocket_oppai",function(data){
+ 
+dispatcher.bind("websocket_chat",function(message){
   
   var message_li = document.createElement("li");
 
-  message_li.textContent = data;
+  message_li.textContent = message["name"] +" : "+ message["body"] ;
   
   document.getElementById("chat_area").appendChild(message_li);
 
 })
 
+  
 // メッセージ送信時の処理
 document.getElementById("send").onclick =  function(){
 
@@ -45,12 +45,5 @@ document.getElementById("send").onclick =  function(){
       channel.trigger("websocket_chat",{name: user_name, body:msg_body,group_id: group_id})
   　　}
 
-document.getElementById("op").onclick = function(){
 
-
-
-  channel.trigger("websocket_oppai","おっぱい")
-
-  
-}
 </script>
