@@ -1,49 +1,40 @@
-<h1>Chatテスト</h1>
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>チャット</title>
+<%= stylesheet_link_tag "application", media: "all",
+  "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-<!-- チャット表示部分 -->
-<ul id="chat_area">
-</ul>
+</head>
+<body>
 
-<!-- コメントフォーム -->
-<input id="name" type="text">
-<input id="comment" type="text">
-<input id="send" type="button" value="送信">
-<%= debug(params) if Rails.env.development? %>
-<script>
-var group_id = "test"
-var dispatcher = new WebSocketRails("localhost:3000/websocket");
-var channel = dispatcher.subscribe(group_id);
+  <div class="col-xs-12 col-md-12">
+   <h1 id="headeri">Chat Sample</h1>
+   <hr>
+  </div>
 
-// メッセージ受信時の処理
-channel.bind("websocket_chat",function(message){
+  <div id="group_id">test</div>
+  <!-- jsに食わせたい情報などなど -->
+  <!-- チャットのタイムラインとかテキストボックスとか -->
+  <div id="timeline" class="col-xs-12 col-md-12">
+  <div id="chat" data-uri="<%= request.host %>:3000/websocket"></div>
+  </div>
+
+  <hr>
   
-  var message_li = document.createElement("li");
-
-  message_li.textContent = message["name"] +" : "+ message["body"] ;
-  
-  document.getElementById("chat_area").appendChild(message_li);
-
-})
- 
-dispatcher.bind("websocket_chat",function(message){
-  
-  var message_li = document.createElement("li");
-
-  message_li.textContent = message["name"] +" : "+ message["body"] ;
-  
-  document.getElementById("chat_area").appendChild(message_li);
-
-})
-
-  
-// メッセージ送信時の処理
-document.getElementById("send").onclick =  function(){
-
-  　　var msg_body = document.getElementById("comment").value;
-      var user_name = document.getElementById("name").value; 
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="textarea">
+          <textarea  placeholder ="ここへ入力" wrap="hard" rows="3" id="msgbody" style="width:100%;"></textarea>
+        </div>
+      </div>
+      <button type="button" class="btn btn-default" id="send">送信</button>
       
-      channel.trigger("websocket_chat",{name: user_name, body:msg_body,group_id: group_id})
-  　　}
+    </form>  
 
-
-</script>
+</body>
