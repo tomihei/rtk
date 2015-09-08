@@ -4,7 +4,7 @@ class WebsocketChatController < WebsocketRails::BaseController
   
   def initialize_session
     logger.debug("initialize chat controller")
-    @redis = Redis.new(:host => "redis://rediscloud:PGjUZkCa9yo1D7q5@pub-redis-14162.us-east-1-2.4.ec2.garantiadata.com" :port => 14162)
+    @redis = Redis.new(:host => "redis://rediscloud:PGjUZkCa9yo1D7q5@pub-redis-14162.us-east-1-2.4.ec2.garantiadata.com", :port => 14162)
     controller_store[:redis] = @redis
   end
 
