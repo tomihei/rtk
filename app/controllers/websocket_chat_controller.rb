@@ -4,7 +4,7 @@ class WebsocketChatController < WebsocketRails::BaseController
   
   def initialize_session
     logger.debug("initialize chat controller")
-    uri = URI.parse(ENV["REDISCLOUD_UPR"])
+    uri = URI.parse(ENV["REDISCLOUD_URL"])
     @redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password )
     controller_store[:redis] = @redis
   end
