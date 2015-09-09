@@ -4,6 +4,7 @@ class WebsocketChatController < WebsocketRails::BaseController
   
   def initialize_session
     logger.debug("initialize chat controller")
+    puts "initialize"
     @redis = Redis.new   
     controller_store[:redis] = @redis
   end
@@ -12,6 +13,7 @@ class WebsocketChatController < WebsocketRails::BaseController
     gid = session[:group_id] 
     WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
       logger.debug("connected user")
+      puts "connect_user"
     talks = controller_store[:redis].lrange gid, 0,-1
     talks.each do |message|
       msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
