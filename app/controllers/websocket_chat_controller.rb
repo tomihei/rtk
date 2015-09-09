@@ -5,7 +5,7 @@ class WebsocketChatController < WebsocketRails::BaseController
   def initialize_session
     logger.debug("initialize chat controller")
     puts "initialize"
-    @redis = Redis.new   
+    #@redis = Redis.new   
     controller_store[:redis] = @redis
   end
 
