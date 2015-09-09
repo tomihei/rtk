@@ -8,10 +8,11 @@ class WebsocketChatController < WebsocketRails::BaseController
     @redis = Redis.new(:host => "pub-redis-14162.us-east-1-2.4.ec2.garantiadata.com"  , :port => 14162 , :password => "PGjUZkCa9yo1D7q5")   
     puts "redis"
     controller_store[:redis] = @redis
-
+    puts "cs"
   end
 
   def connect_user
+    puts "cu"
     gid = session[:group_id] 
     WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
       logger.debug("connected user")
