@@ -56,6 +56,6 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
-gem 'websocket-rails', '0.7.0'
+gem 'websocket-rails', github: 'websocket-rails/websocket-rails' 
 gem 'redis'
 gem 'redis-rails'

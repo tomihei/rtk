@@ -6,17 +6,15 @@ class WebsocketChatController < WebsocketRails::BaseController
     logger.debug("initialize chat controller")
     puts "initialize"
     @redis = Redis.new(:host => "pub-redis-14162.us-east-1-2.4.ec2.garantiadata.com"  , :port => 14162 , :password => "PGjUZkCa9yo1D7q5")   
-    puts "redis"
-    controller_store[:redis] = @redis
-    puts "cs"
+        controller_store[:redis] = @redis
+    
   end
 
   def connect_user
-    puts "cu"
+
     gid = session[:group_id] 
-    puts "se"
     WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
-    puts "filter"
+
     logger.debug("connected user")
     puts "connect_user"
     talks = controller_store[:redis].lrange gid, 0,-1
