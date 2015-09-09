@@ -4,6 +4,20 @@ GIT
   specs:
     database_cleaner (1.4.1)
 
+GIT
+  remote: git://github.com/websocket-rails/websocket-rails.git
+  revision: 712fd4e35325887956724be388821121a866c7fc
+  specs:
+    websocket-rails (0.7.0)
+      em-synchrony
+      faye-websocket
+      hiredis
+      rack
+      rails
+      redis
+      redis-objects
+      thin
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -207,15 +221,6 @@ GEM
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    websocket-rails (0.7.0)
-      em-synchrony
-      faye-websocket
-      hiredis
-      rack
-      rails
-      redis
-      redis-objects
-      thin
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -248,5 +253,5 @@ DEPENDENCIES
   sqlite3 (= 1.3.8)
   turbolinks (= 1.1.1)
   uglifier (= 2.1.1)
-  websocket-rails (= 0.7.0)
+  websocket-rails!
   will_paginate (= 3.0.4)
