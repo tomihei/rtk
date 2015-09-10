@@ -16,9 +16,10 @@ class WebsocketChatController < WebsocketRails::BaseController
     WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
 
     logger.debug("connected user")
-    puts "connect_user"
+    puts "#{gid}"
+    puts "adsf"
     talks = controller_store[:redis].lrange gid, 0,-1
-    puts "co"
+    puts "#{talks}"
     talks.each do |message|
       msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
       send_message :websocket_chat,msg 
