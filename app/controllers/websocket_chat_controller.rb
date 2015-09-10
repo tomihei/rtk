@@ -34,7 +34,7 @@ class WebsocketChatController < WebsocketRails::BaseController
     logger.debug("Call new_message ")
     puts "new"
     gid = message[:group_id]
-    message[:time] = Time.now.strftime("%Y/%m/%d %H:%M:%S").to_s
+    message[:time] = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
     puts "a"
     message[:client_id] = client_id
     puts "b"
