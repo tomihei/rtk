@@ -22,6 +22,7 @@ class WebsocketChatController < WebsocketRails::BaseController
     talks.each do |message|
       msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
       send_message :websocket_chat,msg 
+      puts "ag"
     end
     puts "d"
   end
