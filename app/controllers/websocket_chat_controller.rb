@@ -13,6 +13,7 @@ class WebsocketChatController < WebsocketRails::BaseController
   def connect_user
 
     gid = session[:group_id] 
+    puts "#{gid}"
     WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
 
     logger.debug("connected user")

@@ -1,6 +1,7 @@
 class @ChatClass
  constructor: (url, useWebsocket) ->
   group_id = $('#group_id').text()
+  document.cookie = "gidi = #{group_id}"
   @dispatcher = new WebSocketRails(url, useWebsocket)
   @channel = @dispatcher.subscribe(group_id)
   console.log(url)
