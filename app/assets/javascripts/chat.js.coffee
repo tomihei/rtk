@@ -46,7 +46,7 @@ class @ChatClass
                         <div id='child#{message.resnum}'></div>
                         </div>"
     else
-     $("div##{message.resid}").append "<div id='#{message.resnum}' class='contarea'>
+     $("div##{message.resid}").append "<div id='#{message.resnum}' class='contarea contchild'>
                                        <p>#{message.resnum} 
                                        <small> #{message.time}</small>
                                        <a class='res' id='#{message.resnum}'>返信</a>
