@@ -64,7 +64,7 @@ class @ChatClass
                          </div>"
     else
      $("#chat").append "<div id='#{message.resnum}' class='contarea'>
-                        <p><aname='ank#{message.resnum}'>#{message.resnum}</a> 
+                        <p><a name='ank#{message.resnum}'>#{message.resnum}</a> 
                         <small> #{message.time}</small>
                         <a class='res' id='#{message.resnum}'>返信</a>
                         <br><a href='#ank#{message.resid}'>>>#{message.resid}</a>
