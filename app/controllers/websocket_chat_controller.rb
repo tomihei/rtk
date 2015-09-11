@@ -13,32 +13,23 @@ class WebsocketChatController < WebsocketRails::BaseController
   def connect_user
 
     gid = session[:group_id] 
-    puts "#{gid}"
-    WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
+      WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
 
     logger.debug("connected user")
-    puts "#{gid}"
-    puts "adsf"
-    talks = controller_store[:redis].lrange gid, 0,-1
-    puts "#{talks}"
+     talks = controller_store[:redis].lrange gid, 0,-1
     talks.each do |message|
       msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
       send_message :websocket_chat,msg 
-      puts "ag"
-    end
-    puts "d"
+      end
   end
 
   def new_message  
     #クライアントからのメッセージを取得
     logger.debug("Call new_message ")
-    puts "new"
     gid = message[:group_id]
     message[:time] = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
-    puts "a"
-    message[:client_id] = client_id
-    puts "b"
-    #レス番号付加
+       message[:client_id] = client_id
+     #レス番号付加
     talknum = controller_store[:redis].llen gid
     message[:resnum] = talknum + 1
     #redisに保存

@@ -1,7 +1,6 @@
 class @ChatClass
  constructor: (url, useWebsocket) ->
   group_id = $('#group_id').text()
-  document.cookie = "gidi = #{group_id}"
   @dispatcher = new WebSocketRails(url, useWebsocket)
   @channel = @dispatcher.subscribe(group_id)
   console.log(url)
@@ -36,15 +35,51 @@ class @ChatClass
  receiveMessage: (message) =>
   console.log message
 # 受け取ったデータをappend
-  if(message.resid? isnt true)
-   $('#chat').append "<div id='#{message.resnum}' class='contarea'><p>#{message.resnum} <small> #{message.time}</small> <a class='res' id='#{message.resnum}'>返信</a>
-                    <br>#{message.body} </p><div id='child#{message.resnum}'></div></div>"
+  tbutton = $.cookie('treebutton')
+  if(tbutton % 2 isnt 1 )
+    if(message.resid? isnt true)
+     $('#chat').append "<div id='#{message.resnum}' class='contarea'>
+                        <p>#{message.resnum} 
+                        <small> #{message.time}</small>
+                        <a class='res' id='#{message.resnum}'>返信</a>
+                        <br>#{message.body} </p>
+                        <div id='child#{message.resnum}'></div>
+                        </div>"
+    else
+     $("div##{message.resid}").append "<div id='#{message.resnum}' class='contarea'>
+                                       <p>#{message.resnum} 
+                                       <small> #{message.time}</small>
+                                       <a class='res' id='#{message.resnum}'>返信</a>
+                                       <br>#{message.body} </p>
+                                       <div id='child#{message.resnum}'></div>
+                                       </div>"
   else
-   $("div##{message.resid}").append "<div id='#{message.resnum}' class='contarea'><p>#{message.resnum} <small> #{message.time}</small> <a class='res' id='#{message.resnum}'>返信</a>
-                      <br>#{message.body} </p><div id='child#{message.resnum}'></div></div>"
-
+    if(message.resid? isnt true)
+      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
+                         <p><a name='ank#{message.resnum}'>#{message.resnum}</a> 
+                         <small> #{message.time}</small>
+                         <a class='res' id='#{message.resnum}'>返信</a>
+                         <br>#{message.body} </p>
+                         <div id='child#{message.resnum}'></div>
+                         </div>"
+    else
+     $("#chat").append "<div id='#{message.resnum}' class='contarea'>
+                        <p><aname='ank#{message.resnum}'>#{message.resnum}</a> 
+                        <small> #{message.time}</small>
+                        <a class='res' id='#{message.resnum}'>返信</a>
+                        <br><a href='#ank#{message.resid}'>>>#{message.resid}</a>
+                        <br>#{message.body} </p>
+                        <div id='child#{message.resnum}'></div></div>"   
 
  $ ->
+  buttonum = 0
+  $('#treebutton').on 'click', ->
+    if($.cookie('treebutton'))
+      buttonum = $.cookie('treebutton')
+    buttonum++
+    $.cookie('treebutton',buttonum)
+    location.reload();
+
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
 #返信用フォーム追加用
   $('#chat').on 'click','a.res', ->

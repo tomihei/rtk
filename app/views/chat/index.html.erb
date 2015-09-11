@@ -9,7 +9,8 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
+<script type="text/javascript"
+  src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 </head>
 <body>
 
@@ -17,12 +18,14 @@
    <h1 id="headeri">Chat Sample</h1>
    <hr>
   </div>
-
+  <button type="button" id="treebutton" class="btn btn-default" autocomplete="off">
+      ツリー表示
+  </button>
   <div id="group_id">test</div>
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->
   <div id="timeline" class="col-xs-12 col-md-12">
-  <div id="chat" data-uri="<%= request.host %>/websocket"></div>
+  <div id="chat" data-uri="<%= request.host %>:3000/websocket"></div>
   </div>
 
   <hr>
