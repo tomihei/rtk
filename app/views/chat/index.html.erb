@@ -13,8 +13,9 @@
   src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 </head>
 <body>
-
-  <div class="col-xs-12 col-md-12">
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-xs-12 col-md-12 col-sm-12">
    <h1 id="headeri">Chat Sample</h1>
    <hr>
   </div>
@@ -24,12 +25,12 @@
   <div id="group_id">test</div>
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->
-
+  <div class="col-xs-12 col-md-12 col-sm-12">
   <div id="chat" data-uri="<%= request.host %>/websocket"></div>
-
+  </div>
 
   <hr>
-  
+  <div class="col-xs-12 col-md-12 col-sm-12">  
     <form class="form-horizontal">
       <div class="form-group">
         <div class="textarea">
@@ -38,6 +39,8 @@
       </div>
       <button type="button" class="btn btn-default" id="send">送信</button>
       
-    </form>  
-
+    </form>
+   </div>
+   </div>
+   </div>
 </body>

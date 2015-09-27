@@ -74,14 +74,44 @@ class @ChatClass
                         <br><a href='#ank#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
   
+  $("div#childpm#{message.resnum}").append "<div class='row'>
+                                            <div class ='col-xs-10 col-md-10 col-sm-10'>
+                                            <div id='pmrow#{message.resnum}'></div>
+                                            </div>
+                                            <div class='col-xs-2 col-md-2 col-sm-2'></div>
+                                            </div>
+                                            "
+
+  #gifv,webm以外のサムネイル
   $("a.g#{message.resnum}").each ->
    pmurl = $(this).attr('href')
-   $("div#childpm#{message.resnum}").append "
-                                             <a class='gm#{message.resnum}' href='#{pmurl}'>
-                                             <img class='lazy' data-original='#{pmurl}' width='5%' height='5%'>
-                                             </a>
-                                             "
-    
+   $("div#pmrow#{message.resnum}").append "<div class='span1'>
+                                           <a class='gm#{message.resnum} thumbnail' href='#{pmurl}'>
+                                           <img class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
+                                           </a>
+                                           </div>
+                                           "
+  
+  #gifv,webmのサムネイル
+  $("a.gw#{message.resnum}").each ->
+    pmurl = $(this).attr('href')
+    $("div#pmrow#{message.resnum}").append "<div class='span1'>
+                                           <a class='thumbnail' href='#{pmurl}'>
+                                           <img class='movie'>
+                                           </a>
+                                           </div>
+                                            "
+
+   #youtube,vimeo用この3つどうにかしろよ
+  $("a.gy#{message.resnum}").each ->
+    pmurl = $(this).attr('href')
+    $("div#pmrow#{message.resnum}").append "<div class='span1'>
+                                           <a class='movie#{message.resnum} thumbnail' href='#{pmurl}'>
+                                           <img class='movie'>
+                                           </a>
+                                           </div>
+                                            "
+
   $("a.gm#{message.resnum}").colorbox(
      rel:"gm#{message.resnum}"
      maxWidth:"100%"
@@ -92,22 +122,27 @@ class @ChatClass
 
  #エスケープ処理
  mescape: (mbody,mnum) ->
-    mbody.replace(/&/g, "&amp;")
-         .replace(/"/g, "&quot;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         #  .replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
+    mbb =  mbody.replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
     
-    reg = /http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp|gifv|webm)/g
+    reg1 = /http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm)/g
+    reg2 = /http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp)/g
+    reg3 = /https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11})/g
 
-    pic = reg.test(mbody)
+    pic  = reg1.test(mbody)
+    pic2 = reg2.test(mbody)
+    pic3 = reg3.test(mbody)
 
     if(pic is true)
-      console.log "a"
-      mbody.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp|gifv|webm))/g,"<a class='g#{mnum}' href='$1'>$1</a><br>")
- 
+      mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm))/g,"<a class='gw#{mnum}' href='$1'>$1</a><br>")
+    else if(pic2 is true)
+      mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp))/g,"<a class='g#{mnum}' href='$1'>$1</a><br>")
+    else if(pic3 is true)
+      mbb.replace(/(https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11}))/g,"<a class='gy#{mnum}' href='$1'>$1</a><br>")
     else
-      mbody.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
+      mbb.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
     
 
 
