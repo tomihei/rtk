@@ -37,16 +37,31 @@ class @ChatClass
   console.log message
   # 受け取ったデータをappend
   tbutton = $.cookie('treebutton')
-  message.body = @mescape(message.body,message.resnum)
+  messagebody = @mescape(message.body,message.resnum)
 
   #共通部品
+  newpost = "#{message.new}"
+  if(newpost isnt "1")
+    newlabel = "<span class='label label-warning' id='newlabel#{message.resnum}'>New</span>"
+  else
+    newlabel ="<span></span>"
+
   resnumAtime   = "<p>#{message.resnum} 
-                   <small> #{message.time}</small>"
+                   <small> #{message.time}</small> #{newlabel}"
   resnumAtimer  = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a> 
-                   <small> #{message.time}</small>"
-  footerm       = "<br>#{message.body} </p>
+                   <small> #{message.time}</small> #{newlabel}"
+  footerm       = "<br>#{messagebody[0]} </p>
                    <div id='childpm#{message.resnum}'></div>
-                   <div id='child#{message.resnum}'></div>
+                   <div id='child#{message.resnum}' style='display: none'>
+                   <form class='form-horizontal'>
+                   <div class='form-group'>
+                   <div class='textarea'>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='3' id='msgbody#{message.resnum}' style='width:100%;'></textarea>
+                   </div>
+                   </div>
+                   <button type='button' class='btn btn-default resend' id='#{message.resnum}' >送信</button>
+                   </form>
+                   </div>
                    </div>"
 
 
@@ -83,43 +98,46 @@ class @ChatClass
                                             "
 
   #gifv,webm以外のサムネイル
-  $("a.g#{message.resnum}").each ->
-   pmurl = $(this).attr('href')
-   $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                           <a class='gm#{message.resnum} thumbnail' href='#{pmurl}'>
-                                           <img class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
-                                           </a>
-                                           </div>
-                                           "
-  
-  #gifv,webmのサムネイル
-  $("a.gw#{message.resnum}").each ->
+  if(messagebody[1] is 1)
+   $("a#g#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                           <a class='thumbnail' href='#{pmurl}'>
-                                           <img class='movie'>
-                                           </a>
-                                           </div>
+                                            <a id='gm#{message.resnum}'class='thumbnail colgm' href='#{pmurl}'>
+                                            <img class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
+                                            </a>
+                                            </div>
                                             "
-
-   #youtube,vimeo用この3つどうにかしろよ
-  $("a.gy#{message.resnum}").each ->
+    $('img.lazy').lazyload()
+  else if(messagebody[1] is 0)
+    #gifv,webmのサムネイル
+   $("a#gw#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                           <a class='movie#{message.resnum} thumbnail' href='#{pmurl}'>
-                                           <img class='movie'>
-                                           </a>
-                                           </div>
+                                            <a class='thumbnail' href='#{pmurl}'>
+                                            <img class='movie'>
+                                            </a>
+                                            </div>
+                                            "
+  else if(messagebody[1] is 2)
+    #youtube,vimeo用この3つどうにかしろよ
+   $("a#gy#{message.resnum}").each ->
+    pmurl = $(this).attr('href')
+    $("div#pmrow#{message.resnum}").append "<div class='span1'>
+                                            <a id='movie#{message.resnum}' class='thumbnail' href='#{pmurl}'>
+                                            <img class='movie'>
+                                            </a>
+                                            </div>
                                             "
 
-  $("a.gm#{message.resnum}").colorbox(
-     rel:"gm#{message.resnum}"
-     maxWidth:"100%"
-     maxHeight:"100%"
-  )
 
-  $('img.lazy').lazyload()
+  #Newラベル消去用
+  if(newpost isnt "1")
+   $("#newlabel#{message.resnum}").on 'inview', (event,isInView,visiblePartX,visiblePartY)->
+     if(isInView == false)
+      $(this).hide 'slow', ->
+       $(this).remove()
 
+  return 0
  #エスケープ処理
  mescape: (mbody,mnum) ->
     mbb =  mbody.replace(/&/g, "&amp;")
@@ -136,14 +154,21 @@ class @ChatClass
     pic3 = reg3.test(mbody)
 
     if(pic is true)
-      mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm))/g,"<a class='gw#{mnum}' href='$1'>$1</a><br>")
+      mba1 = mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm))/g,"<a id='gw#{mnum}' href='$1'>$1</a><br>")
+      mba2 = 0
+      return [mba1,mba2]
     else if(pic2 is true)
-      mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp))/g,"<a class='g#{mnum}' href='$1'>$1</a><br>")
+      mba1 = mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp))/g,"<a id='g#{mnum}' href='$1'>$1</a><br>")
+      mba2 = 1
+      return [mba1,mba2]
     else if(pic3 is true)
-      mbb.replace(/(https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11}))/g,"<a class='gy#{mnum}' href='$1'>$1</a><br>")
+      mba1 = mbb.replace(/(https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11}))/g,"<a id='gy#{mnum}' href='$1'>$1</a><br>")
+      mba2 = 2
+      return [mba1,mba2]
     else
-      mbb.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
-    
+      mba1 =mbb.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
+      mba2 = 3
+      return [mba1,mba2]
 
 
  $ ->
@@ -158,25 +183,21 @@ class @ChatClass
 
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
 
-
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
-   resid = $(this).attr('id')
-   aldform = $(this).attr('name')
-   resop = "open#{resid}"
-   console.log aldform
-   console.log resid
-   if(aldform isnt resop )
-    $(this).attr('name',"open#{resid}")
-    $("div#child#{resid}").append " 
-     <form class='form-horizontal'>
-      <div class='form-group'>
-      <input type='hidden' name='resid' value='#{resid}'>
-        <div class='textarea'>
-          <textarea  placeholder ='ここへ入力' wrap='hard' rows='3' id='msgbody#{resid}' style='width:100%;'></textarea>
-        </div>
-      </div>
-      <button type='button' class='btn btn-default resend' id='#{resid}' >送信</button>
-     </form>"
+    resid = $(this).attr('id')
+    $("div#child#{resid}").toggle(500)
+ 
+  $('#chat').on 'click','a.colgm', ->
+    iden = $(this).attr('id')
+    $("a##{iden}").colorbox(
+     rel:"#{iden}"
+     maxWidth:"100%"
+     maxHeight:"100%"
+    )
+
   
-  
+
+
+
+

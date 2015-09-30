@@ -19,6 +19,7 @@ class WebsocketChatController < WebsocketRails::BaseController
      talks = controller_store[:redis].lrange gid, 0,-1
     talks.each do |message|
       msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
+      msg[:new] = 1
       send_message :websocket_chat,msg 
       end
   end

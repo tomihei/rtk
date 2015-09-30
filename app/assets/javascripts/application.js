@@ -12,6 +12,7 @@
 //
 //
 //= require jquery
+//= require jquery.inview.js
 //= require jquery.colorbox.js
 //= require jquery.lazyload.min.js
 //= require jquery_ujs
