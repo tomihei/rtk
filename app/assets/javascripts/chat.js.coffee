@@ -46,13 +46,15 @@ class @ChatClass
   else
     newlabel ="<span></span>"
 
-  resnumAtime   = "<p>#{message.resnum} 
+  resnumAtime   = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>
+                   <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span>
                    <small> #{message.time}</small> #{newlabel}"
   resnumAtimer  = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a> 
+                   <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "<br>#{messagebody[0]} </p>
                    <div id='childpm#{message.resnum}'></div>
-                   <div id='child#{message.resnum}' style='display: none'>
+                   <div id='form#{message.resnum}' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='textarea'>
@@ -62,7 +64,9 @@ class @ChatClass
                    <button type='button' class='btn btn-default resend' id='#{message.resnum}' >送信</button>
                    </form>
                    </div>
-                   </div>"
+                   <div id='child#{message.resnum}' class='contchild'></div>
+                   </div>
+                   "
 
 
   if(tbutton % 2 isnt 1 )
@@ -72,10 +76,11 @@ class @ChatClass
                         <a class='res' id='#{message.resnum}'>返信</a>
                         #{footerm}"
     else
-     $("div##{message.resid}").append "<div id='#{message.resnum}' class='contarea contchild'>
+     $("div#child#{message.resid}").append "<div id='#{message.resnum}' class='contarea'>
                                        #{resnumAtime}
                                        <a class='res' id='#{message.resnum}'>返信</a>
                                        #{footerm}"
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time)
   else
     if(message.resid? isnt true)
       $('#chat').append "<div id='#{message.resnum}' class='contarea'>
@@ -88,7 +93,8 @@ class @ChatClass
                         <a class='res' id='#{message.resnum}'>返信</a>
                         <br><a href='#ank#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
-  
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time)
+
   $("div#childpm#{message.resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
                                             <div id='pmrow#{message.resnum}'></div>
@@ -170,6 +176,29 @@ class @ChatClass
       mba2 = 3
       return [mba1,mba2]
 
+ #返信数とツールチップ用関数 
+ resinc: (incnum,mbody,mnum,mtime) ->
+  
+  #rescount
+  
+  rescount = parseInt(incnum.text(),0)
+  if(isNaN(rescount))
+    rescount = 0
+  hres = rescount + 1
+  if(hres is 1)
+    incnum.attr 'class','badge'
+  else if(hres > 1 and hres < 3)
+    incnum.attr 'class','badge rescouBlo'
+  else if(hres > 3)
+    incnum.attr 'class','badge rescouRed'
+  incnum.text(hres)
+  
+  #tooltip
+
+  tip = incnum.attr 'data-content'
+  tip = tip + "<a href='#ank#{mnum}'>#{mnum}</a>:#{mtime}<br>#{mbody}<br>"
+  incnum.attr 'data-content',"#{tip}"
+  
 
  $ ->
   
@@ -183,10 +212,11 @@ class @ChatClass
 
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
 
+  
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
     resid = $(this).attr('id')
-    $("div#child#{resid}").toggle(500)
+    $("div#form#{resid}").toggle(250)
  
   $('#chat').on 'click','a.colgm', ->
     iden = $(this).attr('id')
@@ -195,8 +225,14 @@ class @ChatClass
      maxWidth:"100%"
      maxHeight:"100%"
     )
-
   
+  $(document).popover(
+    html: true,
+    selector:'.badge',
+    content: ->
+      $(this).attr('data-content')
+  )
+
 
 
 
