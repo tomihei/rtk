@@ -69,7 +69,7 @@ class @ChatClass
                    "
 
 
-  if(tbutton % 2 isnt 1 )
+  if(tbutton != 'on' )
     if(message.resid? isnt true)
      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
                         #{resnumAtime}
@@ -102,18 +102,26 @@ class @ChatClass
                                             <div class='col-xs-2 col-md-2 col-sm-2'></div>
                                             </div>
                                             "
-
+  vic = 0
   #gifv,webm以外のサムネイル
   if(messagebody[1] is 1)
    $("a#g#{message.resnum}").each ->
     pmurl = $(this).attr('href')
+    vic++
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                            <a id='gm#{message.resnum}'class='thumbnail colgm' href='#{pmurl}'>
-                                            <img class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
+                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} thumbnail colgm' href='#{pmurl}'>
+                                            <img id='lazy#{message.resnum}'class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
                                             </a>
                                             </div>
                                             "
-    $('img.lazy').lazyload()
+    if $.cookie('autopic') is 'on'
+      $('img.lazy').lazyload()
+    else
+      $("img#lazy#{message.resnum}").lazyload
+        event : "over"
+      $("#gm#{message.resnum}#{vic}").on 'mouseover', ->
+        $("img#lazy#{message.resnum}").trigger("over")
+        $(this).attr 'name','on'
   else if(messagebody[1] is 0)
     #gifv,webmのサムネイル
    $("a#gw#{message.resnum}").each ->
@@ -142,6 +150,12 @@ class @ChatClass
      if(isInView == false)
       $(this).hide 'slow', ->
        $(this).remove()
+  #オートスクロール用
+   sclba = $("div##{message.resnum}").offset().top
+   sclba = sclba - 50
+   setTimeout ->
+    $("html,body").animate({scrollTop:sclba})
+   , 3000
 
   return 0
  #エスケープ処理
@@ -202,12 +216,26 @@ class @ChatClass
 
  $ ->
   
-  buttonum = 0
-  $('#treebutton').on 'click', ->
-    if($.cookie('treebutton'))
-      buttonum = $.cookie('treebutton')
-    buttonum++
-    $.cookie('treebutton',buttonum)
+  #ボタンの状態判断用
+  
+  if($.cookie('treebutton') isnt 'on' )
+    $('#tree').attr 'class','btn btn-default navbar-btn active'
+
+
+  $('#tree').click ->
+    $(this).button('toggle')
+    if $.cookie('treebutton') isnt 'on'
+     $.cookie('treebutton','on')
+    else
+     $.cookie('treebutton','off')
+    location.reload()
+
+  $('#autopic').click ->
+    $(this).button('toggle')
+    if $.cookie('autopic') isnt 'on'
+      $.cookie('autopic','on')
+    else
+      $.cookie('autopic','off')
     location.reload()
 
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
@@ -219,8 +247,9 @@ class @ChatClass
     $("div#form#{resid}").toggle(250)
  
   $('#chat').on 'click','a.colgm', ->
-    iden = $(this).attr('id')
-    $("a##{iden}").colorbox(
+    iden = $(this).attr('class')
+    idena = $(this).attr('id')
+    $("a##{idena}").colorbox(
      rel:"#{iden}"
      maxWidth:"100%"
      maxHeight:"100%"

@@ -13,15 +13,37 @@
   src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 </head>
 <body>
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar123">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+        RTK 
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar123">
+      
+       <button type="button" id="tree" class="btn btn-default navbar-btn" autocomplate="off">ツリー表示</button>
+       <button type="button" id="akares" class="btn btn-default navbar-btn" autocomplate="off">赤レス抽出</button>
+       <button type="button" id="autopic" class="btn btn-default navbar-btn" autocomplate="off">画像自動読み込み</button>
+       <button type="button" id="autoscl" class="btn btn-default navbar-btn" autocomplate="off">自動スクロール</button>
+
+      </div>
+    </div>
+  </nav>
   <div class="container-fluid">
   <div class="row">
   <div class="col-xs-12 col-md-12 col-sm-12">
    <h1 id="headeri">Chat Sample</h1>
    <hr>
   </div>
-    <button type="button" id="treebutton" class="btn btn-default" autocomplete="off">
-      ツリー表示
-  </button>
+
   <div id="group_id">test</div>
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->
