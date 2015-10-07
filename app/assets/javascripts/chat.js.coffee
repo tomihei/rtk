@@ -32,7 +32,6 @@ class @ChatClass
   #ChatClassを参照  
   event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid}
   $("#msgbody#{resid}").val('')
-  $("div#form#{resid}").toggle(250)
 
  receiveMessage: (message) =>
   console.log message
@@ -251,7 +250,7 @@ class @ChatClass
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
     resid = $(this).attr('id')
-    $("div#form#{resid}").toggle(250)
+    $("div#form#{resid}").show(250)
     $("#msgbody#{resid}").focus()
   #if textarea focus autoscl off
   $('#chat')
@@ -259,7 +258,9 @@ class @ChatClass
      $.cookie('restextfocus','on')
    .on 'blur','div.resform',->
      $.cookie('restextfocus','off')
-     $(this).toggle(250)
+     setTimeout =>
+      $(this).hide(250)
+     , 500
   
   $('textarea#msgbody')
    .on 'focus click','textarea.restext', ->
