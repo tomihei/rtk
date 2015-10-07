@@ -32,11 +32,12 @@ class @ChatClass
   #ChatClassを参照  
   event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid}
   $("#msgbody#{resid}").val('')
+  $("div#form#{resid}").toggle(250)
 
  receiveMessage: (message) =>
   console.log message
   # 受け取ったデータをappend
-  tbutton = $.cookie('treebutton')
+  tbutton = $.cookie('tree')
   messagebody = @mescape(message.body,message.resnum)
 
   #共通部品
@@ -58,7 +59,7 @@ class @ChatClass
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='textarea'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='3' id='msgbody#{message.resnum}' style='width:100%;'></textarea>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='3' id='msgbody#{message.resnum}' class='restext' style='width:100%;'></textarea>
                    </div>
                    </div>
                    <button type='button' class='btn btn-default resend' id='#{message.resnum}' >送信</button>
@@ -91,7 +92,7 @@ class @ChatClass
      $("#chat").append "<div id='#{message.resnum}' class='contarea'>
                         #{resnumAtimer}
                         <a class='res' id='#{message.resnum}'>返信</a>
-                        <br><a href='#ank#{message.resid}'>>>#{message.resid}</a>
+                        <br><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time)
 
@@ -109,7 +110,7 @@ class @ChatClass
     pmurl = $(this).attr('href')
     vic++
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} thumbnail colgm' href='#{pmurl}'>
+                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} thumbnail colgm' name='gm#{message.resnum}' href='#{pmurl}'>
                                             <img id='lazy#{message.resnum}'class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
                                             </a>
                                             </div>
@@ -119,9 +120,8 @@ class @ChatClass
     else
       $("img#lazy#{message.resnum}").lazyload
         event : "over"
-      $("#gm#{message.resnum}#{vic}").on 'mouseover', ->
+      $("#gm#{message.resnum}#{vic}").on 'mouseover touchstart', ->
         $("img#lazy#{message.resnum}").trigger("over")
-        $(this).attr 'name','on'
   else if(messagebody[1] is 0)
     #gifv,webmのサムネイル
    $("a#gw#{message.resnum}").each ->
@@ -151,11 +151,14 @@ class @ChatClass
       $(this).hide 'slow', ->
        $(this).remove()
   #オートスクロール用
-   sclba = $("div##{message.resnum}").offset().top
-   sclba = sclba - 50
-   setTimeout ->
-    $("html,body").animate({scrollTop:sclba})
-   , 3000
+   rfocus = $.cookie('restextfocus')
+   autoscl = $.cookie('autoscl')
+   if rfocus isnt 'on' and autoscl is 'on'
+    sclba = $("div##{message.resnum}").offset().top
+    sclba = sclba - 100
+    setTimeout ->
+     $("html,body").animate({scrollTop:sclba})
+    , 3000
 
   return 0
  #エスケープ処理
@@ -218,38 +221,49 @@ class @ChatClass
   
   #ボタンの状態判断用
   
-  if($.cookie('treebutton') isnt 'on' )
+  if($.cookie('tree') isnt 'on' )
     $('#tree').attr 'class','btn btn-default navbar-btn active'
 
+  if($.cookie('autopic') isnt 'off' )
+    $('#autopic').attr 'class','btn btn-default navbar-btn active'
 
-  $('#tree').click ->
-    $(this).button('toggle')
-    if $.cookie('treebutton') isnt 'on'
-     $.cookie('treebutton','on')
-    else
-     $.cookie('treebutton','off')
-    location.reload()
+  if($.cookie('autoscl') isnt 'off')
+    $('#autoscl').attr 'class','btn btn-default navbar-btn active'
 
-  $('#autopic').click ->
+  $('.navbar-btn').click ->
     $(this).button('toggle')
-    if $.cookie('autopic') isnt 'on'
-      $.cookie('autopic','on')
+    cookid = $(this).attr('id')
+    if $.cookie(cookid) isnt 'on'
+     $.cookie(cookid,'on')
     else
-      $.cookie('autopic','off')
+     $.cookie(cookid,'off')
     location.reload()
 
   window.chatClass = new ChatClass($('#chat').data('uri'), true)
 
-  
+  #res anker animetion 
+  $('#chat').on 'click','a.resanker', ->
+    resid = $(this).attr('name')
+    sclba = $("div##{resid}").offset().top
+    sclba = sclba - 100
+    $("html,body").animate({scrollTop:sclba})
+
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
     resid = $(this).attr('id')
     $("div#form#{resid}").toggle(250)
- 
+    $("#msgbody#{resid}").focus()
+  #if textarea focus autoscl off
+  $('#chat')
+   .on 'focus click','textarea.restext', ->
+     $.cookie('restextfocus','on')
+   .on 'blur','textarea.restext',->
+     $.cookie('restextfocus','off')
+    
   $('#chat').on 'click','a.colgm', ->
-    iden = $(this).attr('class')
+    iden = $(this).attr('name')
     idena = $(this).attr('id')
-    $("a##{idena}").colorbox(
+    $("a.#{iden}").colorbox(
      rel:"#{iden}"
      maxWidth:"100%"
      maxHeight:"100%"

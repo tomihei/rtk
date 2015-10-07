@@ -35,17 +35,17 @@ a{
 }
 
 .thumbnail{
-  width:50px;
-  height: 50px;
+  width:60px;
+  height: 60px;
 }
 
-.lazy{
+img.lazy{
 
   background-position: center center;
   background-repeat: no-repeat;
-  background-size:contain;
-  width:auto;
-  max-height:50px;
+  background-size:cover;
+  width:50px;
+  height:50px;
  }
 
 .movie{
