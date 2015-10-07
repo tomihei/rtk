@@ -55,7 +55,7 @@ class @ChatClass
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "<br>#{messagebody[0]} </p>
                    <div id='childpm#{message.resnum}'></div>
-                   <div id='form#{message.resnum}' style='display: none'>
+                   <div id='form#{message.resnum}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='textarea'>
@@ -255,11 +255,18 @@ class @ChatClass
     $("#msgbody#{resid}").focus()
   #if textarea focus autoscl off
   $('#chat')
+   .on 'focus click','div.resform', ->
+     $.cookie('restextfocus','on')
+   .on 'blur','div.resform',->
+     $.cookie('restextfocus','off')
+     $(this).toggle(250)
+  
+  $('textarea#msgbody')
    .on 'focus click','textarea.restext', ->
      $.cookie('restextfocus','on')
    .on 'blur','textarea.restext',->
      $.cookie('restextfocus','off')
-    
+
   $('#chat').on 'click','a.colgm', ->
     iden = $(this).attr('name')
     idena = $(this).attr('id')
