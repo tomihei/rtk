@@ -46,6 +46,11 @@ class @ChatClass
   else
     newlabel ="<span></span>"
 
+  if($.cookie('akares') is 'on')
+    style = "style='display:none;'"
+  else
+    style = ""
+
   resnumAtime   = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>
                    <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span>
                    <small> #{message.time}</small> #{newlabel}"
@@ -69,7 +74,7 @@ class @ChatClass
                    "
 
 
-  if(tbutton != 'on' )
+  if(tbutton != 'off' )
     if(message.resid? isnt true)
      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
                         #{resnumAtime}
@@ -80,20 +85,20 @@ class @ChatClass
                                        #{resnumAtime}
                                        <a class='res' id='#{message.resnum}'>返信</a>
                                        #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
   else
     if(message.resid? isnt true)
-      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
+      $('#chat').append "<div #{style} id='#{message.resnum}' class='contarea'>
                          #{resnumAtimer}
                          <a class='res' id='#{message.resnum}'>返信</a>
                          #{footerm}"
     else
-     $("#chat").append "<div id='#{message.resnum}' class='contarea'>
+     $("#chat").append "<div #{style} id='#{message.resnum}' class='contarea'>
                         #{resnumAtimer}
                         <a class='res' id='#{message.resnum}'>返信</a>
                         <br><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
 
   $("div#childpm#{message.resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
@@ -152,9 +157,12 @@ class @ChatClass
   #オートスクロール用
    rfocus = $.cookie('restextfocus')
    autoscl = $.cookie('autoscl')
+   console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
+    console.log "moa"
     sclba = $("div##{message.resnum}").offset().top
     sclba = sclba - 100
+    console.log sclba
     setTimeout ->
      $("html,body").animate({scrollTop:sclba})
     , 3000
@@ -193,7 +201,7 @@ class @ChatClass
       return [mba1,mba2]
 
  #返信数とツールチップ用関数 
- resinc: (incnum,mbody,mnum,mtime) ->
+ resinc: (incnum,mbody,mnum,mtime,resid) ->
   
   #rescount
   
@@ -205,8 +213,10 @@ class @ChatClass
     incnum.attr 'class','badge'
   else if(hres > 1 and hres < 3)
     incnum.attr 'class','badge rescouBlo'
+    $("div##{resid}").attr 'style',''
   else if(hres > 3)
     incnum.attr 'class','badge rescouRed'
+    $("div##{resid}").attr 'style',''
   incnum.text(hres)
   
   #tooltip
@@ -219,21 +229,21 @@ class @ChatClass
  $ ->
   
   #ボタンの状態判断用
-  
-  if($.cookie('tree') isnt 'on' )
-    $('#tree').attr 'class','btn btn-default navbar-btn active'
+  bid = ['tree','autopic','autoscl']
+  bid.forEach (item) ->
+   if($.cookie(item) isnt 'off' )
+     $("##{item}").attr 'class','btn btn-default navbar-btn active'
 
-  if($.cookie('autopic') isnt 'off' )
-    $('#autopic').attr 'class','btn btn-default navbar-btn active'
-
-  if($.cookie('autoscl') isnt 'off')
-    $('#autoscl').attr 'class','btn btn-default navbar-btn active'
+  if($.cookie('akares') is 'on')
+    $("#akares").attr 'class','btn btn-default navbar-btn active'
 
   $('.navbar-btn').click ->
     $(this).button('toggle')
     cookid = $(this).attr('id')
     if $.cookie(cookid) isnt 'on'
      $.cookie(cookid,'on')
+     if(cookid is "akares")
+       $.cookie('tree','off')
     else
      $.cookie(cookid,'off')
     location.reload()
@@ -243,9 +253,9 @@ class @ChatClass
   #res anker animetion 
   $('#chat').on 'click','a.resanker', ->
     resid = $(this).attr('name')
-    sclba = $("div##{resid}").offset().top
-    sclba = sclba - 100
-    $("html,body").animate({scrollTop:sclba})
+    sclbaa = $("div##{resid}").offset().top
+    sclbaa = sclbaa - 100
+    $("html,body").animate({scrollTop:sclbaa})
 
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
