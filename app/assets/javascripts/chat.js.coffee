@@ -63,7 +63,7 @@ class @ChatClass
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='textarea'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='3' id='msgbody#{message.resnum}' class='restext' style='width:100%;'></textarea>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.resnum}' class='restext' style='width:100%;'></textarea>
                    </div>
                    </div>
                    <button type='button' class='btn btn-default resend' id='#{message.resnum}' >送信</button>
@@ -176,7 +176,9 @@ class @ChatClass
                 .replace(/"/g, "&quot;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
-    
+                .replace(/\r\n/g, "<br />")
+                .replace(/(\n|\r)/g, "<br />")
+
     reg1 = /http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm)/g
     reg2 = /http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp)/g
     reg3 = /https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11})/g
@@ -275,7 +277,7 @@ class @ChatClass
      $.cookie('restextfocus','off')
      setTimeout =>
       $(this).hide(250)
-     , 500
+     , 1000
   
   $('textarea#msgbody')
    .on 'focus click','textarea.restext', ->
