@@ -1,6 +1,6 @@
 WebsocketTest::Application.routes.draw do
   #get "chat/index"
-  match 'chat/index/:id' => 'chat#index', :via => :get 
+  match '/topic/:id' => 'chat#index', :via => :get 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

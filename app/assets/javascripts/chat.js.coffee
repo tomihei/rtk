@@ -74,7 +74,7 @@ class @ChatClass
                    "
 
 
-  if(tbutton != 'off' )
+  if(tbutton isnt 'off' )
     if(message.resid? isnt true)
      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
                         #{resnumAtime}
@@ -157,15 +157,17 @@ class @ChatClass
   #オートスクロール用
    rfocus = $.cookie('restextfocus')
    autoscl = $.cookie('autoscl')
+   treec = $.cookie('tree')
    console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
-    console.log "moa"
     sclba = $("div##{message.resnum}").offset().top
     sclba = sclba - 100
-    console.log sclba
-    setTimeout ->
-     $("html,body").animate({scrollTop:sclba})
-    , 3000
+    if treec is 'on'
+      setTimeout ->
+       $("html,body").animate({scrollTop:sclba})
+      , 3000
+    else if treec is 'off'
+      $("html,body").animate({scrollTop:sclba})
 
   return 0
  #エスケープ処理
@@ -231,9 +233,12 @@ class @ChatClass
   #ボタンの状態判断用
   bid = ['tree','autopic','autoscl']
   bid.forEach (item) ->
-   if($.cookie(item) isnt 'off' )
+   if(!$.cookie(item))
+    $.cookie(item,'off')
+   else if($.cookie(item) isnt 'off' )
      $("##{item}").attr 'class','btn btn-default navbar-btn active'
-
+   else
+     $("##{item}").attr 'class','btn btn-default navbar-btn'
   if($.cookie('akares') is 'on')
     $("#akares").attr 'class','btn btn-default navbar-btn active'
 
