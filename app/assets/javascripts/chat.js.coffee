@@ -109,8 +109,7 @@ class @ChatClass
                                             "
   vic = 0
   #gifv,webm以外のサムネイル
-  if(messagebody[1] is 1)
-   $("a#g#{message.resnum}").each ->
+  $("a#g#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     vic++
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
@@ -126,9 +125,8 @@ class @ChatClass
         event : "over"
       $("#gm#{message.resnum}#{vic}").on 'mouseover touchstart', ->
         $("img#lazy#{message.resnum}").trigger("over")
-  else if(messagebody[1] is 0)
     #gifv,webmのサムネイル
-   $("a#gw#{message.resnum}").each ->
+  $("a#gw#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
                                             <a class='thumbnail' href='#{pmurl}'>
@@ -136,9 +134,8 @@ class @ChatClass
                                             </a>
                                             </div>
                                             "
-  else if(messagebody[1] is 2)
     #youtube,vimeo用この3つどうにかしろよ
-   $("a#gy#{message.resnum}").each ->
+  $("a#gy#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     $("div#pmrow#{message.resnum}").append "<div class='span1'>
                                             <a id='movie#{message.resnum}' class='thumbnail' href='#{pmurl}'>
@@ -187,22 +184,13 @@ class @ChatClass
     pic2 = reg2.test(mbody)
     pic3 = reg3.test(mbody)
 
-    if(pic is true)
-      mba1 = mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm))/g,"<a id='gw#{mnum}' href='$1'>$1</a><br>")
-      mba2 = 0
-      return [mba1,mba2]
-    else if(pic2 is true)
-      mba1 = mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp))/g,"<a id='g#{mnum}' href='$1'>$1</a><br>")
-      mba2 = 1
-      return [mba1,mba2]
-    else if(pic3 is true)
-      mba1 = mbb.replace(/(https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11}))/g,"<a id='gy#{mnum}' href='$1'>$1</a><br>")
-      mba2 = 2
-      return [mba1,mba2]
-    else
-      mba1 =mbb.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
-      mba2 = 3
-      return [mba1,mba2]
+    mba1 = mbb.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(gifv|webm))/g,"<a id='gw#{mnum}' href='$1'>$1</a>")
+    mba2 = mba1.replace(/(http[s]?\:\/\/[\w\+\$\;\?\.\%\,\!\#\~\*\/\:\@\&\\\=\_\-]+(jpg|jpeg|gif|png|bmp))/g,"<a id='g#{mnum}' href='$1'>$1</a>")
+    mba3 = mba2.replace(/(https\:\/\/(www\.)?youtu(\.be|be)(\.com)?\/(watch\?v=)?([-\w]{11}))/g,"<a id='gy#{mnum}' href='$1'>$1</a>")
+    if(pic isnt true and pic2 isnt true and pic3 isnt true)
+      mba3 = mbb.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/,"<a href='$1'>$1</a>")
+    mba2 = 3
+    return [mba3,mba2]
 
  #返信数とツールチップ用関数 
  resinc: (incnum,mbody,mnum,mtime,resid) ->
