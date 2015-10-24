@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>チャット</title>
+ <%= stylesheet_link_tag "application", media: "all",
+  "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+<script type="text/javascript"
+  src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar123">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+        RTK 
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar123">
+
+        <ul class="nav navbar-nav">
+        <li><a href="/topiclis">一覧</a></li>
+        <li><a href="/addtopic">トピック作成</a></li>
+        </ul>
+       </div> 
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-xs-12 col-md-12 col-sm-12">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  </div>
+  <div class="col-xs-12 col-md-12 col-sm-12">
+  <%= form_tag(:action => "senddata") do %>
+      <%= label_tag 'タイトル' %>
+      <%= text_field_tag 'title','', maxlength: "100"%>
+      <%= label_tag '内容' %>
+      <%= text_area_tag 'content','',rows:"7", maxlength: "2000", escape: true %>
+      <%= submit_tag "作成", class: "btn btn-large" %>
+  <% end %>
+  </div>
+
+   </div>
+   </div>
+</body>

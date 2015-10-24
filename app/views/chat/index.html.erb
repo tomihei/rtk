@@ -26,21 +26,25 @@
         RTK 
         </a>
       </div>
-
       <div class="collapse navbar-collapse" id="navbar123">
-      
-       <button type="button" id="tree" class="btn btn-default navbar-btn" autocomplate="off">ツリー表示</button>
-       <button type="button" id="akares" class="btn btn-default navbar-btn" autocomplate="off">赤レス抽出</button>
-       <button type="button" id="autopic" class="btn btn-default navbar-btn" autocomplate="off">画像自動読み込み</button>
-       <button type="button" id="autoscl" class="btn btn-default navbar-btn" autocomplate="off">自動スクロール</button>
+      <ul class="nav navbar-nav">
+        <li><a href="/topiclist">一覧</a></li>
+        <li><a href="/addtopic">トピック作成</a></li>
+      </ul>
+      <div class="navbarcenter"> 
+       <button type="button" id="tree"    class="btn btn-default navbar-btn navbtn" autocomplate="off">ツリー表示</button>
+       <button type="button" id="akares"  class="btn btn-default navbar-btn navbtn" autocomplate="off">赤レス抽出</button>
+       <button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button>
+       <button type="button" id="autoscl" class="btn btn-default navbar-btn navbtn" autocomplate="off">自動スクロール</button>
 
+      </div>
       </div>
     </div>
   </nav>
   <div class="container-fluid">
   <div class="row">
   <div class="col-xs-12 col-md-12 col-sm-12">
-   <h1 id="headeri">TEST</h1>
+   <h1 id="headeri"><%= @title[:title]  %></h1>
    <hr>
   </div>
 
@@ -48,7 +52,7 @@
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->
   <div class="col-xs-12 col-md-12 col-sm-12">
-  <div id="chat" style="" data-uri="<%= request.host %>/websocket"></div>
+  <div id="chat" style="" data-uri="<%= request.host %>:3000/websocket"></div>
 
   </div>
 

@@ -226,11 +226,11 @@ class @ChatClass
    if(!$.cookie(item))
     $.cookie(item,'off')
    else if($.cookie(item) isnt 'off' )
-     $("##{item}").attr 'class','btn btn-default navbar-btn active'
+     $("##{item}").attr 'class','btn btn-default navbar-btn navbtn active'
    else
-     $("##{item}").attr 'class','btn btn-default navbar-btn'
+     $("##{item}").attr 'class','btn btn-default navbar-btn navbtn'
   if($.cookie('akares') is 'on')
-    $("#akares").attr 'class','btn btn-default navbar-btn active'
+    $("#akares").attr 'class','btn btn-default navbar-btn navbtn active'
 
   $('.navbar-btn').click ->
     $(this).button('toggle')
