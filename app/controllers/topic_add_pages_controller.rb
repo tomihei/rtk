@@ -6,7 +6,7 @@ class TopicAddPagesController < ApplicationController
     
    toptitle = params[:title]
    content = params[:content]
-   hashkey = Time.now.to_i * (rand(20)+1)
+   hashkey = Time.now.to_i / (rand(20)+1)
    puts hashkey
    #データの検証
    @pres = Topicvalid.new :title => toptitle, :content => content
