@@ -1,8 +1,12 @@
 class ChatController < ApplicationController
   def index
-    session[:group_id] = params[:id]
-    hkey = params[:id]
-    @title = Topic.find_by_key(hkey)
+    gid = params[:id]
+    if Topic.exists?(:key => "#{gid}")
+      session[:group_id] = gid
+      @title = $redistopic.hget(gid,"title") 
+    else 
+      render :text => "そんなのないよ", :status => 404
+    end
   end
   
   def main

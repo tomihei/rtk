@@ -12,11 +12,11 @@ class TopicAddPagesController < ApplicationController
    @pres = Topicvalid.new :title => toptitle, :content => content
    if @pres.valid?
     now = Time.now.to_i   
-    Topic.create(key: hashkey,title: toptitle) 
+    Topic.create(key: hashkey) 
     ntime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
     message = {"body"=> content,"group_id"=> hashkey,"resnum"=>1,"time"=>ntime}
     #トピックデータを追加
-    $redistopic.mapped_hmset(hashkey, {"rescount"=> 0, "visitor"=> 0, "lastpost"=> now})
+    $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> now,"buildtime" => now})
     #最初の投稿を追加
     $rediscont.rpush hashkey,message
     redirect_to "/topic/#{hashkey}"
@@ -27,12 +27,14 @@ class TopicAddPagesController < ApplicationController
   end
 
   def topiclist
-   allkey = Topic.select("key,title")
-   @list = {}
+   session[:main] = "on"
+   allkey = Topic.select("key")
+   @list = {} 
    allkey.each do |topic|
-    @list["#{topic[:key]}"]= $redistopic.hgetall topic
-    @list["#{topic[:key]}"] = {"title" => "#{topic[:title]}"}
+    #トピックデータ取り出し配列形式
+    @list["#{topic[:key]}"] = $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime")
+    cont = $rediscont.lpop topic[:key] 
+    @list["#{topic[:key]}"].insert(5,cont)
    end
-
   end
 end

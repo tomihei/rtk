@@ -13,6 +13,9 @@ class WebsocketChatController < WebsocketRails::BaseController
 
     gid = session[:group_id] 
       WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
+    
+    #入室数あげ
+    controller_store[:topic].hincrby(gid,"visitor", 1)
 
     logger.debug("connected user")
      talks = controller_store[:redis].lrange gid, 0,-1
@@ -34,6 +37,13 @@ class WebsocketChatController < WebsocketRails::BaseController
     message[:resnum] = talknum + 1
     #redisに保存
     controller_store[:redis].rpush gid, message
+    #レス数あげ
+    controller_store[:topic].hincrby(gid,"rescount", 1)
   end
   
+  def exit
+    gid = session[:group_id]
+    controller_store[:topic].hincrby(gid,"visitor", -1)
+
+  end
  end

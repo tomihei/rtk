@@ -14,8 +14,7 @@
 ActiveRecord::Schema.define(version: 20151024013223) do
 
   create_table "topics", force: true do |t|
-    t.integer  "key"
-    t.string   "title"
+    t.integer  "key",        limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
   end
