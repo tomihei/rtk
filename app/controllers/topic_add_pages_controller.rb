@@ -16,7 +16,7 @@ class TopicAddPagesController < ApplicationController
     ntime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
     message = {"body"=> content,"group_id"=> hashkey,"resnum"=>1,"time"=>ntime}
     #トピックデータを追加
-    $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> now,"buildtime" => now})
+    $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> ntime,"buildtime" => ntime})
     #最初の投稿を追加
     $rediscont.rpush hashkey,message
     redirect_to "/topic/#{hashkey}"
@@ -34,7 +34,9 @@ class TopicAddPagesController < ApplicationController
     #トピックデータ取り出し配列形式
     @list["#{topic[:key]}"] = $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime")
     cont = $rediscont.lrange topic[:key],0,0
-    @list["#{topic[:key]}"].insert(5,cont)
+    contr = ActiveSupport::HashWithIndifferentAccess.new(eval(cont[0]))
+
+    @list["#{topic[:key]}"].insert(5,contr[:body])
    end
   end
 end

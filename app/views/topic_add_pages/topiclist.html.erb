@@ -5,13 +5,17 @@
   <div class="container-fluid">
   <div class="row">
   <div class="col-xs-12 col-md-12 col-sm-12">
-  <ul>
-  <% @list.each_key do |key| %>
-    <li><%= key %>:
-    <%= link_to "#{@list["#{key}"][0]}",:controller => "chat", :action => "index", :id => key%>
-    :<%= @list["#{key}"][1] %>:
-    <%= @list["#{key}"][2]  %>
-    </li>
+  <div class="list-group">
+    
+    <% @list.each_key do |key| %>
+    
+    <a class="list-group-item" href="/topic/<%= key %>" title="<%= @list["#{key}"][0] %>">
+      <div>a</div>
+      <h4 class="overf list-group-item-heading"><%= @list["#{key}"][0] %></h4>
+      <p class="overf list-group-item-text"><%= @list["#{key}"][5] %></p>
+      <p class="list-group-item-text"><strong>lastpost</strong>:<%= @list["#{key}"][3]%>
+       <strong>opentopic</strong>:<%= @list["#{key}"][4]%></p>
+    </a>
   <% end %>
   </ul>
   </div>

@@ -221,9 +221,10 @@ class @ChatClass
  $ ->
   
   #ボタンの状態判断用
+  gcid = $('#group_id').text()
   bid = ['tree','autopic','autoscl']
   bid.forEach (item) ->
-   if(!$.cookie(item))
+   if(!$.cookie(item) or $.cookie("nowload") isnt gcid and item isnt "autopic")
     $.cookie(item,'off')
    else if($.cookie(item) isnt 'off' )
      $("##{item}").attr 'class','btn btn-default navbar-btn navbtn active'
@@ -231,6 +232,8 @@ class @ChatClass
      $("##{item}").attr 'class','btn btn-default navbar-btn navbtn'
   if($.cookie('akares') is 'on')
     $("#akares").attr 'class','btn btn-default navbar-btn navbtn active'
+  
+  $.cookie("nowload",gcid)
 
   $('.navbar-btn').click ->
     $(this).button('toggle')

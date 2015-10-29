@@ -30,8 +30,9 @@ class WebsocketChatController < WebsocketRails::BaseController
     #クライアントからのメッセージを取得
     logger.debug("Call new_message ")
     gid = message[:group_id]
-    message[:time] = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
-       message[:client_id] = client_id
+    newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
+    message[:time] = newtime
+    message[:client_id] = client_id
      #レス番号付加
     talknum = controller_store[:redis].llen gid
     message[:resnum] = talknum + 1
@@ -39,6 +40,8 @@ class WebsocketChatController < WebsocketRails::BaseController
     controller_store[:redis].rpush gid, message
     #レス数あげ
     controller_store[:topic].hincrby(gid,"rescount", 1)
+    #ラストポスト更新
+    controller_store[:topic].hset(gid,"lastpost", newtime)
   end
   
   def exit
