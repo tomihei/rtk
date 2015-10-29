@@ -1,6 +1,5 @@
   </div>
   </div>
-  </div>
   </nav>
   <div class="container-fluid">
   <div class="row">
@@ -10,7 +9,6 @@
     <% @list.each_key do |key| %>
     
     <a class="list-group-item" href="/topic/<%= key %>" title="<%= @list["#{key}"][0] %>">
-      <div>a</div>
       <h4 class="overf list-group-item-heading"><%= @list["#{key}"][0] %></h4>
       <p class="overf list-group-item-text"><%= @list["#{key}"][5] %></p>
       <p class="list-group-item-text"><strong>lastpost</strong>:<%= @list["#{key}"][3]%>

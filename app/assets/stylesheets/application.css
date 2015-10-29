@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *= require colorbox.css
  *= require bootstrap.min.css
- *= require bootstrap-theme.min.css
  *= require_self
  *= require_tree .
  */
