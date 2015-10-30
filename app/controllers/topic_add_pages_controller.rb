@@ -33,10 +33,6 @@ class TopicAddPagesController < ApplicationController
    allkey.each do |topic|
     #トピックデータ取り出し配列形式
     @list["#{topic[:key]}"] = $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime")
-    cont = $rediscont.lrange topic[:key],0,0
-    contr = ActiveSupport::HashWithIndifferentAccess.new(eval(cont[0]))
-
-    @list["#{topic[:key]}"].insert(5,contr[:body])
    end
   end
 end

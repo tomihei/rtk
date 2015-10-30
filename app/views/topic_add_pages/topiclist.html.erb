@@ -3,16 +3,21 @@
   </nav>
   <div class="container-fluid">
   <div class="row">
-  <div class="col-xs-12 col-md-12 col-sm-12">
+  <div class="row10 col-xs-12 col-md-12 col-sm-12">
   <div class="list-group">
     
     <% @list.each_key do |key| %>
     
-    <a class="list-group-item" href="/topic/<%= key %>" title="<%= @list["#{key}"][0] %>">
-      <h4 class="overf list-group-item-heading"><%= @list["#{key}"][0] %></h4>
-      <p class="overf list-group-item-text"><%= @list["#{key}"][5] %></p>
-      <p class="list-group-item-text"><strong>lastpost</strong>:<%= @list["#{key}"][3]%>
-       <strong>opentopic</strong>:<%= @list["#{key}"][4]%></p>
+    <a class="list-group-item" href="/topic/<%= key %>" data-toggle="tooltip" title="<%= @list["#{key}"][0] %>">
+     <div class="row">
+      <div class="rowr col-xs-2 col-md-2 col-sm-2">
+      </div>
+      <div class="rowr col-xs-10 col-md-10 col-sm-10">
+        <h4 class="overf list-group-item-heading"><%= @list["#{key}"][0] %></h4>
+        <p class="list-group-item-text"><span class="text-primary">open:</span><small><%= @list["#{key}"][4]%></small>
+        <span class="text-primary"> last:</span><small><%= @list["#{key}"][3]%></small></p>
+      </div>
+     </div>
     </a>
   <% end %>
   </ul>
