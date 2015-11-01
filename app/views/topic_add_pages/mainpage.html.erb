@@ -1,7 +1,4 @@
-  </div> 
-  </div>
-  </div>
-  </nav>
+
   <div class="container-fluid">
   <div class="row">
   <div class="col-xs-12 col-md-12 col-sm-12">
@@ -13,12 +10,23 @@
   <%= form_tag(:action => "senddata") do %>
       <%= label_tag 'タイトル' %>
       <%= text_field_tag 'title','', maxlength: "100"%>
+      
+      <%= label_tag 'サムネイル' %>
+      </div>
+      <div class="col-xs-12 col-md-4 col-sm-4">
+      <input type="file" id="file-selector"></input>
+      </div>
+      <div class="col-xs-12 col-md-8 col-sm-8">
+      <img class="loading" src="<%= asset_path "gif-load.gif"%>" style="display:none;">
+      <img class="image-preview"/>
+      </div>
+      <div class="col-xs-12 col-md-12 col-sm-12">
       <%= label_tag '内容' %>
       <%= text_area_tag 'content','',rows:"7", maxlength: "2000", escape: true %>
       <%= submit_tag "作成", class: "btn btn-large" %>
   <% end %>
+  
   </div>
-
-   </div>
-   </div>
+  </div>
+  </div>
 

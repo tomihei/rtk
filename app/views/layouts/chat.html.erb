@@ -6,7 +6,8 @@
 <title>RTK</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag 'topic_add_pages'%>
+  <%= javascript_include_tag 'websocket_rails/main'%>
+  <%= javascript_include_tag 'chat'%>
   <%= csrf_meta_tags %>
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,9 +33,14 @@
         <ul class="nav navbar-nav">
         <li><a href="/topiclist">一覧</a></li>
         <li><a href="/addtopic">トピック作成</a></li>
-          </div> 
-  </div>
-  </div>
+               
+       <li> <button type="button" id="tree"    class="btn btn-default navbar-btn navbtn" autocomplate="off">ツリー表示</button></li>
+       <li> <button type="button" id="akares"  class="btn btn-default navbar-btn navbtn" autocomplate="off">赤レス抽出</button></li>
+       <li><button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button></li>
+       <li><button type="button" id="autoscl" class="btn btn-default navbar-btn navbtn" autocomplate="off">自動スクロール</button></li>
+      </ul>
+      </div>
+    </div>
   </nav>
 <%= yield %>
 
