@@ -83,3 +83,17 @@ img.image-preview{
   background-color:#F0F5F5;
 
 }
+
+.user{
+  padding-left:1em;
+  font-size:1em; 
+  background-image:image-url("user.svg");
+  background-repeat:no-repeat;
+}
+
+.comeimg{
+  padding-left:1em;
+  font-size:1em; 
+  background-image:image-url("comment.svg");
+  background-repeat:no-repeat;
+}

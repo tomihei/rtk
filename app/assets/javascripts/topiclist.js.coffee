@@ -33,15 +33,17 @@
     $("div.list-group").empty()
     $.each list, (index,value) ->
       top = "<a class='list-group-item' href='/topic/#{value[6]}' style='display:none'>
-                  <div class='row'>
+                  <div class='row10 row'>
                     <div class='rowr imgdiv col-xs-2 col-md-2 col-sm-2'>"
-      if value[5] isnt null
+      if value[5] isnt null or value[5] is ""
         url = value[5].replace(/\.(\w*)$/g,"m.$1")
         img =        "<img class='list_thumb' src='#{url}'>"
         top = top + img
       bottom ="     </div>
                     <div class='rowr col-xs-10 col-md-10 col-sm-10'>
                       <h4 class='overf list-group-item-heading'>#{value[0]}</h4>
+                      <p class='list-group-item-text'><span class='user'>&nbsp;</span><span>:&nbsp;<strong>#{value[2]}</strong></span></p>
+                      <p class='list-group-item-text'><span class='comeimg'>&nbsp;</span><span>:&nbsp;<strong>#{value[1]}</strong></span></p>
                       <p class='list-group-item-text'><span class='text-primary'>open:</span><small>#{value[4]}</small>
                       <span class='text-primary'> last:</span><small>#{value[3]}<small></p>
                     </div>
