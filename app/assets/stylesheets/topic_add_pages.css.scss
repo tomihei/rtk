@@ -17,11 +17,20 @@ input{
   height: auto !important;
 }
 
+body{
+  padding-top: 50px;
+}
+
 .navbarcenter{
 
   margin-top:5px;
 
 }
+
+.rowtop{
+  margin-top:20px;
+}
+
 .row10{
   padding-right:7px;
   padding-left:7px;
@@ -30,14 +39,21 @@ input{
 
 .rowr{
   
-  padding-right:7px;
-  padding-left:7px;
+  padding-right:5px;
+  padding-left:5px;
 }
 .list-group-item{
   padding-left:5px;
   padding-right:5px;
   border:none;
+  padding-top:15px;
+  padding-bottom:15px;
+}
 
+.list_thumb{
+  padding-left:5px;
+  width:100%;
+  max-height:420px;
 }
 
 .overf{
@@ -48,5 +64,22 @@ input{
 img.loading{
   border:0px;
   border-style:none !important;
+
+}
+
+img.image-preview{
+
+  width:100%;
+  max-width:500px;
+}
+
+.center{
+  width:100%;
+  text-align:center;
+}
+
+.grey{
+  
+  background-color:#F0F5F5;
 
 }

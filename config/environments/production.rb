@@ -26,6 +26,7 @@ WebsocketTest::Application.configure do
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
   
+  config.assets.precompile += %w( topiclist.js )
   config.assets.precompile += %w( websocket_rails/main.js )
   config.assets.precompile += %w( topic_add_pages.js )
   config.assets.precompile += %w( chat.js )

@@ -1,6 +1,6 @@
 
-  <div class="container-fluid">
-  <div class="row">
+  <div class="container">
+  <div class="row rowtop">
   <div class="col-xs-12 col-md-12 col-sm-12">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
@@ -10,15 +10,21 @@
   <%= form_tag(:action => "senddata") do %>
       <%= label_tag 'タイトル' %>
       <%= text_field_tag 'title','', maxlength: "100"%>
-      
-      <%= label_tag 'サムネイル' %>
-      </div>
+      </div> 
       <div class="col-xs-12 col-md-4 col-sm-4">
-      <input type="file" id="file-selector"></input>
+      <%= label_tag 'サムネイル' %>
+      <input type="file" class="btn btn-default" id="file-selector"></input>
       </div>
       <div class="col-xs-12 col-md-8 col-sm-8">
-      <img class="loading" src="<%= asset_path "gif-load.gif"%>" style="display:none;">
-      <img class="image-preview"/>
+        <%= label_tag 'サムネイルプレビュー' %>
+        <div class="center">
+          <img class="loading" src="<%= asset_path "gif-load.gif"%>" style="display:none;">
+        </div>
+        <div class="center">
+          <img class="image-preview"/>
+        </div>
+          <input id="imgurl" name="imgurl" class="imaurl" type="hidden">
+       
       </div>
       <div class="col-xs-12 col-md-12 col-sm-12">
       <%= label_tag '内容' %>

@@ -21,5 +21,5 @@
           }
         }).done (page)->
           $("img.loading").hide("normal")
-          $preview.attr src:page.data.link, width:250
-          
+          $preview.attr src:page.data.link
+          $("input.imaurl").attr value:page.data.link
