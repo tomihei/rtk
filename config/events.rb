@@ -7,6 +7,9 @@ WebsocketRails::EventMap.describe do
   subscribe :client_disconnected, to: WebsocketChatController,
   with_method: :exit
 
+  subscribe :connection_closed, to: WebsocketChatController,
+  with_method: :exit
+
   subscribe :websocket_chat, to: WebsocketChatController,
   with_method: :new_message
  

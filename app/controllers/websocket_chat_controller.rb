@@ -18,12 +18,7 @@ class WebsocketChatController < WebsocketRails::BaseController
     controller_store[:topic].hincrby(gid,"visitor", 1)
 
     logger.debug("connected user")
-     talks = controller_store[:redis].lrange gid, 0,-1
-    talks.each do |message|
-      msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
-      msg[:new] = 1
-      send_message :websocket_chat,msg 
-      end
+ 
   end
 
   def new_message  

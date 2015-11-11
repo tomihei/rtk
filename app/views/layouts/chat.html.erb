@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RTK</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= Gon::Base.render_data  %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= javascript_include_tag 'websocket_rails/main'%>
-  <%= javascript_include_tag 'chat'%>
+  <%= javascript_include_tag 'page'%>
   <%= csrf_meta_tags %>
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,8 +35,6 @@
         <li><a href="/topiclist">一覧</a></li>
         <li><a href="/addtopic">トピック作成</a></li>
                
-       <li> <button type="button" id="tree"    class="btn btn-default navbar-btn navbtn" autocomplate="off">ツリー表示</button></li>
-       <li> <button type="button" id="akares"  class="btn btn-default navbar-btn navbtn" autocomplate="off">赤レス抽出</button></li>
        <li><button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button></li>
        <li><button type="button" id="autoscl" class="btn btn-default navbar-btn navbtn" autocomplate="off">自動スクロール</button></li>
       </ul>
