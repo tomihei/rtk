@@ -9,6 +9,20 @@ class DateStore
   date_push:() ->
     @date
 
+class LocalS
+  
+  constructor:(key) ->
+    if localStorage.getItem(key) isnt null
+      @alldate = JSON.parse(localStorage.getItem(key))
+      @rescount = @alldate["rescount"]
+      @myres = @alldate["myres"]
+
+  push_storage:(key,date) ->
+    localStorage.setItem(key,JSON.stringify(date))
+
+  pop_storage:(key) ->
+    JSON.parse(localStorage.getItem(key))
+  
 #データ表示成形用
 class Output
 
@@ -264,7 +278,12 @@ class ChatClass
       tree = 'off'
       akares= 'on'
       @firstdate(tree,akares)
-  
+    
+    else
+      tree = 'off'
+      akares = 'off'
+      @firstdate(tree,akares)
+      id = 'lnew'
   $(".tnav").attr("class","tnav")
   $("##{id}").attr("class","tnav active")
 
@@ -290,7 +309,7 @@ class ChatClass
      $.cookie(cookid,'on')
     else
      $.cookie(cookid,'off')
-    location.reload()
+    topicEvents.reset("moi")
     
   topicEvents = new ChatClass($('#chat').data('uri'), true)
   console.log topicEvents.put()
@@ -345,4 +364,6 @@ class ChatClass
   )
 
 
-
+  a = new LocalS(123)
+  moi = a.alldate["myres"]
+  console.log moi
