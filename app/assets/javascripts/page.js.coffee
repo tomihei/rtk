@@ -16,8 +16,11 @@ class LocalS
       @alldate = JSON.parse(localStorage.getItem(key))
       @rescount = @alldate["rescount"]
       @myres = @alldate["myres"]
-
-  push_storage:(key,date) ->
+    else
+      @rescount = 0
+      @myres = []
+  push_storage:(key) ->
+    date ={"rescount": "#{@rescount}","myres" : @myres}
     localStorage.setItem(key,JSON.stringify(date))
 
   pop_storage:(key) ->
@@ -26,7 +29,7 @@ class LocalS
 #データ表示成形用
 class Output
 
- output:(message,treeb,akaresb) =>
+ output:(message,treeb,akaresb,onlyforme,resforme,myres) =>
   console.log message
   # 受け取ったデータをappend
   tbutton = treeb
@@ -37,17 +40,30 @@ class Output
   if(newpost isnt "1")
     newlabel = "<span class='label label-warning' id='newlabel#{message.resnum}'>New</span>"
   else
-    newlabel ="<span></span>"
+    newlabel =""
+  
+  if myres is 1
+    myreslabel = "&nbsp;<span class='label label-primary'>あなた</span>"
+  else
+    myreslabel = ""
 
-  if(akaresb is 'on')
+  if resforme is 1
+    formelabel = "&nbsp;<span class='label label-success'>あなたへの返信</span>"
+  else
+    formelabel = ""
+
+  if(akaresb is 'on' or onlyforme is 'on')
     style = "style='display:none;'"
+    if resforme is 1 and akaresb isnt 'on'
+      style = ""
   else
     style = ""
+  
 
-  resnumAtime   = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>
+  resnumAtime   = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span>
                    <small> #{message.time}</small> #{newlabel}"
-  resnumAtimer  = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a> 
+  resnumAtimer  = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "<br>#{messagebody[0]} </p>
@@ -215,18 +231,34 @@ class ChatClass
  constructor: (url, useWebsocket) ->
   @datestore = new DateStore()
   @output = new Output()
-  group_id = $('#group_id').text()
+  @group_id = $('#group_id').text()
+  @lstorage = new LocalS(@group_id)
   @dispatcher = new WebSocketRails(url, useWebsocket)
-  @channel = @dispatcher.subscribe(group_id)
+  @channel = @dispatcher.subscribe(@group_id)
+  @build = $.cookie("build")
   idy = this
   @bindEvents(idy)
   tree = "off"
   @firstdate(tree)
 
- firstdate:(tree,akares) =>
+ firstdate:(tree,akares,onlyforme) =>
+  @tree = tree
   date = @datestore.date_push()
+  count = 0
   for i in date
-    @output.output(i,tree,akares)
+    o = i.resid
+    o = o - 0
+    if @lstorage.myres.indexOf(i.resnum) is -1
+      @output.output(i,@tree,akares,onlyforme)
+    else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
+      @output.output(i,@tree,akares,onlyforme,1)
+    else 
+      @output.output(i,@tree,akares,onlyforme,0,1)
+    count++
+  if @group_id is @build
+    @lstorage.myres[0] = 1
+  @lstorage.rescount = count
+  @lstorage.push_storage(@group_id)
 
  bindEvents: (idy) =>
 # 送信ボタンが押されたらサーバへメッセージを送信
@@ -254,12 +286,16 @@ class ChatClass
   $("#msgbody#{resid}").val('')
 
  receiveMessage: (message) =>
-  @datestore.date_add(message)
-  @output.output(message)
-
-#表示テスト(あとで消す)
- put:() =>
-  @datestore.date_push()
+  #くらいあんとID 取得
+  unless message.first_id?
+    @datestore.date_add(message)
+    @output.output(message,@tree)
+    @lstorage.rescount++
+    if message.client_id is @client_id
+      @lstorage.myres.push(message.resnum)
+      @lstorage.push_storage(@group_id)
+  else
+    @client_id = message.first_id
 
  reset:(id) =>
   console.log id
@@ -268,17 +304,27 @@ class ChatClass
     when 'lnew'
       tree = 'off'
       akares= 'off'
-      @firstdate(tree,akares)
+      only = 'off'
+      @firstdate(tree,akares,only)
     when 'ltree'
       tree = 'on'
       akares= 'off'
-      @firstdate(tree,akares)
+      only = 'off'
+      @firstdate(tree,akares,only)
 
     when 'lrnum'
       tree = 'off'
       akares= 'on'
-      @firstdate(tree,akares)
+      only = 'off'
+      @firstdate(tree,akares,only)
     
+    when 'lforme'
+      tree = 'off'
+      akares= 'off'
+      only = 'on'
+      @firstdate(tree,akares,only)
+
+
     else
       tree = 'off'
       akares = 'off'
@@ -312,7 +358,6 @@ class ChatClass
     topicEvents.reset("moi")
     
   topicEvents = new ChatClass($('#chat').data('uri'), true)
-  console.log topicEvents.put()
 
   $('.tnav').on 'click', ->
     id = $(this).attr("id")
@@ -364,6 +409,3 @@ class ChatClass
   )
 
 
-  a = new LocalS(123)
-  moi = a.alldate["myres"]
-  console.log moi

@@ -21,6 +21,7 @@ class TopicAddPagesController < ApplicationController
     $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> ntime,"buildtime" => now,"imgurl" => imgurl})
     #最初の投稿を追加
     $rediscont.rpush hashkey,message
+    cookies[:build] = hashkey
     redirect_to "/topic/#{hashkey}"
    else
     flash.now[:error] ='無効なデータです'

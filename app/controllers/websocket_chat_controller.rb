@@ -18,7 +18,10 @@ class WebsocketChatController < WebsocketRails::BaseController
     controller_store[:topic].hincrby(gid,"visitor", 1)
 
     logger.debug("connected user")
- 
+    msg = {}
+    msg["first_id"] = client_id 
+    logger.debug("#{msg}")
+    send_message :websocket_chat,msg  
   end
 
   def new_message  
@@ -31,12 +34,12 @@ class WebsocketChatController < WebsocketRails::BaseController
     talknum = controller_store[:redis].llen gid
     message[:resnum] = talknum + 1
     #redisに保存
+    message[:client_id] = client_id
     controller_store[:redis].rpush gid, message
     #レス数あげ
     controller_store[:topic].hincrby(gid,"rescount", 1)
     #ラストポスト更新
     controller_store[:topic].hset(gid,"lastpost", newtime)
-    message[:client_id] = client_id
   end
   
   def exit
