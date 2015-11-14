@@ -48,7 +48,7 @@ class Output
     myreslabel = ""
 
   if resforme is 1
-    formelabel = "&nbsp;<span class='label label-success'>あなたへの返信</span>"
+    formelabel = "&nbsp;<span class='label label-success'>あなたへ</span>"
   else
     formelabel = ""
 
@@ -56,6 +56,7 @@ class Output
     style = "style='display:none;'"
     if resforme is 1 and akaresb isnt 'on'
       style = ""
+      $("##{message.resid}").attr style: ""
   else
     style = ""
   
@@ -94,7 +95,7 @@ class Output
                                        #{resnumAtime}
                                        <a class='res' id='#{message.resnum}'>返信</a>
                                        #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,akaresb)
   else
     if(message.resid? isnt true)
       $('#chat').append "<div #{style} id='#{message.resnum}' class='contarea'>
@@ -107,7 +108,7 @@ class Output
                         <a class='res' id='#{message.resnum}'>返信</a>
                         <br><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,akaresb)
 
   $("div#childpm#{message.resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
@@ -202,7 +203,7 @@ class Output
     return [mba3,mba2]
 
  #返信数とツールチップ用関数 
- resinc: (incnum,mbody,mnum,mtime,resid) ->
+ resinc: (incnum,mbody,mnum,mtime,resid,akaresb) ->
   
   #rescount
   
@@ -212,10 +213,10 @@ class Output
   hres = rescount + 1
   if(hres is 1)
     incnum.attr 'class','badge'
-  else if(hres > 1 and hres < 3)
+  else if(hres > 1 and hres < 3 and akaresb is 'on')
     incnum.attr 'class','badge rescouBlo'
     $("div##{resid}").attr 'style',''
-  else if(hres > 3)
+  else if(hres > 3 and akaresb is 'on')
     incnum.attr 'class','badge rescouRed'
     $("div##{resid}").attr 'style',''
   incnum.text(hres)
