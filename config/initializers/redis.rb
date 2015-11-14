@@ -9,3 +9,4 @@ if ENV["REDISCLOUD_URL"]
 else
   $rediscont = Redis.new(:host => "pub-redis-14162.us-east-1-2.4.ec2.garantiadata.com"  , :port => 14162 , :password => "PGjUZkCa9yo1D7q5")
 end
+

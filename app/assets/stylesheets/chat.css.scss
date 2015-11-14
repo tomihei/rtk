@@ -17,10 +17,6 @@ a{
 }
 
 
-.textarea{
-   
-  padding-left: 5px;
-}
 
 .contarea{
   margin-top:1.5em;
@@ -40,12 +36,13 @@ a{
 }
 
 img.lazy{
-
+  display: inline-block;
   background-position: center center;
   background-repeat: no-repeat;
   background-size:cover;
-  width:50px;
-  height:50px;
+  width:60px;
+  height:60px;
+  border:1px solid #ccc;
  }
 
 img.movie{
@@ -58,15 +55,6 @@ img.movie{
   background-image: image-url("appbar.video.basic.svg");
 
 }
-
-.rescouRed{
-  background-color:#DC143C;
-}
-
-.rescouBlo{
-  background-color:#DB7093;
-}
-
 //navbar設定
 
 .navbar-collapse{
@@ -82,3 +70,31 @@ button.navbtn{
 }
 
 
+.space{
+
+  height:20px;
+
+}
+
+.aring{
+
+ background-color:red;
+}
+
+.head{
+
+  margin-bottom: 5px;
+
+}
+
+.bigthum{
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size:contain;
+  width:20%;
+  height:auto;
+  border:1px solid #ccc;
+  margin:5px;
+
+}

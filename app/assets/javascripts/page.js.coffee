@@ -61,27 +61,27 @@ class Output
     style = ""
   
 
-  resnumAtime   = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
+  resnumAtime   = "<div class='head'><span><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span>
                    <small> #{message.time}</small> #{newlabel}"
-  resnumAtimer  = "<p><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
+  resnumAtimer  = "<div class='head'><span><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
-  footerm       = "<br>#{messagebody[0]} </p>
+  footerm       = "</span></div>
+                   <img id='thum#{message.resnum}' ><p>#{messagebody[0]} </p>
                    <div id='childpm#{message.resnum}'></div>
                    <div id='form#{message.resnum}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
-                   <div class='textarea'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.resnum}' class='restext' style='width:100%;'></textarea>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.resnum}' class='restext' ></textarea>
+                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{message.resnum}' >送信</button>
                    </div>
-                   </div>
-                   <button type='button' class='btn btn-default resend' id='#{message.resnum}' >送信</button>
                    </form>
                    </div>
                    <div id='child#{message.resnum}' class='contchild'></div>
                    </div>
                    "
+  
 
 
   if(tbutton isnt 'off' )
@@ -95,7 +95,7 @@ class Output
                                        #{resnumAtime}
                                        <a class='res' id='#{message.resnum}'>返信</a>
                                        #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,akaresb)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,onlyforme)
   else
     if(message.resid? isnt true)
       $('#chat').append "<div #{style} id='#{message.resnum}' class='contarea'>
@@ -105,10 +105,10 @@ class Output
     else
      $("#chat").append "<div #{style} id='#{message.resnum}' class='contarea'>
                         #{resnumAtimer}
-                        <a class='res' id='#{message.resnum}'>返信</a>
-                        <br><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
+                        <a class='res' id='#{message.resnum}'>返信</a></span></div>
+                        <div><span><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,akaresb)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,onlyforme)
 
   $("div#childpm#{message.resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
@@ -117,14 +117,25 @@ class Output
                                             <div class='col-xs-2 col-md-2 col-sm-2'></div>
                                             </div>
                                             "
+  
+  #大きいサムネイル表示
+  if message.imgurl? 
+    $("img#thum#{message.resnum}").attr src: "#{message.imgurl}", class:"bigthum colgm"
+    if $.cookie('autopic') is 'on'
+      $('img.bigthum').lazyload()
+    else
+      $("img#thum#{message.resnum}").lazyload
+        event : "over mouseover thouchstart"
+
   vic = 0
+
   #gifv,webm以外のサムネイル
   $("a#g#{message.resnum}").each ->
     pmurl = $(this).attr('href')
     vic++
-    $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} thumbnail colgm' name='gm#{message.resnum}' href='#{pmurl}'>
-                                            <img id='lazy#{message.resnum}'class='lazy' data-original='#{pmurl}' width='50px' height='50px'>
+    $("div#pmrow#{message.resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
+                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} colgm' name='gm#{message.resnum}' href='#{pmurl}'>
+                                            <img id='lazy#{message.resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
                                             </a>
                                             </div>
                                             "
@@ -138,7 +149,7 @@ class Output
     #gifv,webmのサムネイル
   $("a#gw#{message.resnum}").each ->
     pmurl = $(this).attr('href')
-    $("div#pmrow#{message.resnum}").append "<div class='span1'>
+    $("div#pmrow#{message.resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
                                             <a class='thumbnail' href='#{pmurl}'>
                                             <img class='movie'>
                                             </a>
@@ -203,7 +214,7 @@ class Output
     return [mba3,mba2]
 
  #返信数とツールチップ用関数 
- resinc: (incnum,mbody,mnum,mtime,resid,akaresb) ->
+ resinc: (incnum,mbody,mnum,mtime,resid,onlyforme) ->
   
   #rescount
   
@@ -213,12 +224,14 @@ class Output
   hres = rescount + 1
   if(hres is 1)
     incnum.attr 'class','badge'
-  else if(hres > 1 and hres < 3 and akaresb is 'on')
+  else if(hres > 1 and hres < 3)
     incnum.attr 'class','badge rescouBlo'
-    $("div##{resid}").attr 'style',''
-  else if(hres > 3 and akaresb is 'on')
+    if onlyforme isnt 'on'
+      $("div##{resid}").attr 'style',''
+  else if(hres > 3)
     incnum.attr 'class','badge rescouRed'
-    $("div##{resid}").attr 'style',''
+    if onlyforme isnt 'on'
+     $("div##{resid}").attr 'style',''
   incnum.text(hres)
   
   #tooltip
@@ -230,6 +243,9 @@ class Output
 
 class ChatClass
  constructor: (url, useWebsocket) ->
+  @tree =  "off"
+  @akares = "off"
+  @onlyf = "off"
   @datestore = new DateStore()
   @output = new Output()
   @group_id = $('#group_id').text()
@@ -244,17 +260,19 @@ class ChatClass
 
  firstdate:(tree,akares,onlyforme) =>
   @tree = tree
+  @akares = akares
+  @onlyf = onlyforme
   date = @datestore.date_push()
   count = 0
   for i in date
     o = i.resid
     o = o - 0
     if @lstorage.myres.indexOf(i.resnum) is -1
-      @output.output(i,@tree,akares,onlyforme)
+      @output.output(i,@tree,@akares,@onlyf)
     else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
-      @output.output(i,@tree,akares,onlyforme,1)
+      @output.output(i,@tree,@akares,@onlyf,1)
     else 
-      @output.output(i,@tree,akares,onlyforme,0,1)
+      @output.output(i,@tree,@akares,@onlyf,0,1)
     count++
   if @group_id is @build
     @lstorage.myres[0] = 1
@@ -290,8 +308,19 @@ class ChatClass
   #くらいあんとID 取得
   unless message.first_id?
     @datestore.date_add(message)
-    @output.output(message,@tree)
     @lstorage.rescount++
+    
+    l = message.resid
+    l = l - 0
+    if message.client_id is @client_id
+      @lstorage.myres.push(message.resnum)
+      @lstorage.push_storage(@group_id)
+      @output.output(message,@tree,@akares,@onlyf,0,1)
+    else if message.resid?  and @lstorage.myres.indexOf(l) isnt -1
+      @output.output(message,@tree,@akares,@onlyf,1)
+    else
+      @output.output(message,@tree,@akares,@onlyf,0)
+    
     if message.client_id is @client_id
       @lstorage.myres.push(message.resnum)
       @lstorage.push_storage(@group_id)
@@ -356,7 +385,7 @@ class ChatClass
      $.cookie(cookid,'on')
     else
      $.cookie(cookid,'off')
-    topicEvents.reset("moi")
+    topicEvents.reset("lnew")
     
   topicEvents = new ChatClass($('#chat').data('uri'), true)
 
@@ -385,7 +414,7 @@ class ChatClass
      $.cookie('restextfocus','off')
      setTimeout =>
       $(this).hide(250)
-     , 1000
+     , 1500
   
   $('textarea#msgbody')
    .on 'focus click','textarea.restext', ->
@@ -401,7 +430,14 @@ class ChatClass
      maxWidth:"100%"
      maxHeight:"100%"
     )
-  
+
+  $('#chat').on 'click','img.bigthum', ->
+    $(this).colorbox(
+      href: $(this).attr 'src'
+      maxWidth:"100%"
+      maxHeight:"100%"
+    )
+
   $(document).popover(
     html: true,
     selector:'.badge',
