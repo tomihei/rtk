@@ -119,7 +119,7 @@ class Output
                                             "
   
   #大きいサムネイル表示
-  if message.imgurl? 
+  if message.imgurl isnt "" and message.imgurl?
     $("img#thum#{message.resnum}").attr src: "#{message.imgurl}", class:"bigthum colgm"
     if $.cookie('autopic') is 'on'
       $('img.bigthum').lazyload()
@@ -262,6 +262,8 @@ class ChatClass
   @tree = tree
   @akares = akares
   @onlyf = onlyforme
+  if @group_id is @build
+    @lstorage.myres[0] = 1
   date = @datestore.date_push()
   count = 0
   for i in date
@@ -274,8 +276,6 @@ class ChatClass
     else 
       @output.output(i,@tree,@akares,@onlyf,0,1)
     count++
-  if @group_id is @build
-    @lstorage.myres[0] = 1
   @lstorage.rescount = count
   @lstorage.push_storage(@group_id)
 
