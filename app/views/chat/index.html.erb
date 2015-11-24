@@ -17,21 +17,29 @@
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->
   <div class="col-xs-12 col-md-12 col-sm-12">
-  <div id="chat" style="" data-uri="<%= request.host%>/websocket"></div>
+  <div id="chat" style="" data-uri="<%= request.host%>:3000/websocket"></div>
  
 
   </div>
 
   <hr>
-  <div class="col-xs-12 col-md-12 col-sm-12">  
+  <div class="col-md-12 col-xs-12 col-sm-12">
     <form class="form-horizontal">
       <div class="form-group">
-        <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control mtext'></textarea>
-        <button type="button" class="btn btn-default btn-lg btn-block" id="send">送信</button>
+          <div class="col-sm-12 col-md-12 col-xs-12">
+           <input type="text" id="imgurl" style="display:none;">
+           <input type="file" class="image" id="main">
+          </div>
+          <div class="col-sm-12 col-md-12 col-xs-12">
+          <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control mtext'></textarea>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+           <button type="button" class="btn btn-default btn-block" id="send">送信</button>
+          </div>
       </div>
       
     </form>
-   </div>
+  </div>
    <div class="space"></div>
    </div>
    </div>

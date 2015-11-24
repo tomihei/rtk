@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20151024013223) do
 
-  create_table "topics", force: true do |t|
+  create_table "topics", force: :cascade do |t|
     t.integer  "key",        limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"

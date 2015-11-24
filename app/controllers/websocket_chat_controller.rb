@@ -20,26 +20,16 @@ class WebsocketChatController < WebsocketRails::BaseController
     logger.debug("connected user")
     msg = {}
     msg["first_id"] = client_id 
-    logger.debug("#{msg}")
     send_message :websocket_chat,msg  
   end
 
   def new_message  
     #クライアントからのメッセージを取得
     logger.debug("Call new_message ")
-    gid = message[:group_id]
     newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
     message[:time] = newtime
-     #レス番号付加
-    talknum = controller_store[:redis].llen gid
-    message[:resnum] = talknum + 1
-    #redisに保存
     message[:client_id] = client_id
-    controller_store[:redis].rpush gid, message
-    #レス数あげ
-    controller_store[:topic].hincrby(gid,"rescount", 1)
-    #ラストポスト更新
-    controller_store[:topic].hset(gid,"lastpost", newtime)
+    DatawriteJob.perform_later(message)
   end
   
   def exit

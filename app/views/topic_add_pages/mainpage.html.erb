@@ -12,8 +12,9 @@
       <%= text_field_tag 'title','', maxlength: "100"%>
       </div> 
       <div class="col-xs-12 col-md-4 col-sm-4">
-      <%= label_tag 'サムネイル' %>
-      <input type="file" class="btn btn-default" id="file-selector"></input>
+      <%= label_tag '画像の投稿' %>
+      <input type="file" id="file-selector" style="display:none;"></input>
+          <input type="button" class="btn btn-default" value="画像の選択" id="picselector">
       </div>
       <div class="col-xs-12 col-md-8 col-sm-8">
         <%= label_tag 'サムネイルプレビュー' %>

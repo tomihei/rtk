@@ -16,7 +16,7 @@ class TopicAddPagesController < ApplicationController
     now = Time.now.to_i   
     Topic.create(key: hashkey) 
     ntime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
-    message = {"body"=> content,"group_id"=> hashkey,"resnum"=>1,"time"=>ntime,"imgurl"=>imgurl}
+    message = {"body"=> content,"group_id"=> hashkey,"time"=>ntime,"imgurl"=>imgurl}
     #トピックデータを追加
     $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> ntime,"buildtime" => now,"imgurl" => imgurl})
     #最初の投稿を追加

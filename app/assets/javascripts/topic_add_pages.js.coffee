@@ -1,5 +1,7 @@
   
  $ ->
+   $("input#picselector").on 'click', ->
+    $("input#file-selector").click()
    $preview = $('img.image-preview')
    $file = $('input#file-selector')
    $file.on 'change', ->

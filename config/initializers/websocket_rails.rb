@@ -20,8 +20,8 @@ WebsocketRails.setup do |config|
   # Change to true to enable channel synchronization between
   # multiple server instances.
   # * Requires Redis.
-  config.synchronize = false
-
+  config.synchronize = false 
+  #config.redis_options = {:host => "ec2-54-83-32-60.compute-1.amazonaws.com", :port => 18399,:password => "p605eheec3rg219n983prrj3baq"}
   # Prevent Thin from daemonizing (default is true)
   # config.daemonize = false
 

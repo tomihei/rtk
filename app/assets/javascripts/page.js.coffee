@@ -29,16 +29,16 @@ class LocalS
 #データ表示成形用
 class Output
 
- output:(message,treeb,akaresb,onlyforme,resforme,myres) =>
+ output:(resnum,message,treeb,akaresb,onlyforme,resforme,myres) =>
   console.log message
   # 受け取ったデータをappend
   tbutton = treeb
-  messagebody = @mescape(message.body,message.resnum)
+  messagebody = @mescape(message.body,resnum)
 
   #共通部品
   newpost = "#{message.new}"
   if(newpost isnt "1")
-    newlabel = "<span class='label label-warning' id='newlabel#{message.resnum}'>New</span>"
+    newlabel = "<span class='label label-warning' id='newlabel#{resnum}'>New</span>"
   else
     newlabel =""
   
@@ -61,24 +61,28 @@ class Output
     style = ""
   
 
-  resnumAtime   = "<div class='head'><span><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
-                   <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span>
+  resnumAtime   = "<div class='head'><span><a name='ank#{resnum}'>#{resnum}</a>#{myreslabel}#{formelabel}
+                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{resnum}'></span>
                    <small> #{message.time}</small> #{newlabel}"
-  resnumAtimer  = "<div class='head'><span><a name='ank#{message.resnum}'>#{message.resnum}</a>#{myreslabel}#{formelabel}
-                   <span class='badge' data-content='' data-title='#{message.resnum}への返信' id='rec#{message.resnum}'></span> 
+  resnumAtimer  = "<div class='head'><span><a name='ank#{resnum}'>#{resnum}</a>#{myreslabel}#{formelabel}
+                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{resnum}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "</span></div>
-                   <img id='thum#{message.resnum}' ><p>#{messagebody[0]} </p>
-                   <div id='childpm#{message.resnum}'></div>
-                   <div id='form#{message.resnum}' class='resform' style='display: none'>
+                   <img id='thum#{resnum}' ><p>#{messagebody[0]} </p>
+                   <div id='childpm#{resnum}'></div>
+                   <div id='form#{resnum}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.resnum}' class='restext' ></textarea>
-                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{message.resnum}' >送信</button>
+                   <div class='col-sm-12 col-md-12 col-xs-12'>
+                   <input type='text' id='imgurl#{resnum}' style='display:none;'>
+                   <input type='file' class='image'>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{resnum}' class='restext' ></textarea>
+                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{resnum}' >送信</button>
+                   </div>
                    </div>
                    </form>
                    </div>
-                   <div id='child#{message.resnum}' class='contchild'></div>
+                   <div id='child#{resnum}' class='contchild'></div>
                    </div>
                    "
   
@@ -86,33 +90,33 @@ class Output
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
-     $('#chat').append "<div id='#{message.resnum}' class='contarea'>
+     $('#chat').append "<div id='#{resnum}' class='contarea'>
                         #{resnumAtime}
-                        <a class='res' id='#{message.resnum}'>返信</a>
+                        <a class='res' id='#{resnum}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{message.resnum}' class='contarea'>
+     $("div#child#{message.resid}").append "<div id='#{resnum}' class='contarea'>
                                        #{resnumAtime}
-                                       <a class='res' id='#{message.resnum}'>返信</a>
+                                       <a class='res' id='#{resnum}'>返信</a>
                                        #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,onlyforme)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
   else
     if(message.resid? isnt true)
-      $('#chat').append "<div #{style} id='#{message.resnum}' class='contarea'>
+      $('#chat').append "<div #{style} id='#{resnum}' class='contarea'>
                          #{resnumAtimer}
-                         <a class='res' id='#{message.resnum}'>返信</a>
+                         <a class='res' id='#{resnum}'>返信</a>
                          #{footerm}"
     else
-     $("#chat").append "<div #{style} id='#{message.resnum}' class='contarea'>
+     $("#chat").append "<div #{style} id='#{resnum}' class='contarea'>
                         #{resnumAtimer}
-                        <a class='res' id='#{message.resnum}'>返信</a></span></div>
+                        <a class='res' id='#{resnum}'>返信</a></span></div>
                         <div><span><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
                         #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid,onlyforme)
+     @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
 
-  $("div#childpm#{message.resnum}").append "<div class='row'>
+  $("div#childpm#{resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
-                                            <div id='pmrow#{message.resnum}'></div>
+                                            <div id='pmrow#{resnum}'></div>
                                             </div>
                                             <div class='col-xs-2 col-md-2 col-sm-2'></div>
                                             </div>
@@ -120,46 +124,46 @@ class Output
   
   #大きいサムネイル表示
   if message.imgurl isnt "" and message.imgurl?
-    $("img#thum#{message.resnum}").attr src: "#{message.imgurl}", class:"bigthum colgm"
+    $("img#thum#{resnum}").attr src: "#{message.imgurl}", class:"bigthum colgm"
     if $.cookie('autopic') is 'on'
       $('img.bigthum').lazyload()
     else
-      $("img#thum#{message.resnum}").lazyload
+      $("img#thum#{resnum}").lazyload
         event : "over mouseover thouchstart"
 
   vic = 0
 
   #gifv,webm以外のサムネイル
-  $("a#g#{message.resnum}").each ->
+  $("a#g#{resnum}").each ->
     pmurl = $(this).attr('href')
     vic++
-    $("div#pmrow#{message.resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
-                                            <a id='gm#{message.resnum}#{vic}'class='gm#{message.resnum} colgm' name='gm#{message.resnum}' href='#{pmurl}'>
-                                            <img id='lazy#{message.resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
+    $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
+                                            <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{message.resnum}' href='#{pmurl}'>
+                                            <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
                                             </a>
                                             </div>
                                             "
     if $.cookie('autopic') is 'on'
       $('img.lazy').lazyload()
     else
-      $("img#lazy#{message.resnum}").lazyload
+      $("img#lazy#{resnum}").lazyload
         event : "over"
-      $("#gm#{message.resnum}#{vic}").on 'mouseover touchstart', ->
-        $("img#lazy#{message.resnum}").trigger("over")
+      $("#gm#{resnum}#{vic}").on 'mouseover touchstart', ->
+        $("img#lazy#{resnum}").trigger("over")
     #gifv,webmのサムネイル
-  $("a#gw#{message.resnum}").each ->
+  $("a#gw#{resnum}").each ->
     pmurl = $(this).attr('href')
-    $("div#pmrow#{message.resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
+    $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
                                             <a class='thumbnail' href='#{pmurl}'>
                                             <img class='movie'>
                                             </a>
                                             </div>
                                             "
     #youtube,vimeo用この3つどうにかしろよ
-  $("a#gy#{message.resnum}").each ->
+  $("a#gy#{resnum}").each ->
     pmurl = $(this).attr('href')
-    $("div#pmrow#{message.resnum}").append "<div class='span1'>
-                                            <a id='movie#{message.resnum}' class='thumbnail' href='#{pmurl}'>
+    $("div#pmrow#{resnum}").append "<div class='span1'>
+                                            <a id='movie#{resnum}' class='thumbnail' href='#{pmurl}'>
                                             <img class='movie'>
                                             </a>
                                             </div>
@@ -168,7 +172,7 @@ class Output
 
   #Newラベル消去用
   if(newpost isnt "1")
-   $("#newlabel#{message.resnum}").on 'inview', (event,isInView,visiblePartX,visiblePartY)->
+   $("#newlabel#{resnum}").on 'inview', (event,isInView,visiblePartX,visiblePartY)->
      if(isInView == false)
       $(this).hide 'slow', ->
        $(this).remove()
@@ -178,7 +182,7 @@ class Output
    treec = $.cookie('tree')
    console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
-    sclba = $("div##{message.resnum}").offset().top
+    sclba = $("div##{resnum}").offset().top
     sclba = sclba - 100
     if treec is 'on'
       setTimeout ->
@@ -265,18 +269,19 @@ class ChatClass
   if @group_id is @build
     @lstorage.myres[0] = 1
   date = @datestore.date_push()
-  count = 0
+  @count = 1
+  console.log @count
   for i in date
     o = i.resid
     o = o - 0
-    if @lstorage.myres.indexOf(i.resnum) is -1
-      @output.output(i,@tree,@akares,@onlyf)
+    if @lstorage.myres.indexOf(@count) is -1
+      @output.output(@count,i,@tree,@akares,@onlyf)
     else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
-      @output.output(i,@tree,@akares,@onlyf,1)
+      @output.output(@count,i,@tree,@akares,@onlyf,1)
     else 
-      @output.output(i,@tree,@akares,@onlyf,0,1)
-    count++
-  @lstorage.rescount = count
+      @output.output(@count,i,@tree,@akares,@onlyf,0,1)
+    @count++
+  @lstorage.rescount = @count
   @lstorage.push_storage(@group_id)
 
  bindEvents: (idy) =>
@@ -292,7 +297,8 @@ class ChatClass
 # オブジェクトでデータを指定
   msg_body = $('#msgbody').val()
   group_id = $('#group_id').text()
-  @channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id}
+  imgurl = $('#imgurl').attr("value")
+  @channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id, imgurl: imgurl}
   $('#msgbody').val('')
 
  resendMessage: (event) ->
@@ -300,8 +306,9 @@ class ChatClass
   resid = $(this).attr('id')
   msg_body = $("#msgbody#{resid}").val()
   group_id = $('#group_id').text()
+  imgurl = $("#imgurl#{resid}").attr("value")
   #ChatClassを参照  
-  event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid}
+  event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid , imgurl: imgurl}
   $("#msgbody#{resid}").val('')
 
  receiveMessage: (message) =>
@@ -309,21 +316,22 @@ class ChatClass
   unless message.first_id?
     @datestore.date_add(message)
     @lstorage.rescount++
-    
+    console.log @count
     l = message.resid
     l = l - 0
     if message.client_id is @client_id
-      @lstorage.myres.push(message.resnum)
+      @lstorage.myres.push(@count)
       @lstorage.push_storage(@group_id)
-      @output.output(message,@tree,@akares,@onlyf,0,1)
+      @output.output(@count,message,@tree,@akares,@onlyf,0,1)
     else if message.resid?  and @lstorage.myres.indexOf(l) isnt -1
-      @output.output(message,@tree,@akares,@onlyf,1)
+      @output.output(@count,message,@tree,@akares,@onlyf,1)
     else
-      @output.output(message,@tree,@akares,@onlyf,0)
+      @output.output(@count,message,@tree,@akares,@onlyf,0)
     
     if message.client_id is @client_id
-      @lstorage.myres.push(message.resnum)
+      @lstorage.myres.push(@count)
       @lstorage.push_storage(@group_id)
+    @count++
   else
     @client_id = message.first_id
 
@@ -362,6 +370,8 @@ class ChatClass
       id = 'lnew'
   $(".tnav").attr("class","tnav")
   $("##{id}").attr("class","tnav active")
+ 
+
 
 
  $ ->
@@ -383,10 +393,11 @@ class ChatClass
     cookid = $(this).attr('id')
     if $.cookie(cookid) isnt 'on'
      $.cookie(cookid,'on')
+     location.reload()
     else
      $.cookie(cookid,'off')
-    topicEvents.reset("lnew")
-    
+      
+
   topicEvents = new ChatClass($('#chat').data('uri'), true)
 
   $('.tnav').on 'click', ->
@@ -404,22 +415,22 @@ class ChatClass
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
     resid = $(this).attr('id')
-    $("div#form#{resid}").show(250)
+    $("div#form#{resid}").toggle(250)
     $("#msgbody#{resid}").focus()
   #if textarea focus autoscl off
   $('#chat')
    .on 'focus click','div.resform', ->
      $.cookie('restextfocus','on')
-   .on 'blur','div.resform',->
+   .on 'click','#send,.resend',->
      $.cookie('restextfocus','off')
      setTimeout =>
-      $(this).hide(250)
+      $(".resform").hide(100)
      , 1500
   
   $('textarea#msgbody')
    .on 'focus click','textarea.restext', ->
      $.cookie('restextfocus','on')
-   .on 'blur','textarea.restext',->
+   .on 'click','#send,.resend',->
      $.cookie('restextfocus','off')
 
   $('#chat').on 'click','a.colgm', ->
@@ -445,4 +456,28 @@ class ChatClass
       $(this).attr('data-content')
   )
 
-
+  $("#chat").on 'click', 'input.image', ->
+   $file = $(this)
+   $input = $(this).prev()
+   $file.on 'change', ->
+     $("#send,.resend").attr disabled:"disabled"
+     $("#send,.resend").text("アップロード中")
+     [file] = $file.get(0).files
+     fr = new FileReader
+     fr.readAsBinaryString(file)
+     fr.onload = (event) =>
+       pic = window.btoa(event.target.result)
+       $.ajax({
+        url: "https://api.imgur.com/3/image",
+        headers: {
+          'Authorization': 'Client-ID 2f91e49e1313411'
+        },
+        type:"POST",
+        data: {
+          type:"base64"
+          image:pic
+          }
+        }).done (page)->
+          $("#send,.resend").removeAttr("disabled")
+          $("#send,.resend").text("送信")
+          $input.attr value:page.data.link
