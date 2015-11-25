@@ -456,14 +456,15 @@ class ChatClass
       $(this).attr('data-content')
   )
 
-  $("#chat").on 'click', 'input.image', ->
+  fr = new FileReader
+  
+  $("body").on 'click', 'input.image', ->
    $file = $(this)
    $input = $(this).prev()
    $file.on 'change', ->
      $("#send,.resend").attr disabled:"disabled"
      $("#send,.resend").text("アップロード中")
      [file] = $file.get(0).files
-     fr = new FileReader
      fr.readAsBinaryString(file)
      fr.onload = (event) =>
        pic = window.btoa(event.target.result)
