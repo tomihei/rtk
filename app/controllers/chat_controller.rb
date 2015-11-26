@@ -9,7 +9,6 @@ class ChatController < ApplicationController
       num = 0
       talks.each do |content|
         msg = ActiveSupport::HashWithIndifferentAccess.new(eval(content))
-        msg[:new] = 1
         cont[num] = msg
         num = num + 1
       end

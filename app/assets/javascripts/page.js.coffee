@@ -29,15 +29,13 @@ class LocalS
 #データ表示成形用
 class Output
 
- output:(resnum,message,treeb,akaresb,onlyforme,resforme,myres) =>
+ output:(newpost,resnum,message,treeb,akaresb,onlyforme,resforme,myres) =>
   console.log message
   # 受け取ったデータをappend
   tbutton = treeb
   messagebody = @mescape(message.body,resnum)
-
   #共通部品
-  newpost = "#{message.new}"
-  if(newpost isnt "1")
+  if(newpost is "on")
     newlabel = "<span class='label label-warning' id='newlabel#{resnum}'>New</span>"
   else
     newlabel =""
@@ -171,7 +169,7 @@ class Output
 
 
   #Newラベル消去用
-  if(newpost isnt "1")
+  if(newpost is "on")
    $("#newlabel#{resnum}").on 'inview', (event,isInView,visiblePartX,visiblePartY)->
      if(isInView == false)
       $(this).hide 'slow', ->
@@ -179,16 +177,17 @@ class Output
   #オートスクロール用
    rfocus = $.cookie('restextfocus')
    autoscl = $.cookie('autoscl')
-   treec = $.cookie('tree')
    console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
+    console.log "dfafsf"
     sclba = $("div##{resnum}").offset().top
     sclba = sclba - 100
-    if treec is 'on'
+    if treeb is 'on'
       setTimeout ->
        $("html,body").animate({scrollTop:sclba})
       , 3000
-    else if treec is 'off'
+    else if treeb is 'off'
+      console.log "momoi"
       $("html,body").animate({scrollTop:sclba})
 
   return 0
@@ -275,11 +274,11 @@ class ChatClass
     o = i.resid
     o = o - 0
     if @lstorage.myres.indexOf(@count) is -1
-      @output.output(@count,i,@tree,@akares,@onlyf)
+      @output.output("off",@count,i,@tree,@akares,@onlyf)
     else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
-      @output.output(@count,i,@tree,@akares,@onlyf,1)
+      @output.output("off",@count,i,@tree,@akares,@onlyf,1)
     else 
-      @output.output(@count,i,@tree,@akares,@onlyf,0,1)
+      @output.output("off",@count,i,@tree,@akares,@onlyf,0,1)
     @count++
   @lstorage.rescount = @count
   @lstorage.push_storage(@group_id)
@@ -298,6 +297,7 @@ class ChatClass
   msg_body = $('#msgbody').val()
   group_id = $('#group_id').text()
   imgurl = $('#imgurl').attr("value")
+  $('#imgurl').removeAttr("value")
   @channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id, imgurl: imgurl}
   $('#msgbody').val('')
 
@@ -307,6 +307,7 @@ class ChatClass
   msg_body = $("#msgbody#{resid}").val()
   group_id = $('#group_id').text()
   imgurl = $("#imgurl#{resid}").attr("value")
+  $("#imgurl#{resid}").removeAttr("value")
   #ChatClassを参照  
   event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid , imgurl: imgurl}
   $("#msgbody#{resid}").val('')
@@ -319,14 +320,15 @@ class ChatClass
     console.log @count
     l = message.resid
     l = l - 0
+    newpost = "on"
     if message.client_id is @client_id
       @lstorage.myres.push(@count)
       @lstorage.push_storage(@group_id)
-      @output.output(@count,message,@tree,@akares,@onlyf,0,1)
+      @output.output(newpost,@count,message,@tree,@akares,@onlyf,0,1)
     else if message.resid?  and @lstorage.myres.indexOf(l) isnt -1
-      @output.output(@count,message,@tree,@akares,@onlyf,1)
+      @output.output(newpost,@count,message,@tree,@akares,@onlyf,1)
     else
-      @output.output(@count,message,@tree,@akares,@onlyf,0)
+      @output.output(newpost,@count,message,@tree,@akares,@onlyf,0)
     
     if message.client_id is @client_id
       @lstorage.myres.push(@count)
@@ -418,21 +420,15 @@ class ChatClass
     $("div#form#{resid}").toggle(250)
     $("#msgbody#{resid}").focus()
   #if textarea focus autoscl off
-  $('#chat')
-   .on 'focus click','div.resform', ->
+  $('body')
+   .on 'focus scroll touchstart', ->
      $.cookie('restextfocus','on')
-   .on 'click','#send,.resend',->
+   .on 'focusout','form.form-horizontal', ->
      $.cookie('restextfocus','off')
-     setTimeout =>
-      $(".resform").hide(100)
-     , 1500
-  
-  $('textarea#msgbody')
-   .on 'focus click','textarea.restext', ->
-     $.cookie('restextfocus','on')
-   .on 'click','#send,.resend',->
+   .on 'touchend',->
      $.cookie('restextfocus','off')
-
+   .on 'click','.resend', ->
+     $("div.resform").hide(250)
   $('#chat').on 'click','a.colgm', ->
     iden = $(this).attr('name')
     idena = $(this).attr('id')
