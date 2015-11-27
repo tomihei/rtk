@@ -66,7 +66,7 @@ class Output
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{resnum}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "</span></div>
-                   <img id='thum#{resnum}' ><p>#{messagebody[0]} </p>
+                   <img id='thum#{resnum}' ><p class='word'>#{messagebody[0]} </p>
                    <div id='childpm#{resnum}'></div>
                    <div id='form#{resnum}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
@@ -426,7 +426,9 @@ class ChatClass
    .on 'focusout','form.form-horizontal', ->
      $.cookie('restextfocus','off')
    .on 'touchend',->
-     $.cookie('restextfocus','off')
+     setTimeout ->
+      $.cookie('restextfocus','off')
+     , 3000
    .on 'click','.resend', ->
      $("div.resform").hide(250)
   $('#chat').on 'click','a.colgm', ->
