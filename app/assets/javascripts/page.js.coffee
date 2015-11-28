@@ -291,6 +291,10 @@ class ChatClass
 # サーバーからnew_messageを受け取ったらreceiveMessageを実行
   @channel.bind 'websocket_chat', @receiveMessage
   @dispatcher.bind 'websocket_chat', @receiveMessage
+  @dispatcher.bind 'connection_closed', ->
+    @dispatcher.reconnect()
+  
+
  sendMessage: (event) =>
 # サーバ側にsend_messageのイベントを送信
 # オブジェクトでデータを指定
