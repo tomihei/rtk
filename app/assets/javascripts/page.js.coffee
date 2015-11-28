@@ -381,11 +381,20 @@ class ChatClass
 
 
  $ ->
-  window.onpageshow = (evt)->
-    if evt.persisted
+  
+  last_update = new Date()
+  TIMEOUT = 2000
+  INTERVAL = 2000
+
+  setInterval ->
+    now = new Date()
+    if now.getTime() - last_update.getTime() > INTERVAL + TIMEOUT
       location.reload()
 
-    #ボタンの状態判断用
+    last_update = now
+  , INTERVAL
+
+  #ボタンの状態判断用
   gcid = $('#group_id').text()
   bid = ['autopic','autoscl']
   bid.forEach (item) ->
