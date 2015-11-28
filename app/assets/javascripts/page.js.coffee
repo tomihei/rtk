@@ -381,6 +381,10 @@ class ChatClass
 
 
  $ ->
+  window.onpageshow = (evt)->
+    if evt.persisted
+      location.reload()
+
     #ボタンの状態判断用
   gcid = $('#group_id').text()
   bid = ['autopic','autoscl']

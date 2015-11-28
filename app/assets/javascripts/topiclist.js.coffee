@@ -38,7 +38,7 @@
       top = "<a class='list-group-item' href='/topic/#{value[6]}' >
                   <div class='row10 row'>
                     <div class='rowr imgdiv col-xs-2 col-md-2 col-sm-2'>"
-      if value[5] isnt null or value[5] is ""
+      if value[5] isnt null and value[5] isnt ""
         url = value[5].replace(/\.(\w*)$/g,"m.$1")
         img =        "<img class='list_thumb' src='#{url}'>"
         top = top + img
