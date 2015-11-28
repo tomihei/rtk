@@ -273,12 +273,17 @@ class ChatClass
   for i in date
     o = i.resid
     o = o - 0
+    if @count > @lstorage.rescount
+      newpost = 'on'
+    else
+      newpost = 'off'
+
     if @lstorage.myres.indexOf(@count) is -1
-      @output.output("off",@count,i,@tree,@akares,@onlyf)
+      @output.output(newpost,@count,i,@tree,@akares,@onlyf)
     else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
-      @output.output("off",@count,i,@tree,@akares,@onlyf,1)
+      @output.output(newpost,@count,i,@tree,@akares,@onlyf,1)
     else 
-      @output.output("off",@count,i,@tree,@akares,@onlyf,0,1)
+      @output.output(newpost,@count,i,@tree,@akares,@onlyf,0,1)
     @count++
   @lstorage.rescount = @count
   @lstorage.push_storage(@group_id)
