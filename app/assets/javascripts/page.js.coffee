@@ -293,8 +293,8 @@ class ChatClass
   @dispatcher.bind 'websocket_chat', @receiveMessage
   @dispatcher.bind 'connection_closed', ->
     @dispatcher.reconnect()
-  
-
+  @dispatcher.bind 'client_disconnected', ->
+    @dispathcer.reconnect()
  sendMessage: (event) =>
 # サーバ側にsend_messageのイベントを送信
 # オブジェクトでデータを指定
