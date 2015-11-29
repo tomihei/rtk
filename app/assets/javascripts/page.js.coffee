@@ -20,7 +20,7 @@ class LocalS
       @rescount = 0
       @myres = []
   push_storage:(key) ->
-    date ={"rescount": "#{@rescount}","myres" : @myres}
+    date ={"rescount": @rescount,"myres" : @myres}
     localStorage.setItem(key,JSON.stringify(date))
 
   pop_storage:(key) ->
@@ -72,10 +72,15 @@ class Output
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='col-sm-12 col-md-12 col-xs-12'>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{resnum}' class='restext form-control' ></textarea>
+                   </div>
+                   <div class='padr col-sm-9 col-md-9 col-xs-7'>
                    <input type='text' id='imgurl#{resnum}' style='display:none;'>
                    <input type='file' class='image'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{resnum}' class='restext' ></textarea>
+                   </div>
+                   <div class='padl col-sm-3 col-md-3 col-xs-5'>
                    <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{resnum}' >送信</button>
+                   </div>
                    </div>
                    </div>
                    </form>
@@ -278,11 +283,11 @@ class ChatClass
     else
       newpost = 'off'
 
-    if @lstorage.myres.indexOf(@count) is -1
-      @output.output(newpost,@count,i,@tree,@akares,@onlyf)
-    else if i.resid?  and @lstorage.myres.indexOf(o) isnt -1
+    if @lstorage.myres.indexOf(o) isnt -1
       @output.output(newpost,@count,i,@tree,@akares,@onlyf,1)
-    else 
+    else if @lstorage.myres.indexOf(@count) is -1
+      @output.output(newpost,@count,i,@tree,@akares,@onlyf)
+    else
       @output.output(newpost,@count,i,@tree,@akares,@onlyf,0,1)
     @count++
   @lstorage.rescount = @count
@@ -337,11 +342,8 @@ class ChatClass
     else if message.resid?  and @lstorage.myres.indexOf(l) isnt -1
       @output.output(newpost,@count,message,@tree,@akares,@onlyf,1)
     else
-      @output.output(newpost,@count,message,@tree,@akares,@onlyf,0)
+      @output.output(newpost,@count,message,@tree,@akares,@onlyf)
     
-    if message.client_id is @client_id
-      @lstorage.myres.push(@count)
-      @lstorage.push_storage(@group_id)
     @count++
   else
     @client_id = message.first_id
