@@ -485,7 +485,7 @@ class ChatClass
    $input = $(this).prev()
    $file.on 'change', ->
      $("#send,.resend").attr disabled:"disabled"
-     $("#send,.resend").text("アップロード中")
+     $("#send,.resend").text("wait")
      [file] = $file.get(0).files
      fr.readAsBinaryString(file)
      fr.onload = (event) =>
