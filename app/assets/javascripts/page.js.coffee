@@ -30,6 +30,7 @@ class LocalS
 class Output
 
  output:(newpost,resnum,message,treeb,akaresb,onlyforme,resforme,myres) =>
+  resnum++
   console.log message
   # 受け取ったデータをappend
   tbutton = treeb
@@ -59,33 +60,33 @@ class Output
     style = ""
   
 
-  resnumAtime   = "<div class='head'><span><a name='ank#{resnum}'>#{resnum}</a>#{myreslabel}#{formelabel}
-                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{resnum}'></span>
+  resnumAtime   = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
+                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
                    <small> #{message.time}</small> #{newlabel}"
-  resnumAtimer  = "<div class='head'><span><a name='ank#{resnum}'>#{resnum}</a>#{myreslabel}#{formelabel}
-                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{resnum}'></span> 
+  resnumAtimer  = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
+                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span> 
                    <small> #{message.time}</small> #{newlabel}"
   footerm       = "</span></div>
                    <img id='thum#{resnum}' ><p class='word'>#{messagebody[0]} </p>
                    <div id='childpm#{resnum}'></div>
-                   <div id='form#{resnum}' class='resform' style='display: none'>
+                   <div id='form#{message.comment_id}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
                    <div class='col-sm-12 col-md-12 col-xs-12'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{resnum}' class='restext form-control' ></textarea>
+                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.comment_id}' class='restext form-control' ></textarea>
                    </div>
                    <div class='padr col-sm-9 col-md-9 col-xs-7'>
-                   <input type='text' id='imgurl#{resnum}' style='display:none;'>
+                   <input type='text' id='imgurl#{message.comment_id}' style='display:none;'>
                    <input type='file' class='image'>
                    </div>
                    <div class='padl col-sm-3 col-md-3 col-xs-5'>
-                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{resnum}' >送信</button>
+                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{message.comment_id}' >送信</button>
                    </div>
                    </div>
                    </div>
                    </form>
                    </div>
-                   <div id='child#{resnum}' class='contchild'></div>
+                   <div id='child#{message.comment_id}' class='contchild'></div>
                    </div>
                    "
   
@@ -93,27 +94,28 @@ class Output
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
-     $('#chat').append "<div id='#{resnum}' class='contarea'>
+     $('#chat').append "<div id='#{message.comment_id}' class='contarea'>
                         #{resnumAtime}
-                        <a class='res' id='#{resnum}'>返信</a>
+                        <a class='res' id='#{message.comment_id}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{resnum}' class='contarea'>
+     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea'>
                                        #{resnumAtime}
-                                       <a class='res' id='#{resnum}'>返信</a>
+                                       <a class='res' id='#{message.comment_id}'>返信</a>
                                        #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
   else
     if(message.resid? isnt true)
-      $('#chat').append "<div #{style} id='#{resnum}' class='contarea'>
+      $('#chat').append "<div #{style} id='#{message.comment_id}' class='contarea'>
                          #{resnumAtimer}
-                         <a class='res' id='#{resnum}'>返信</a>
+                         <a class='res' id='#{message.comment_id}'>返信</a>
                          #{footerm}"
     else
-     $("#chat").append "<div #{style} id='#{resnum}' class='contarea'>
+     anknum = $("a[name='ank#{message.resid}']").text()
+     $("#chat").append "<div #{style} id='#{message.comment_id}' class='contarea'>
                         #{resnumAtimer}
-                        <a class='res' id='#{resnum}'>返信</a></span></div>
-                        <div><span><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
+                        <a class='res' id='#{message.comment_id}'>返信</a></span></div>
+                        <div><span><a class='resanker' name='#{message.resid}'>>>#{anknum}</a>
                         #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
 
@@ -141,7 +143,7 @@ class Output
     pmurl = $(this).attr('href')
     vic++
     $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
-                                            <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{message.resnum}' href='#{pmurl}'>
+                                            <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{resnum}' href='#{pmurl}'>
                                             <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
                                             </a>
                                             </div>
@@ -185,7 +187,7 @@ class Output
    console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
     console.log "dfafsf"
-    sclba = $("div##{resnum}").offset().top
+    sclba = $("div##{message.comment_id}").offset().top
     sclba = sclba - 100
     if treeb is 'on'
       setTimeout ->
@@ -270,22 +272,19 @@ class ChatClass
   @tree = tree
   @akares = akares
   @onlyf = onlyforme
-  if @group_id is @build
-    @lstorage.myres[0] = 1
   date = @datestore.date_push()
-  @count = 1
+  if @group_id is @build
+    @lstorage.myres[0] = date[0]["comment_id"]
+  @count = 0
   console.log @count
   for i in date
-    o = i.resid
-    o = o - 0
     if @count > @lstorage.rescount
       newpost = 'on'
     else
       newpost = 'off'
-
-    if @lstorage.myres.indexOf(o) isnt -1
+    if @lstorage.myres.indexOf(i.resid) isnt -1
       @output.output(newpost,@count,i,@tree,@akares,@onlyf,1)
-    else if @lstorage.myres.indexOf(@count) is -1
+    else if @lstorage.myres.indexOf(i.comment_id) is -1
       @output.output(newpost,@count,i,@tree,@akares,@onlyf)
     else
       @output.output(newpost,@count,i,@tree,@akares,@onlyf,0,1)
@@ -331,15 +330,13 @@ class ChatClass
   unless message.first_id?
     @datestore.date_add(message)
     @lstorage.rescount++
-    console.log @count
-    l = message.resid
-    l = l - 0
+    date = @datestore.date_push()
     newpost = "on"
     if message.client_id is @client_id
-      @lstorage.myres.push(@count)
+      @lstorage.myres.push(message.comment_id)
       @lstorage.push_storage(@group_id)
       @output.output(newpost,@count,message,@tree,@akares,@onlyf,0,1)
-    else if message.resid?  and @lstorage.myres.indexOf(l) isnt -1
+    else if message.resid?  and @lstorage.myres.indexOf(message.resid) isnt -1
       @output.output(newpost,@count,message,@tree,@akares,@onlyf,1)
     else
       @output.output(newpost,@count,message,@tree,@akares,@onlyf)

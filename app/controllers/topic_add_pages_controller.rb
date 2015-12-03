@@ -14,9 +14,10 @@ class TopicAddPagesController < ApplicationController
    @pres = Topicvalid.new :title => toptitle, :content => content, :imgurl => imgurl
    if @pres.valid?
     now = Time.now.to_i   
-    Topic.create(key: hashkey) 
+    Topic.create(key: hashkey)
+    cid = Time.zone.now.strftime("%d%H%M%S%N").to_i.to_s(36)
     ntime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
-    message = {"body"=> content,"group_id"=> hashkey,"time"=>ntime,"imgurl"=>imgurl}
+    message = {"body"=> content,"group_id"=> hashkey,"time"=>ntime,"imgurl"=>imgurl,"comment_id" => cid}
     #トピックデータを追加
     $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> ntime,"buildtime" => now,"imgurl" => imgurl})
     #最初の投稿を追加

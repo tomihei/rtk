@@ -1,4 +1,5 @@
 require 'redis'
+require 'benchmark'
 #websocketRails::BaseControllerを継承
 class WebsocketChatController < WebsocketRails::BaseController
   
@@ -23,13 +24,17 @@ class WebsocketChatController < WebsocketRails::BaseController
     send_message :websocket_chat,msg  
   end
 
-  def new_message  
+  def new_message
+   result = Benchmark.realtime do
     #クライアントからのメッセージを取得
-    logger.debug("Call new_message ")
-    newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S").to_s
+    cid = Time.zone.now.strftime("%d%H%M%S%N")
+    newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S")
+    message[:comment_id] = cid
     message[:time] = newtime
     message[:client_id] = client_id
     DatawriteJob.perform_later(message)
+   end
+   puts "#{result}s"
   end
   
   def exit

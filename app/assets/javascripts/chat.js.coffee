@@ -29,12 +29,12 @@ class @ChatClass
  #返信用関数考えるのめんどかったからこれで 
  resendMessage: (event) ->
   #クリックした要素を参照
-  resid = $(this).attr('id')
-  msg_body = $("#msgbody#{resid}").val()
+  comment_id = $(this).attr('id')
+  msg_body = $("#msgbody#{comment_id}").val()
   group_id = $('#group_id').text()
   #ChatClassを参照  
-  event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid}
-  $("#msgbody#{resid}").val('')
+  event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , comment_id: comment_id}
+  $("#msgbody#{comment_id}").val('')
 
  receiveMessage: (message) =>
   console.log message
@@ -78,19 +78,19 @@ class @ChatClass
 
 
   if(tbutton isnt 'off' )
-    if(message.resid? isnt true)
+    if(message.comment_id? isnt true)
      $('#chat').append "<div id='#{message.resnum}' class='contarea'>
                         #{resnumAtime}
                         <a class='res' id='#{message.resnum}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{message.resnum}' class='contarea'>
+     $("div#child#{message.comment_id}").append "<div id='#{message.resnum}' class='contarea'>
                                        #{resnumAtime}
                                        <a class='res' id='#{message.resnum}'>返信</a>
                                        #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
+     @resinc($("span#rec#{message.comment_id}"),messagebody[0],message.resnum,message.time,message.comment_id)
   else
-    if(message.resid? isnt true)
+    if(message.comment_id? isnt true)
       $('#chat').append "<div #{style} id='#{message.resnum}' class='contarea'>
                          #{resnumAtimer}
                          <a class='res' id='#{message.resnum}'>返信</a>
@@ -99,9 +99,9 @@ class @ChatClass
      $("#chat").append "<div #{style} id='#{message.resnum}' class='contarea'>
                         #{resnumAtimer}
                         <a class='res' id='#{message.resnum}'>返信</a>
-                        <br><a class='resanker' name='#{message.resid}'>>>#{message.resid}</a>
+                        <br><a class='resanker' name='#{message.comment_id}'>>>#{message.comment_id}</a>
                         #{footerm}"
-     @resinc($("span#rec#{message.resid}"),messagebody[0],message.resnum,message.time,message.resid)
+     @resinc($("span#rec#{message.comment_id}"),messagebody[0],message.resnum,message.time,message.comment_id)
 
   $("div#childpm#{message.resnum}").append "<div class='row'>
                                             <div class ='col-xs-10 col-md-10 col-sm-10'>
@@ -196,7 +196,7 @@ class @ChatClass
     return [mba3,mba2]
 
  #返信数とツールチップ用関数 
- resinc: (incnum,mbody,mnum,mtime,resid) ->
+ resinc: (incnum,mbody,mnum,mtime,comment_id) ->
   
   #rescount
   
@@ -208,10 +208,10 @@ class @ChatClass
     incnum.attr 'class','badge'
   else if(hres > 1 and hres < 3)
     incnum.attr 'class','badge rescouBlo'
-    $("div##{resid}").attr 'style',''
+    $("div##{comment_id}").attr 'style',''
   else if(hres > 3)
     incnum.attr 'class','badge rescouRed'
-    $("div##{resid}").attr 'style',''
+    $("div##{comment_id}").attr 'style',''
   incnum.text(hres)
   
   #tooltip
@@ -253,16 +253,16 @@ class @ChatClass
 
   #res anker animetion 
   $('#chat').on 'click','a.resanker', ->
-    resid = $(this).attr('name')
-    sclbaa = $("div##{resid}").offset().top
+    comment_id = $(this).attr('name')
+    sclbaa = $("div##{comment_id}").offset().top
     sclbaa = sclbaa - 100
     $("html,body").animate({scrollTop:sclbaa})
 
 #返信フォーム用
   $('#chat').on 'click','a.res', ->
-    resid = $(this).attr('id')
-    $("div#form#{resid}").show(250)
-    $("#msgbody#{resid}").focus()
+    comment_id = $(this).attr('id')
+    $("div#form#{comment_id}").show(250)
+    $("#msgbody#{comment_id}").focus()
   #if textarea focus autoscl off
   $('#chat')
    .on 'focus click','div.resform', ->
