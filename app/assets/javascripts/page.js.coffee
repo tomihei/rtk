@@ -397,7 +397,8 @@ class ChatClass
 
     last_update = now
   , INTERVAL
-
+  
+  $.cookie("autoscl","off")
   #ボタンの状態判断用
   gcid = $('#group_id').text()
   bid = ['autopic','autoscl']
@@ -416,10 +417,17 @@ class ChatClass
     cookid = $(this).attr('id')
     if $.cookie(cookid) isnt 'on'
      $.cookie(cookid,'on')
-     location.reload()
     else
      $.cookie(cookid,'off')
       
+  
+  $('.autoscl').click ->
+    if $.cookie('autoscl') is "on"
+      $.cookie('autoscl','off')
+      $(this).html("オート<br>スクロール<br>OFF")
+    else
+      $.cookie('autoscl','on')
+      $(this).html("オート<br>スクロール<br>ON")
 
   topicEvents = new ChatClass($('#chat').data('uri'), true)
 
@@ -488,7 +496,7 @@ class ChatClass
      fr.onload = (event) =>
        pic = window.btoa(event.target.result)
        $.ajax({
-        url: "https://api.imgur.com/3/image",
+        url: "https://api.imgur.com/3/upload",
         headers: {
           'Authorization': 'Client-ID 2f91e49e1313411'
         },
@@ -501,3 +509,6 @@ class ChatClass
           $("#send,.resend").removeAttr("disabled")
           $("#send,.resend").text("送信")
           $input.attr value:page.data.link
+
+
+

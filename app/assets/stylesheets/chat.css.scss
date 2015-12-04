@@ -87,7 +87,7 @@ button.navbtn{
 
 .space{
 
-  height:20px;
+  height:10px;
 
 }
 
@@ -128,4 +128,28 @@ input[type="file"] {
   border-radius:6px;
   border-color:#cccccc; 
   font-size:19px;
+  margin:0px;
+}
+
+
+.autoscl{
+  font-size:0.8em;
+  position:fixed;
+  top:65%;
+  right:5%;
+  width: 80px;
+  height: 80px;
+  background: #EEE;
+  border: 1px solid #DDD;
+  border-radius: 40px;
+  color: #111;
+  opacity:0.2;
+  outline:none;
+}
+
+.autoscl:hover{
+  opacity:1;
+  
+
+
 }
