@@ -25,3 +25,7 @@
           $("img.loading").hide("normal")
           $preview.attr src:page.data.link
           $("input.imaurl").attr value:page.data.link
+        .fail ()->
+          $("#send,.resend").removeAttr("disabled")
+          $("#send,.resend").text("送信")
+          alert "画像のアップロードに失敗しました"

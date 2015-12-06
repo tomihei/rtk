@@ -10,7 +10,7 @@ class DateStore
     @date
 
 class LocalS
-  
+   
   constructor:(key) ->
     if localStorage.getItem(key) isnt null
       @alldate = JSON.parse(localStorage.getItem(key))
@@ -496,7 +496,7 @@ class ChatClass
      fr.onload = (event) =>
        pic = window.btoa(event.target.result)
        $.ajax({
-        url: "https://api.imgur.com/3/upload",
+        url: "https://api.imgur.com/3/image",
         headers: {
           'Authorization': 'Client-ID 2f91e49e1313411'
         },
@@ -509,6 +509,10 @@ class ChatClass
           $("#send,.resend").removeAttr("disabled")
           $("#send,.resend").text("送信")
           $input.attr value:page.data.link
+        .fail ()->
+          $("#send,.resend").removeAttr("disabled")
+          $("#send,.resend").text("送信")
+          alert "画像のアップロードに失敗しました"
 
 
 

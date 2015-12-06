@@ -62,3 +62,6 @@ gem 'redis'
 gem 'redis-rails'
 gem 'gon'
 gem 'resque'
+gem 'sidekiq'
+gem 'sinatra', require: false
+

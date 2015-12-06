@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 WebsocketTest::Application.routes.draw do
   match '/addtopic' => 'topic_add_pages#mainpage', :via => :get
   post "topic_add_pages/senddata"
@@ -5,6 +7,9 @@ WebsocketTest::Application.routes.draw do
   #get "chat/index"
   match '/topic/:id' => 'chat#index', :via => :get 
   match '/main' => 'chat#main', :via => :get
+
+  mount Sidekiq::Web => '/sidekiq'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
