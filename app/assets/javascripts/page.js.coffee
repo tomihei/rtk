@@ -59,15 +59,24 @@ class Output
   else
     style = ""
   
+  if sessionStorage.getItem(message.client_id) is 'on'
+    ngstyle = "display:none;"
+  else
+    ngstyle = ""
+
+  hyou = "<button class='btn btn-default btn-xs nguser' data-cid='#{message.client_id}'>NG</button>"
+
 
   resnumAtime   = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
-                   <small> #{message.time}</small> #{newlabel}"
+                   <small> #{message.time}</small> #{newlabel} #{hyou}"
   resnumAtimer  = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span> 
-                   <small> #{message.time}</small> #{newlabel}"
+                   <small> #{message.time}</small> #{newlabel} #{hyou}"
   footerm       = "</span></div>
+                   <div class='m#{message.client_id}' style='#{ngstyle}'> 
                    <img id='thum#{resnum}' ><p class='word'>#{messagebody[0]} </p>
+                   </div>
                    <div id='childpm#{resnum}'></div>
                    <div id='form#{message.comment_id}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
@@ -90,7 +99,6 @@ class Output
                    </div>
                    "
   
-
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
@@ -183,7 +191,7 @@ class Output
        $(this).remove()
   #オートスクロール用
    rfocus = $.cookie('restextfocus')
-   autoscl = $.cookie('autoscl')
+   autoscl = sessionStorage.getItem('autoscl')
    console.log autoscl
    if rfocus isnt 'on' and autoscl is 'on'
     console.log "dfafsf"
@@ -300,10 +308,7 @@ class ChatClass
 # サーバーからnew_messageを受け取ったらreceiveMessageを実行
   @channel.bind 'websocket_chat', @receiveMessage
   @dispatcher.bind 'websocket_chat', @receiveMessage
-  @dispatcher.bind 'connection_closed', ->
-    @dispatcher.reconnect()
-  @dispatcher.bind 'client_disconnected', ->
-    @dispathcer.reconnect()
+
  sendMessage: (event) =>
 # サーバ側にsend_messageのイベントを送信
 # オブジェクトでデータを指定
@@ -398,10 +403,10 @@ class ChatClass
     last_update = now
   , INTERVAL
   
-  $.cookie("autoscl","off")
+  sessionStorage.setItem('autoscl','off')
   #ボタンの状態判断用
   gcid = $('#group_id').text()
-  bid = ['autopic','autoscl']
+  bid = ['autopic']
   bid.forEach (item) ->
    if(!$.cookie(item) or $.cookie("nowload") isnt gcid and item isnt "autopic")
     $.cookie(item,'off')
@@ -415,18 +420,18 @@ class ChatClass
   $('.navbar-btn').click ->
     $(this).button('toggle')
     cookid = $(this).attr('id')
-    if $.cookie(cookid) isnt 'on'
-     $.cookie(cookid,'on')
+    if sessionStorage.getItem('autoscl') isnt 'on'
+     sessionStorage.setItem('autoscl','on')
     else
-     $.cookie(cookid,'off')
+     sessionStorage.setItem('autoscl','off')
       
   
   $('.autoscl').click ->
-    if $.cookie('autoscl') is "on"
-      $.cookie('autoscl','off')
+    if sessionStorage.getTime('autoscl') is "on"
+      sessionStorage.setItem('autoscl','off')
       $(this).html("オート<br>スクロール<br>OFF")
     else
-      $.cookie('autoscl','on')
+      sessionStorage.setItem('autoscl','on')
       $(this).html("オート<br>スクロール<br>ON")
 
   topicEvents = new ChatClass($('#chat').data('uri'), true)
@@ -514,5 +519,14 @@ class ChatClass
           $("#send,.resend").text("送信")
           alert "画像のアップロードに失敗しました"
 
-
+  $("#chat").on 'click', '.nguser', ->
+    console.log "ad"
+    ngid = $(this).attr("data-cid")
+    console.log ngid
+    if($(".m#{ngid}").attr("style") is "display:none;")
+      $(".m#{ngid}").attr style: ""
+      sessionStorage.removeItem(ngid)
+    else
+      $(".m#{ngid}").attr style: "display:none;"
+      sessionStorage.setItem(ngid,'on')
 
