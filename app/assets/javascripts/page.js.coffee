@@ -390,7 +390,7 @@ class ChatClass
 
 
  $ ->
-  
+  #スマホスリープ明け再接続処理
   last_update = new Date()
   TIMEOUT = 2000
   INTERVAL = 2000
@@ -427,7 +427,7 @@ class ChatClass
       
   
   $('.autoscl').click ->
-    if sessionStorage.getTime('autoscl') is "on"
+    if sessionStorage.getItem('autoscl') is "on"
       sessionStorage.setItem('autoscl','off')
       $(this).html("オート<br>スクロール<br>OFF")
     else
@@ -487,7 +487,8 @@ class ChatClass
     content: ->
       $(this).attr('data-content')
   )
-
+  
+  #画像アップロード処理
   fr = new FileReader
   
   $("body").on 'click', 'input.image', ->
@@ -519,6 +520,8 @@ class ChatClass
           $("#send,.resend").text("送信")
           alert "画像のアップロードに失敗しました"
 
+
+  #NG処理        
   $("#chat").on 'click', '.nguser', ->
     console.log "ad"
     ngid = $(this).attr("data-cid")
