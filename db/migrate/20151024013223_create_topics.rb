@@ -1,7 +1,7 @@
 class CreateTopics < ActiveRecord::Migration
   def change
     create_table :topics do |t|
-      t.integer :key, :limit => 8
+      t.string :key, :limit => 17
       t.timestamps
       t.index :key
     end
