@@ -137,13 +137,14 @@ class Output
   
   #大きいサムネイル表示
   if message.imgurl isnt "" and message.imgurl?
-    $("img#thum#{resnum}").attr src: "#{message.imgurl}", class:"bigthum colgm"
+    $("img#thum#{resnum}").attr 'data-original',"#{message.imgurl}"
+    $("img#thum#{resnum}").attr class: "bigthum colgm"
     if $.cookie('autopic') is 'on'
       $('img.bigthum').lazyload()
     else
       $("img#thum#{resnum}").lazyload
         event : "over mouseover thouchstart"
-
+    
   vic = 0
 
   #gifv,webm以外のサムネイル
@@ -312,15 +313,22 @@ class ChatClass
  sendMessage: (event) =>
 # サーバ側にsend_messageのイベントを送信
 # オブジェクトでデータを指定
+  $("#send,.resend").attr disabled:"disabled"
+  $("#send,.resend").text("wait")
   msg_body = $('#msgbody').val()
   group_id = $('#group_id').text()
   imgurl = $('#imgurl').attr("value")
   $('#imgurl').removeAttr("value")
   @channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id, imgurl: imgurl}
   $('#msgbody').val('')
-
+  setTimeout ->
+    $("#send,.resend").removeAttr("disabled")
+    $("#send,.resend").text("送信")
+  ,3000
  resendMessage: (event) ->
   #クリックした要素を参照
+  $("#send,.resend").attr disabled:"disabled"
+  $("#send,.resend").text("wait")
   resid = $(this).attr('id')
   msg_body = $("#msgbody#{resid}").val()
   group_id = $('#group_id').text()
@@ -329,6 +337,11 @@ class ChatClass
   #ChatClassを参照  
   event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid , imgurl: imgurl}
   $("#msgbody#{resid}").val('')
+  
+  setTimeout ->
+    $("#send,.resend").removeAttr("disabled")
+    $("#send,.resend").text("送信")
+  , 3000
 
  receiveMessage: (message) =>
   #くらいあんとID 取得
@@ -420,11 +433,12 @@ class ChatClass
   $('.navbar-btn').click ->
     $(this).button('toggle')
     cookid = $(this).attr('id')
-    if sessionStorage.getItem('autoscl') isnt 'on'
+    if sessionStorage.getItem('autoscl') isnt 'on' or $.cookie(cookid) isnt 'on'
      sessionStorage.setItem('autoscl','on')
+     $.cookie(cookid,'on')
     else
      sessionStorage.setItem('autoscl','off')
-      
+     $.cookie(cookid,'off')
   
   $('.autoscl').click ->
     if sessionStorage.getItem('autoscl') is "on"
