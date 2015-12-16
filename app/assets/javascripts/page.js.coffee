@@ -155,7 +155,7 @@ class Output
     $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
                                             <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{resnum}' href='#{pmurl}'>
                                             <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
-                                            <span id='hide#{resnum}' style='display:none;'></span>
+                                            <span id='hide#{resnum}' style=''></span>
                                             </a>
                                             </div>
                                             "
@@ -186,6 +186,7 @@ class Output
             picurl = pic.attr("data-original")
             if hideurl isnt picurl
              stop()
+             hide.text("停止")
           , 8000
         load : (elements_left)->
           hide = $("span#hide#{resnum}")
