@@ -151,19 +151,50 @@ class Output
   $("a#g#{resnum}").each ->
     pmurl = $(this).attr('href')
     vic++
+    
     $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
                                             <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{resnum}' href='#{pmurl}'>
                                             <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
+                                            <span id='hide#{resnum}' style='display:none;'></span>
                                             </a>
                                             </div>
                                             "
     if $.cookie('autopic') is 'on'
-      $('img.lazy').lazyload()
+      $("img#lazy#{resnum}").lazyload
+         appear : ->
+          console.log "aoiaoi"
+          pic = $("img#lazy#{resnum}")
+          hide = $("span#hide#{resnum}")
+          setTimeout ->
+            hideurl = hide.text()
+            picurl = pic.attr("data-original")
+            if hideurl isnt picurl
+             stop()
+          , 8000
+        load : (elements_left)->
+          hide = $("span#hide#{resnum}")
+          if elements_left is 0
+            hide.text("#{pmurl}")
     else
       $("img#lazy#{resnum}").lazyload
+        appear : ->
+          console.log "aoiaoi"
+          pic = $("img#lazy#{resnum}")
+          hide = $("span#hide#{resnum}")
+          setTimeout ->
+            hideurl = hide.text()
+            picurl = pic.attr("data-original")
+            if hideurl isnt picurl
+             stop()
+          , 8000
+        load : (elements_left)->
+          hide = $("span#hide#{resnum}")
+          if elements_left is 0
+            hide.text("#{pmurl}")
         event : "over"
       $("#gm#{resnum}#{vic}").on 'mouseover touchstart', ->
         $("img#lazy#{resnum}").trigger("over")
+    
     #gifv,webmのサムネイル
   $("a#gw#{resnum}").each ->
     pmurl = $(this).attr('href')
@@ -182,9 +213,7 @@ class Output
                                             </a>
                                             </div>
                                             "
-
-
-  #Newラベル消去用
+   #Newラベル消去用
   if(newpost is "on")
    $("#newlabel#{resnum}").on 'inview', (event,isInView,visiblePartX,visiblePartY)->
      if(isInView == false)
@@ -207,6 +236,9 @@ class Output
       $("html,body").animate({scrollTop:sclba})
 
   return 0
+ #画像読み込みタイムアウト
+ price: () ->
+    console.log "hey" 
  #エスケープ処理
  mescape: (mbody,mnum) ->
     mbb =  mbody.replace(/&/g, "&amp;")
@@ -454,6 +486,7 @@ class ChatClass
     id = $(this).attr("id")
     console.log id
     topicEvents.reset(id)
+
 
   #res anker animetion 
   $('#chat').on 'click','a.resanker', ->
