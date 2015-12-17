@@ -77,7 +77,7 @@ class Output
                    <div class='m#{message.client_id}' style='#{ngstyle}'> 
                    <img id='thum#{resnum}' ><p class='word'>#{messagebody[0]} </p>
                    </div>
-                   <div id='childpm#{resnum}'></div>
+                   <div id='childpm#{resnum}' class='m#{message.client_id}' style='#{ngstyle}'></div>
                    <div id='form#{message.comment_id}' class='resform' style='display: none'>
                    <form class='form-horizontal'>
                    <div class='form-group'>
@@ -581,3 +581,7 @@ class ChatClass
       $(".m#{ngid}").attr style: "display:none;"
       sessionStorage.setItem(ngid,'on')
 
+  $("span#sclup").on 'click', ->
+      $('body,html').animate({scrollTop: 0}, 500)
+  $("span#scldown").on 'click', ->
+      $('body,html').animate({scrollTop:$(document).height()},500)

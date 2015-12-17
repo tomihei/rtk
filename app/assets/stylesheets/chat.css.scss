@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 html{
   
@@ -137,27 +139,57 @@ input[type="file"] {
   margin:0px;
 }
 
+.sclup{
+  font-size:7em;
+  position:fixed;
+  top:53%;
+  right:0%;
+  color:#212121;
+  opacity:0.1;
+  outline:none; 
+}
+
+
+.scldown{
+  font-size:7em;
+  position:fixed;
+  top:77%;
+  right:0%;
+  color:#212121;
+  opacity:0.1;
+  outline:none; 
+}
+
+
 
 .autoscl{
   font-size:0.7em;
   position:fixed;
-  top:65%;
-  right:5%;
-  width: 80px;
-  height: 80px;
+  top:67.8%;
+  right:0%;
+  width: 7em;
+  height: 7em;
   background: #EEE;
-  border: 1px solid #DDD;
-  border-radius: 40px;
-  color: #111;
-  opacity:0.2;
+  border-radius: 3.5em;
+  color: #fafafa;
+  opacity:0.1;
   outline:none;
-  background-color:#bce2e8;
- 
+  background-color:#212121;
 }
 
 .autoscl:hover{
   opacity:0.85;
-  
+  box-shadow:0px 5px 7px 0px rgba(0,0,0,0.333);
+}
 
+.sclup:hover{
+  opacity:0.85;
+  text-shadow:0px 5px 7px rgba(0,0,0,0.333);
+
+}
+
+.scldown:hover{
+  opacity:0.85;
+  text-shadow:0px 5px 7px rgba(0,0,0,0.333);
 
 }

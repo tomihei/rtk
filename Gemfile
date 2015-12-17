@@ -64,4 +64,5 @@ gem 'gon'
 gem 'resque'
 gem 'sidekiq'
 gem 'sinatra', require: false
+gem 'font-awesome-sass'
 
