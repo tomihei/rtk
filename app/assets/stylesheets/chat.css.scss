@@ -177,18 +177,18 @@ input[type="file"] {
   background-color:#212121;
 }
 
-.autoscl:hover{
+.autoscl:active{
   opacity:0.85;
   box-shadow:0px 5px 7px 0px rgba(0,0,0,0.333);
 }
 
-.sclup:hover{
+.sclup:active{
   opacity:0.85;
   text-shadow:0px 5px 7px rgba(0,0,0,0.333);
 
 }
 
-.scldown:hover{
+.scldown:active{
   opacity:0.85;
   text-shadow:0px 5px 7px rgba(0,0,0,0.333);
 
