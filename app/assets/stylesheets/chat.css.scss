@@ -30,6 +30,13 @@ p.word{
   font-size:2em;
 }
 
+.row3{
+
+  padding-right:0px;
+  padding-left:0px;
+
+}
+
 .mtb{
   margin-bottom:5px;
 }
@@ -45,6 +52,8 @@ p.word{
 .contarea{
   padding-left:2%;
   padding-right:2%;
+  padding-top:3px;
+  padding-bottom:3px;
 
 }
 
@@ -131,7 +140,7 @@ textarea{
 }
 
 input[type="file"] {
-
+  background-color:white;
   line-height:1.3333333;
   border-radius:6px;
   border-color:#cccccc; 
@@ -191,5 +200,17 @@ input[type="file"] {
 .scldown:active{
   opacity:0.85;
   text-shadow:0px 5px 7px rgba(0,0,0,0.333);
+
+}
+
+.blue{
+
+  background-color:#e3f2fd;
+
+}
+
+.green{
+
+  background-color:#f1f8e9;
 
 }

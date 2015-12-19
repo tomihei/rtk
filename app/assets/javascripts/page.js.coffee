@@ -42,12 +42,12 @@ class Output
     newlabel =""
   
   if myres is 1
-    myreslabel = "&nbsp;<span class='label label-primary'>あなた</span>"
+    myreslabel = "blue"
   else
     myreslabel = ""
 
   if resforme is 1
-    formelabel = "&nbsp;<span class='label label-success'>あなたへ</span>"
+    formelabel = "green"
   else
     formelabel = ""
 
@@ -67,10 +67,9 @@ class Output
   hyou = "<button class='btn btn-default btn-xs nguser' data-cid='#{message.client_id}'>NG</button>"
 
 
-  resnumAtime   = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
-                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
+  resnumAtime   = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>                   <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
                    <small> #{message.time}</small> #{newlabel} #{hyou}"
-  resnumAtimer  = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>#{myreslabel}#{formelabel}
+  resnumAtimer  = "<div class='head'><span><a name='ank#{message.comment_id}'>#{resnum}</a>
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span> 
                    <small> #{message.time}</small> #{newlabel} #{hyou}"
   footerm       = "</span></div>
@@ -102,25 +101,25 @@ class Output
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
-     $('#chat').append "<div id='#{message.comment_id}' class='contarea'>
+     $('#chat').append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
                         #{resnumAtime}
                         <a class='res' id='#{message.comment_id}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea'>
+     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
                                        #{resnumAtime}
                                        <a class='res' id='#{message.comment_id}'>返信</a>
                                        #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
   else
     if(message.resid? isnt true)
-      $('#chat').append "<div #{style} id='#{message.comment_id}' class='contarea'>
+      $('#chat').append "<div #{style} id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
                          #{resnumAtimer}
                          <a class='res' id='#{message.comment_id}'>返信</a>
                          #{footerm}"
     else
      anknum = $("a[name='ank#{message.resid}']").text()
-     $("#chat").append "<div #{style} id='#{message.comment_id}' class='contarea'>
+     $("#chat").append "<div #{style} id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
                         #{resnumAtimer}
                         <a class='res' id='#{message.comment_id}'>返信</a></span></div>
                         <div><span><a class='resanker' name='#{message.resid}'>>>#{anknum}</a>
