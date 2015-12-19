@@ -122,7 +122,7 @@ class Output
      $("#chat").append "<div #{style} id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
                         #{resnumAtimer}
                         <a class='res' id='#{message.comment_id}'>返信</a></span></div>
-                        <div><span><a class='resanker' name='#{message.resid}'>>>#{anknum}</a>
+                        <div class='m#{message.client_id}'><span><a class='resanker' name='#{message.resid}'>>>#{anknum}</a>
                         #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
 
@@ -437,8 +437,8 @@ class ChatClass
  $ ->
   #スマホスリープ明け再接続処理
   last_update = new Date()
-  TIMEOUT = 2000
-  INTERVAL = 2000
+  TIMEOUT = 60000
+  INTERVAL = 60000
 
   setInterval ->
     now = new Date()
@@ -536,17 +536,19 @@ class ChatClass
   )
   
   #画像アップロード処理
-  fr = new FileReader
   
   $("body").on 'click', 'input.image', ->
    $file = $(this)
    $input = $(this).prev()
    $file.on 'change', ->
-     $("#send,.resend").attr disabled:"disabled"
-     $("#send,.resend").text("wait")
      [file] = $file.get(0).files
-     fr.readAsBinaryString(file)
-     fr.onload = (event) =>
+     
+     if typeof file isnt"undefined"
+      fr = new FileReader
+      $("#send,.resend").attr disabled:"disabled"
+      $("#send,.resend").text("wait")
+      fr.readAsBinaryString(file)
+      fr.onload = (event) =>
        pic = window.btoa(event.target.result)
        $.ajax({
         url: "https://api.imgur.com/3/image",
