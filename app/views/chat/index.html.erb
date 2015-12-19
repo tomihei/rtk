@@ -2,17 +2,15 @@
 
   <div class="container">
   <div class="row">
-  <div class="col-xs-12 col-md-12 col-sm-12">
+  <div class="row3 col-xs-12 col-md-12 col-sm-12">
    <h1 id="headeri"><%= @title  %></h1>
-
-  </div>
-
   <ul class="nav nav-tabs grey">
   <li id="lnew" class="tnav active" role="presentation"><a >レス順</a></li>
   <li id="ltree" class="tnav" role="presentation"><a >ツリー</a></li>
   <li id="lrnum" class="tnav" role="presentation"><a >レス数</a></li>
   <li id="lforme"class="tnav" role="presentation"><a >返信</a></li>
   </ul>
+  </div>
   <div id="group_id" style="display:none;"><%= session[:group_id]%></div>
   <!-- jsに食わせたい情報などなど -->
   <!-- チャットのタイムラインとかテキストボックスとか -->

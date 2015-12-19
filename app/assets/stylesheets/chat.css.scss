@@ -30,12 +30,6 @@ p.word{
   font-size:2em;
 }
 
-.row3{
-
-  padding-right:0px;
-  padding-left:0px;
-
-}
 
 .mtb{
   margin-bottom:5px;
@@ -67,6 +61,8 @@ p.word{
 }
 
 img.lazy{
+ 
+  cursor:pointer;
   display: inline-block;
   background-position: center center;
   background-repeat: no-repeat;
@@ -77,6 +73,7 @@ img.lazy{
  }
 
 img.movie{
+  cursor:pointer;
   width:50px;
   height:50px;
   border:none;
@@ -114,6 +111,7 @@ button.navbtn{
 
 
 .bigthum{
+  cursor:pointer;
   display: inline-block;
   background-position: center center;
   background-repeat: no-repeat;
