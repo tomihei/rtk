@@ -44,7 +44,7 @@ class WebsocketChatController < WebsocketRails::BaseController
       newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S")
       message[:comment_id] = cid
       message[:time] = newtime
-      dig = request.remote_ip.to_i * Time.zone.now.strftime("%d").to_i
+      dig = request.env["HTTP_X_FORWARDED_FOR"].to_i * Time.zone.now.strftime("%d").to_i
       message[:client_id] =  Digest::SHA1.hexdigest(dig.to_s).to_i(16).to_s(36)
       DatawriteJob.perform_later(message)
     else
