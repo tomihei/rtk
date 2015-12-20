@@ -6,7 +6,7 @@
 @import "font-awesome";
 
 html{
-  
+
   font-size:16px;
 
 }
@@ -73,7 +73,7 @@ p.word{
 }
 
 img.lazy{
- 
+
   cursor:pointer;
   display: inline-block;
   background-position: center center;
@@ -140,54 +140,56 @@ button.navbtn{
 textarea{
 
   margin:0px;
-  
+
 }
 
 input[type="file"] {
   background-color:white;
   line-height:1.3333333;
   border-radius:6px;
-  border-color:#cccccc; 
+  border-color:#cccccc;
   font-size:19px;
   margin:0px;
 }
 
 .sclup{
-  font-size:7em;
+  font-size:5em;
   position:fixed;
-  top:53%;
-  right:10px;
+  bottom:155px;
+  right:40px;
   color:#212121;
   opacity:0.1;
-  outline:none; 
+  outline:none;
+  cursor: pointer;
 }
 
 
 .scldown{
-  font-size:7em;
+  font-size:5em;
   position:fixed;
-  top:77%;
-  right:10px;
+  bottom:10px;
+  right:40px;
   color:#212121;
   opacity:0.1;
-  outline:none; 
+  outline:none;
+  cursor: pointer;
 }
-
-
 
 .autoscl{
   font-size:0.7em;
   position:fixed;
-  top:67.8%;
-  right:10px;
+  bottom:85px;
+  right:28px;
   width: 7em;
   height: 7em;
   background: #EEE;
-  border-radius: 3.5em;
-  color: #fafafa;
+  border-radius:50%;
+  // color: #337AB7;
+  color:#fafafa;
   opacity:0.1;
   outline:none;
   background-color:#212121;
+  cursor: pointer;
 }
 
 .autoscl:active{

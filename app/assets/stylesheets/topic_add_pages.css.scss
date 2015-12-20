@@ -54,7 +54,7 @@ body{
 }
 
 .rowr{
-  
+
   padding-right:5px;
   padding-left:5px;
 }
@@ -104,14 +104,14 @@ img.image-preview{
 
 .user{
   padding-left:1em;
-  font-size:1em; 
+  font-size:1em;
   background-image:image-url("user.svg");
   background-repeat:no-repeat;
 }
 
 .comeimg{
   padding-left:1em;
-  font-size:1em; 
+  font-size:1em;
   background-image:image-url("comment.svg");
   background-repeat:no-repeat;
 }
@@ -133,6 +133,7 @@ img.image-preview{
   padding-left:15px;
 
 }
+<<<<<<< HEAD
 
 .rescof{
 
@@ -150,4 +151,8 @@ img.image-preview{
   
   background-color:#e57373;
 
+=======
+.tnav{
+  cursor: pointer;
+>>>>>>> 56d58171cb383e6f955bfc84159cb67c585bcd35
 }
