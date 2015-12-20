@@ -43,13 +43,13 @@ class Output
   
   if myres is 1
     myreslabel = "blue"
-  else
-    myreslabel = ""
-
-  if resforme is 1
-    formelabel = "green"
-  else
     formelabel = ""
+  else if resforme is 1
+    formelabel = "green"
+    myreslabel = ""
+  else
+    formelabel = "white"
+    myreslabel = ""
 
   if(akaresb is 'on' or onlyforme is 'on')
     style = "style='display:none;'"
@@ -74,7 +74,7 @@ class Output
                    <small> #{message.time}</small> #{newlabel} #{hyou}"
   footerm       = "</span></div>
                    <div class='m#{message.client_id}' style='#{ngstyle}'> 
-                   <img id='thum#{resnum}' ><p class='word'>#{messagebody[0]} </p>
+                   <img id='thum#{resnum}' style='display:none;' ><p class='word'>#{messagebody[0]} </p>
                    </div>
                    <div id='childpm#{resnum}' class='m#{message.client_id}' style='#{ngstyle}'></div>
                    <div id='form#{message.comment_id}' class='resform' style='display: none'>
@@ -136,6 +136,7 @@ class Output
   
   #大きいサムネイル表示
   if message.imgurl isnt "" and message.imgurl?
+    $("img#thum#{resnum}").attr style: ""
     $("img#thum#{resnum}").attr 'data-original',"#{message.imgurl}"
     $("img#thum#{resnum}").attr class: "bigthum colgm"
     if $.cookie('autopic') is 'on'
@@ -154,7 +155,7 @@ class Output
     $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
                                             <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{resnum}' href='#{pmurl}'>
                                             <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
-                                            <span id='hide#{resnum}' style=''></span>
+                                            <span id='hide#{resnum}' style='display:none;'></span>
                                             </a>
                                             </div>
                                             "
@@ -274,7 +275,7 @@ class Output
     rescount = 0
   hres = rescount + 1
   if(hres is 1)
-    incnum.attr 'class','badge'
+    incnum.attr 'class','badge rescof'
   else if(hres > 1 and hres < 3)
     incnum.attr 'class','badge rescouBlo'
     if onlyforme isnt 'on'
