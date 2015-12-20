@@ -48,15 +48,9 @@ class Output
     formelabel = "green"
     myreslabel = ""
   else
-<<<<<<< HEAD
     formelabel = ""
     myreslabel = "white"
   
-
-=======
-    formelabel = "white"
-    myreslabel = ""
->>>>>>> cd6368b7822caaf79e0887afd62df10f5514f027
 
   if(akaresb is 'on' or onlyforme is 'on')
     style = "style='display:none;'"
@@ -149,11 +143,7 @@ class Output
   
   #大きいサムネイル表示
   if message.imgurl isnt "" and message.imgurl?
-<<<<<<< HEAD
-    $("img#thum#{resnum}").attr style:""
-=======
     $("img#thum#{resnum}").attr style: ""
->>>>>>> cd6368b7822caaf79e0887afd62df10f5514f027
     $("img#thum#{resnum}").attr 'data-original',"#{message.imgurl}"
     $("img#thum#{resnum}").attr class: "bigthum colgm"
     if $.cookie('autopic') is 'on'
