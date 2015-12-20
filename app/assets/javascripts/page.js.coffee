@@ -246,7 +246,6 @@ class Output
   return 0
  #画像読み込みタイムアウト
  price: () ->
-    console.log "hey" 
  #エスケープ処理
  mescape: (mbody,mnum) ->
     mbb =  mbody.replace(/&/g, "&amp;")

@@ -25,6 +25,11 @@ module WebsocketTest
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.precompile += %w( page.js )
+    config.assets.precompile += %w( topiclist.js )
+    config.assets.precompile += %w( websocket_rails/main.js )
+    config.assets.precompile += %w( topic_add_pages.js )
+    config.assets.precompile += %w( chat.js )
 
     config.active_job.queue_adapter = :sidekiq
   end
