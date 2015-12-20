@@ -50,8 +50,7 @@ class Output
   else
     formelabel = ""
     myreslabel = "white"
-  
-
+   
   if(akaresb is 'on' or onlyforme is 'on')
     style = "style='display:none;'"
     if resforme is 1 and akaresb isnt 'on'
@@ -275,7 +274,6 @@ class Output
  resinc: (incnum,mbody,mnum,mtime,resid,onlyforme) ->
   
   #rescount
-  
   rescount = parseInt(incnum.text(),0)
   if(isNaN(rescount))
     rescount = 0
@@ -376,7 +374,7 @@ class ChatClass
   #ChatClassを参照  
   event.data.test.channel.trigger 'websocket_chat', {  body: msg_body , group_id: group_id , resid: resid , imgurl: imgurl}
   $("#msgbody#{resid}").val('')
-  $("div##{resid}").toggle(250)
+  $("div#form#{resid}").toggle(250)
   setTimeout ->
     $("#send,.resend").removeAttr("disabled")
     $("#send,.resend").text("送信")
