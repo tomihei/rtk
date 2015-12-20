@@ -56,9 +56,15 @@ p.word{
   padding-right:12px;
   padding-top:7px;
   padding-bottom:7px;
+<<<<<<< HEAD
   border-right:solid 1px #dddddd;
   border-left:solid 1px #dddddd;
   border-bottom:solid 1px #dddddd;
+=======
+  border-left: solid 1px #dddddd;
+  border-right: solid 1px #dddddd;
+  border-bottom: solid 1px #dddddd;
+>>>>>>> cd6368b7822caaf79e0887afd62df10f5514f027
 }
 
 
@@ -223,6 +229,7 @@ input[type="file"] {
 
 .white{
 
+<<<<<<< HEAD
   background-color:#000000;
 
 }
@@ -236,5 +243,14 @@ input[type="file"] {
 .rescouRed{
   
   background-color:#ffebee;
+=======
+  background-color:#FFFFFF;
+
+}
+
+.rescof{
+
+  background-color:#ffcdd2;
+>>>>>>> cd6368b7822caaf79e0887afd62df10f5514f027
 
 }
