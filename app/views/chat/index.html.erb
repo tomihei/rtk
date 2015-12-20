@@ -1,46 +1,46 @@
  
 
-  <div class="container">
+<div class="container">
   <div class="row">
-  <div class="row3 col-xs-12 col-md-12 col-sm-12">
-   <h1 id="headeri"><%= @title  %></h1>
-  <ul class="nav nav-tabs grey">
-  <li id="lnew" class="tnav active" role="presentation"><a >レス順</a></li>
-  <li id="ltree" class="tnav" role="presentation"><a >ツリー</a></li>
-  <li id="lrnum" class="tnav" role="presentation"><a >レス数</a></li>
-  <li id="lforme"class="tnav" role="presentation"><a >返信</a></li>
-  </ul>
-  </div>
-  <div id="group_id" style="display:none;"><%= session[:group_id]%></div>
-  <!-- jsに食わせたい情報などなど -->
-  <!-- チャットのタイムラインとかテキストボックスとか -->
-  <div class="row3 col-xs-12 col-md-12 col-sm-12">
-  <div id="chat" style="" data-uri="<%= request.host%>/websocket"></div>
- 
+    <div class="row3 col-xs-12 col-md-12 col-sm-12">
+      <h1 id="headeri"><%= @title  %></h1>
+      <ul class="nav nav-tabs grey">
+        <li id="lnew" class="tnav active" role="presentation"><a >レス順</a></li>
+        <li id="ltree" class="tnav" role="presentation"><a >ツリー</a></li>
+        <li id="lrnum" class="tnav" role="presentation"><a >レス数</a></li>
+        <li id="lforme"class="tnav" role="presentation"><a >返信</a></li>
+      </ul>
+    </div>
+    <div id="group_id" style="display:none;"><%= session[:group_id]%></div>
+    <!-- jsに食わせたい情報などなど -->
+    <!-- チャットのタイムラインとかテキストボックスとか -->
+    <div class="row3 col-xs-12 col-md-12 col-sm-12">
+      <div id="chat" style="" data-uri="<%= request.host%>:3000/websocket"></div>
 
-  </div>
 
-  <hr>
-  <div class="tmar col-md-12 col-xs-12 col-sm-12">
-    <form class="form-horizontal">
-      <div class="form-group">
+    </div>
+
+    <hr>
+    <div class="tmar col-md-12 col-xs-12 col-sm-12">
+      <form class="form-horizontal">
+        <div class="form-group">
           <div class="col-sm-12 col-md-12 col-xs-12">
-          <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control'></textarea>
+            <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control'></textarea>
           </div>
           <div class="padr col-sm-9 col-md-9 col-xs-8">
-           <input type="text" id="imgurl" style="display:none;">
-           <input type="file" class="image" id="main">
+            <input type="text" id="imgurl" style="display:none;">
+            <input type="file" class="image" id="main">
           </div>
           <div class="padl col-md-3 col-sm-3 col-xs-4">
-           <button type="button" class="btn btn-default btn-block btn-lg" id="send">送信</button>
+            <button type="button" class="btn btn-default btn-block btn-lg" id="send">送信</button>
           </div>
-      </div>
-      
-    </form>
+        </div>
+
+      </form>
+    </div>
+    <button class="autoscl">オート<br>スクロール<br>OFF</button>
+    <span class="fa fa-angle-double-up sclup" id="sclup"></span>
+    <span class="fa fa-angle-double-down scldown" id="scldown"></span>
   </div>
-  <button class="autoscl">オート<br>スクロール<br>OFF</button>
-  <span class="fa fa-angle-double-up sclup" id="sclup"></span>
-  <span class="fa fa-angle-double-down scldown" id="scldown"></span>
-  </div>
-  </div>
+</div>
 

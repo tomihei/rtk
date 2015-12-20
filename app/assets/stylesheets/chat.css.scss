@@ -13,6 +13,7 @@ html{
 
 body{
   padding-top: 60px;
+  background-color:#e3f3fd;
 }
 
 a{
@@ -35,6 +36,13 @@ p.word{
   margin-bottom:5px;
 }
 
+.anker{
+  font-size:18px;
+  display:inline-block;
+
+
+}
+
 .tpad{
   padding-top:1em;
 }
@@ -46,9 +54,13 @@ p.word{
 .contarea{
   padding-left:12px;
   padding-right:12px;
-  padding-top:6px;
-  padding-bottom:0.01em;
+  padding-top:7px;
+  padding-bottom:7px;
+  border-right:solid 1px #dddddd;
+  border-left:solid 1px #dddddd;
+  border-bottom:solid 1px #dddddd;
 }
+
 
 .contchild{
   border-left:1px dashed #778899;
@@ -204,5 +216,23 @@ input[type="file"] {
 .green{
 
   background-color:#f1f8e9;
+
+}
+
+.white{
+
+  background-color:#FFFFFF;
+
+}
+
+.rescouBlo{
+
+  background-color:#fce4ec;
+
+}
+
+.rescouRed{
+  
+  background-color:#ffebee;
 
 }

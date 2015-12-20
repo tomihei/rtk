@@ -24,7 +24,8 @@ class WebsocketChatController < WebsocketRails::BaseController
 
     logger.debug("connected user")
     msg = {}
-    dig = request.remote_ip.to_i * Time.zone.now.strftime("%d").to_i
+    ipac = IPAddr.new("#{request.remote_ip}")
+    dig = ipac.to_i * Time.zone.now.strftime("%d").to_i
     @client_ip = Digest::SHA1.hexdigest(dig.to_s).to_i(16).to_s(36)
     msg["first_id"] = @client_ip 
     send_message :websocket_chat,msg  
