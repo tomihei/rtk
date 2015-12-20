@@ -320,6 +320,3 @@ DEPENDENCIES
   uglifier
   websocket-rails!
   will_paginate
-
-BUNDLED WITH
-   1.10.4
