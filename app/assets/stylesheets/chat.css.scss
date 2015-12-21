@@ -52,21 +52,26 @@ p.word{
 }
 
 .contarea{
-  padding-left:12px;
-  padding-right:12px;
-  padding-top:7px;
-  padding-bottom:7px;
+  z-index:0;
+  position:relative;
+  padding-left:1em;
+  padding-right:1em;
+  padding-top:1em;
+  padding-bottom:1em;
   margin-top:8px;
-  border-radius:5px;
-  border-top:solid 1px #dddddd;
-  border-right:solid 1px #dddddd;
-  border-left:solid 1px #dddddd;
-  border-bottom:solid 1px #dddddd;
+  box-shadow:0px 5px 7px 0px rgba(0,0,0,0.333);
 }
 
+.contarea:hover{
+  position:relative;
+  z-index:1;
+  box-shadow:0px 8px 10px 3px rgba(0,0,0,0.333);
+
+}
 
 .contchild{
-  border-left:1px dashed #778899;
+  border-left:1px dashed #777777;
+  padding-left:3px;
   margin-left:3%;
 }
 
@@ -100,6 +105,12 @@ img.movie{
 }
 //navbar設定
 
+.navbar-inverse{
+
+  background-color:#FFFFFF;
+
+}
+
 .navbar-collapse{
 
   text-align:center;
@@ -108,8 +119,8 @@ img.movie{
 
 button.navbtn{
   width:95%;
-  background:#222;
-  color:#e6e6e6;
+  background:#FFFFFF;
+  color:#777777;
 }
 
 
