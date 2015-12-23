@@ -2,12 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 ">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RTK</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= Gon::Base.render_data  %>
     <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag "topiclist"  %>
+    <%= javascript_include_tag 'websocket_rails/main'%>
+    <%= javascript_include_tag 'page'%>
     <%= csrf_meta_tags %>
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -25,16 +26,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#">
-          <%= image_tag("RTKmini.png", :class => "rtkRogo") %>
+          <a class="navbar-brand" href="#">
+            RTK 
           </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar123">
           <ul class="nav navbar-nav">
             <li><a href="/topiclist">一覧</a></li>
             <li><a href="/addtopic">トピック作成</a></li>
-        </div> 
-      </div>
+
+            <li><button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button></li>
+            <li><button type="button" id="autoscl" class="btn btn-default navbar-btn navbtn" autocomplate="off">オートスクロール</button></li>
+          </ul>
+        </div>
       </div>
     </nav>
     <%= yield %>
