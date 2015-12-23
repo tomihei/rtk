@@ -2,6 +2,9 @@ class ChatController < ApplicationController
   
   before_action :detect_devise_variant
 
+  layout :detect_devise
+
+
   def index
     gid = params[:id]
     if Topic.exists?(:key => "#{gid}")
@@ -30,10 +33,24 @@ class ChatController < ApplicationController
     def detect_devise_variant
       
       case request.user_agent
-        when 'mobile'
+        when /iPhone/ 
           request.variant = :mobile
-
+        when /Android/
+          request.variant = :mobile
       end
 
     end
+
+    
+    def detect_devise
+      
+      case request.user_agent
+        when /iPhone/ 
+          return "mobile"
+        when /Android/
+          return "mobile"
+      end
+
+    end
+
 end
