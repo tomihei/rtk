@@ -591,3 +591,16 @@ class ChatClass
       $('body,html').animate({scrollTop: 0}, 500)
   $("span#scldown").on 'click', ->
       $('body,html').animate({scrollTop:$(document).height()},500)
+
+  #隠しform処理
+  $("li#hform").on 'click', ->
+    $("div.form-m").animate
+      bottom:'0px'
+    ,500, ->
+      $("#send").click ->
+        $("div.form-m").animate
+          bottom:'-300px'
+        ,500
+    
+    
+    

@@ -12,9 +12,17 @@ html{
 }
 
 body{
-  padding-top: 60px;
+  padding-top: 0px;
   background-color:#FFFFFF;
-  padding-bottom:2.5em;
+  padding-bottom:55px;
+}
+//スマホの場合ヘッダー固定
+@media only screen and (min-width:768px){
+
+  body{
+    padding-top:60px;
+    background-color:#FAFAFA;
+  }
 }
 
 a{
@@ -55,18 +63,18 @@ p.word{
 .contarea{
   z-index:0;
   position:relative;
-  padding-left:0.8em;
-  padding-right:0.8em;
-  padding-top:0.8em;
-  padding-bottom:0.8em;
-  margin-top:8px;
-  box-shadow:0px 1px 4px 0px rgba(0,0,0,0.333);
+  padding-left:0.5em;
+  padding-right:0.5em;
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  margin-top:0.3em;
+  box-shadow:0px 1px 2px 0px rgba(0,0,0,0.333);
 }
 
 .contarea:hover{
   position:relative;
   z-index:1;
-  box-shadow:0px 4px 6px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 3px 4px 0px rgba(0,0,0,0.333);
 
 }
 
@@ -277,16 +285,62 @@ input[type="file"] {
   width:100%;
   position:fixed;
   bottom:0px;
-  height:2.5em;
-  background-color:#ffffff;
+  height:40px;
+  background-color:#FAFAFA;
   box-shadow:0px -1px 3px 0px rgba(0,0,0,0.333);
 }
 
+ul.footer-bottun{
+  margin:0;
+  padding:0;
+  width:100%;
+  text-align:center;
+}
+
+ul.footer-bottun li{
+ margin-top:2.5px;
+ display:inline-block; 
+}
+
+ul.footer-bottun li:hover{
+  background-color:#EEEEEE;
+  border-radius:4px;
+  color:#337ab7;
+}
+
+ul.footer-bottun li span.fa{
+  margin:0.3em;
+  font-size:1.4em;
+}
+ul.footer-bottun li span.fli{
+  font-size:1.2em;
+  margin-right:0.3em;
+}
+//隠しFORM
+
+div.form-m{
+  padding-top:15px;
+  position:fixed;
+  bottom:-300px;
+  z-index:6;
+  background-color:#e3f2fd;
+  box-shadow:0px -2px 1px 1px rgba(0,0,0,0.333);
+}
+
+
 // takumi
 .rtkRogo{
-  height:40px;
-  margin-top: 5px;
-  margin-left: 15px;
+  height:35px;
+  margin-top: 7px;
+  margin-left:7px;
+}
+
+@media only screen and (min-width:768px){
+
+  .rtkRogo{
+    margin-left:0px;
+  }
+
 }
 
 .buttonIcon{
