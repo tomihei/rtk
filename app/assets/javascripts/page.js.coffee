@@ -477,14 +477,7 @@ class ChatClass
      sessionStorage.setItem('autoscl','off')
      $.cookie(cookid,'off')
   
-  $('.autoscl').click ->
-    if sessionStorage.getItem('autoscl') is "on"
-      sessionStorage.setItem('autoscl','off')
-      $(this).html("オート<br>スクロール<br>OFF")
-    else
-      sessionStorage.setItem('autoscl','on')
-      $(this).html("オート<br>スクロール<br>ON")
-
+ 
   topicEvents = new ChatClass($('#chat').data('uri'), true)
 
   $('.tnav').on 'click', ->
@@ -592,7 +585,35 @@ class ChatClass
   $("span#scldown").on 'click', ->
       $('body,html').animate({scrollTop:$(document).height()},500)
 
-  #隠しform処理
+
+
+  ################フッター処理####################################
+  
+  #footerタッチ処理
+  
+  $("li.fbtn")
+    .on 'touchstart', ->
+      $(this).attr class:"fbtn footer-touch"
+    .on 'touchend', ->
+      $(this).attr class:"fbtn"
+
+  #TOPボタン処理
+
+  $("li#goTop").on 'click', ->
+    $('body,html').animate({scrollTop: 0}, 500)
+  #オートスクロールボタン処理
+  $('li#onAutoscl,.autoscl').click ->
+    if sessionStorage.getItem('autoscl') is "on"
+      sessionStorage.setItem('autoscl','off')
+      $('li#onAutoscl').attr class:""
+    else
+      sessionStorage.setItem('autoscl','on')
+      $("li#onAutoscl").attr class:"btnactive"
+
+
+
+  #bottomに表示領域の一番下を指定するように
+  #投稿form処理
   $("li#hform").on 'click', ->
     $("div.form-m").animate
       bottom:'0px'
@@ -601,6 +622,10 @@ class ChatClass
         $("div.form-m").animate
           bottom:'-300px'
         ,500
-    
+  
+  $("span.closebutton").on 'click', ->
+    $("div.form-m").animate
+      bottom:'-300px'
+      ,500
     
     

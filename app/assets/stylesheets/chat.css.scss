@@ -11,19 +11,6 @@ html{
 
 }
 
-body{
-  padding-top: 0px;
-  background-color:#FFFFFF;
-  padding-bottom:55px;
-}
-//スマホの場合ヘッダー固定
-@media only screen and (min-width:768px){
-
-  body{
-    padding-top:60px;
-    background-color:#FAFAFA;
-  }
-}
 
 a{
   word-wrap: break-word;
@@ -287,46 +274,72 @@ input[type="file"] {
   bottom:0px;
   height:40px;
   background-color:#FAFAFA;
-  box-shadow:0px -1px 3px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 4px 7px 3px rgba(0,0,0,0.333);
 }
 
-ul.footer-bottun{
+ul.footer-button{
   margin:0;
   padding:0;
   width:100%;
   text-align:center;
 }
 
-ul.footer-bottun li{
- margin-top:2.5px;
- display:inline-block; 
+ul.footer-button li{
+  margin:3px;
+  line-height:34px;
+  display:inline-block; 
 }
 
-ul.footer-bottun li:hover{
+ul.footer-button li span.fa{
+  margin:0.3em;
+  font-size:1.4em;
+}
+ul.footer-button li span.fli{
+  font-size:1.2em;
+  margin-right:0.3em;
+}
+
+.footer-touch{
   background-color:#EEEEEE;
   border-radius:4px;
   color:#337ab7;
 }
 
-ul.footer-bottun li span.fa{
-  margin:0.3em;
-  font-size:1.4em;
+.btnactive{
+  color:#303f9f;
+
+
 }
-ul.footer-bottun li span.fli{
-  font-size:1.2em;
-  margin-right:0.3em;
-}
+
 //隠しFORM
 
 div.form-m{
-  padding-top:15px;
+  margin:5px;
+  padding-left:0.5em;
+  padding-right:0.5em;
   position:fixed;
   bottom:-300px;
   z-index:6;
   background-color:#e3f2fd;
-  box-shadow:0px -2px 1px 1px rgba(0,0,0,0.333);
+  box-shadow:0px 5px 15px 2px rgba(0,0,0,0.333);
 }
 
+div.closebox{
+  width:100%;
+}
+span.closebutton{
+  font-size:1.5em;
+  display:inline-block;
+  float:right;
+  margin:7px;
+  color:#315fb5;
+  text-shadow:0px 2px 3px rgba(0,0,0,0.333);
+}
+
+span.closebutton:hover{
+  color:#303f9f;
+  text-shadow:0px 6px 9px rgba(0,0,0,0.333);
+}
 
 // takumi
 .rtkRogo{
