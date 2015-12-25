@@ -614,16 +614,24 @@ class ChatClass
 
   #bottomに表示領域の一番下を指定するように
   #投稿form処理
+  formp = $("div#chat")
+
   $("li#hform").on 'click', ->
     $("div.form-m").animate
       bottom:'0px'
     ,500, ->
+      formp.attr class: "body-pad"
+      $("div.footer-cont").attr style: "display:none;"
       $("#send").click ->
+        $("div.footer-cont").attr style: ""
+        formp.attr class: ""
         $("div.form-m").animate
           bottom:'-300px'
         ,500
   
   $("span.closebutton").on 'click', ->
+    $("div.footer-cont").attr style: ""
+    formp.attr class:""
     $("div.form-m").animate
       bottom:'-300px'
       ,500
