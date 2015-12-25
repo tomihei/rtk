@@ -16,46 +16,50 @@
     <!-- チャットのタイムラインとかテキストボックスとか -->
     <div class="row3 col-xs-12 col-md-12 col-sm-12">
       <div id="chat" style="" data-uri="<%= request.host%>/websocket"></div>
+
+
     </div>
 
-      <div class="form-m">
-        <div class="closebox">
-          <span class="closebutton fa fa-times"></span>
-        </div>  
-        <form class="form-horizontal">
-          <div class="form-group">
-            <div class="col-sm-12 col-md-12 col-xs-12">
-              <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control'></textarea>
-            </div>
-            <div class="padr col-sm-9 col-md-9 col-xs-8">
-              <input type="text" id="imgurl" style="display:none;">
-              <input type="file" class="image" id="main">
-            </div>
-            <div class="padl col-md-3 col-sm-3 col-xs-4">
-              <button type="button" class="btn btn-default btn-block btn-lg" id="send">送信</button>
-            </div>
+    <hr>
+
+    <div class="form-m">
+      <div class="closebox">
+        <span class="closebutton fa fa-times"></span>
+      </div>  
+       <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-12 col-md-12 col-xs-12">
+            <textarea  placeholder ="ここへ入力" wrap="hard" rows="5" id="msgbody" class='form-control'></textarea>
           </div>
+          <div class="padr col-sm-9 col-md-9 col-xs-8">
+            <input type="text" id="imgurl" style="display:none;">
+            <input type="file" class="image" id="main">
+          </div>
+          <div class="padl col-md-3 col-sm-3 col-xs-4">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="send">送信</button>
+          </div>
+        </div>
 
 
-        </form>
-      </div>
-
-    <div class="footer-cont">
-      <ul class="footer-button">
-        <li id="onAutoscl" class="fbtn">
-          <span class="fa fa-coffee">
-          </span><span class="fli">auto</span>
-        </li>
-        <li id="goTop" class="fbtn" >
-          <span class="fa fa-arrow-up"></span>
-          <span class="fli" >TOPへ</span>
-        </li>
-        <li id="hform" class="fbtn">
-          <span class="fa fa-pencil-square-o"></span>
-          <span class="fli">書き込み</span>
-        </li>
-      </ul>
+      </form>
     </div>
+
+  <div class="footer-cont">
+    <ul class="footer-button">
+      <li id="onAutoscl" class="fbtn">
+        <span class="fa fa-coffee">
+        </span><span class="fli">auto</span>
+      </li>
+      <li id="goTop" class="fbtn" >
+        <span class="fa fa-arrow-up"></span>
+        <span class="fli" >TOPへ</span>
+      </li>
+      <li id="hform" class="fbtn">
+        <span class="fa fa-pencil-square-o"></span>
+        <span class="fli">書き込み</span>
+      </li>
+    </ul>
   </div>
+    </div>
 </div>
 

@@ -48,9 +48,15 @@ p.word{
 }
 
 div#chat{
-  
-  background-color:#FAFAFA;
+  background-color:#f5f5f5;
+}
 
+@media only screen and (min-width:768px){
+  div#chat{
+
+    background-color:none;
+
+  }
 }
 
 .contarea{
@@ -60,8 +66,8 @@ div#chat{
   padding-right:0.5em;
   padding-top:0.5em;
   padding-bottom:0.5em;
-  margin-top:0.3em;
-  box-shadow:0px 1px 2px 1px rgba(0,0,0,0.333);
+  margin-top:6px;
+  box-shadow:0px 1px 2px 0px rgba(0,0,0,0.333);
 }
 
 .contarea:hover{
@@ -179,63 +185,6 @@ input[type="file"] {
   border-color:#cccccc;
   font-size:19px;
   margin:0px;
-}
-
-.sclup{
-  font-size:5em;
-  position:fixed;
-  bottom:155px;
-  right:40px;
-  color:#212121;
-  opacity:0.1;
-  outline:none;
-  cursor: pointer;
-}
-
-
-.scldown{
-  font-size:5em;
-  position:fixed;
-  bottom:10px;
-  right:40px;
-  color:#212121;
-  opacity:0.1;
-  outline:none;
-  cursor: pointer;
-}
-
-.autoscl{
-  font-size:0.7em;
-  position:fixed;
-  bottom:85px;
-  right:28px;
-  width: 7em;
-  height: 7em;
-  background: #EEE;
-  border-radius:50%;
-  // color: #337AB7;
-  color:#fafafa;
-  opacity:0.1;
-  outline:none;
-  background-color:#212121;
-  cursor: pointer;
-}
-
-.autoscl:active{
-  opacity:0.85;
-  box-shadow:0px 5px 7px 0px rgba(0,0,0,0.333);
-}
-
-.sclup:active{
-  opacity:0.85;
-  text-shadow:0px 5px 7px rgba(0,0,0,0.333);
-
-}
-
-.scldown:active{
-  opacity:0.85;
-  text-shadow:0px 5px 7px rgba(0,0,0,0.333);
-
 }
 
 .blue{
