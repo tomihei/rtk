@@ -83,10 +83,10 @@ class Output
                    <img id='thum#{resnum}' style='display:none;' ><p class='word'>#{messagebody[0]} </p>
                    </div>
                    <div id='childpm#{resnum}' class='m#{message.client_id}' style='#{ngstyle}'></div>
-                        <div id='child#{message.comment_id}' class='contchild'></div>
+                   <div id='child#{message.comment_id}' class='contchild'></div>
                    </div>
                    "
-  
+
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
@@ -632,5 +632,13 @@ class ChatClass
         $("div.reform-m").animate
           bottom:'-300'
         ,500
-
+  
+  #オートスクロールオン
+  $("#chat").on 'inview','div.contarea:last', (event,isInView)->
+    if isInView
+      sessionStorage.setItem('autoscl','on')
+      $("li#onAutoscl").attr class:"btnactive"
+    else
+      sessionStorage.setItem('autoscl','off')
+      $('li#onAutoscl').attr class:""
 
