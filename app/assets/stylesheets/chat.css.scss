@@ -251,6 +251,36 @@ ul.footer-button li span.fli{
 
 }
 
+.autotag{
+  border:0;
+  cursor:pointer;
+  width:50px;
+  height:50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: image-url("auto.png");
+}
+
+.onautotag{
+  border:0;
+  cursor:pointer;
+  width:50px;
+  height:50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: image-url("autoTap.png");
+}
+
+.toptag{
+  border:0;
+  cursor:pointer;
+  width:50px;
+  height:50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: image-url("top.png");
+
+}
 //隠しFORM
 
 div.form-m{
