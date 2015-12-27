@@ -18,12 +18,7 @@ class WebsocketChatController < WebsocketRails::BaseController
 
     gid = session[:group_id] 
       WebsocketRails["#{gid}"].filter_with(WebsocketChatController, :new_message)
-    #IDをセッションに保存
-    if session[:wow].blank?
-      ipa = IPAddr.new("#{request.remote_ip}")
-      dig = ipa.to_i * Time.zone.now.strftime("%d").to_i
-      session[:wow] = Digest::SHA1.hexdigest(dig.to_s).to_i(16).to_s(36)
-    end
+    
     #入室数あげ
     controller_store[:topic].hincrby(gid,"visitor", 1)
 
@@ -51,7 +46,9 @@ class WebsocketChatController < WebsocketRails::BaseController
       newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S")
       message[:comment_id] = cid
       message[:time] = newtime
-      message[:client_id] = session[:wow]
+      ipa = IPAddr.new("#{request.remote_ip}")
+      dig = ipa.to_i * Time.zone.now.strftime("%d").to_i
+      message[:client_id] =  Digest::SHA1.hexdigest(dig.to_s).to_i(16).to_s(36)
       DatawriteJob.perform_later(message)
     else
       stop_event_propagation!
