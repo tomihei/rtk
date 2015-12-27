@@ -38,12 +38,15 @@ class TopicAddPagesController < ApplicationController
    @list = {}
    @listary = []
    num = 0
-   allkey.each do |topic|
-    #トピックデータ取り出し配列形式
-    @list["#{topic[:key]}"] = $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime","imgurl")
-    @listary[num] = @list["#{topic[:key]}"]
-    @listary[num].push("#{topic[:key]}")
-    num = num + 1
+   @listary = $redistopic.pipelined do
+     allkey.each do |topic|
+       #トピックデータ取り出し配列形式
+       $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime","imgurl")
+     end
+   end
+   allkey.each do |topicinfo|
+     @listary[num].push("#{topicinfo[:key]}")
+     num = num + 1
    end
    gon.list = @listary
   end

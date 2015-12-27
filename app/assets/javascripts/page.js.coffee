@@ -83,27 +83,10 @@ class Output
                    <img id='thum#{resnum}' style='display:none;' ><p class='word'>#{messagebody[0]} </p>
                    </div>
                    <div id='childpm#{resnum}' class='m#{message.client_id}' style='#{ngstyle}'></div>
-                   <div id='form#{message.comment_id}' class='resform' style='display: none'>
-                   <form class='form-horizontal'>
-                   <div class='form-group'>
-                   <div class='col-sm-12 col-md-12 col-xs-12'>
-                   <textarea  placeholder ='ここへ入力' wrap='hard' rows='5' id='msgbody#{message.comment_id}' class='restext form-control' ></textarea>
-                   </div>
-                   <div class='padr col-sm-9 col-md-9 col-xs-7'>
-                   <input type='text' id='imgurl#{message.comment_id}' style='display:none;'>
-                   <input type='file' class='image'>
-                   </div>
-                   <div class='padl col-sm-3 col-md-3 col-xs-5'>
-                   <button type='button' class='btn btn-default btn-lg btn-block resend' id='#{message.comment_id}' >送信</button>
-                   </div>
-                   </div>
-                   </div>
-                   </form>
-                   </div>
                    <div id='child#{message.comment_id}' class='contchild'></div>
                    </div>
                    "
-  
+
 
   if(tbutton isnt 'off' )
     if(message.resid? isnt true)
@@ -112,7 +95,7 @@ class Output
                         <a class='res' id='#{message.comment_id}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
+     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel} rescont'>
                                        #{resnumAtime}
                                        <a class='res' id='#{message.comment_id}'>返信</a>
                                        #{footerm}"
@@ -341,7 +324,7 @@ class ChatClass
  bindEvents: (idy) =>
 # 送信ボタンが押されたらサーバへメッセージを送信
   $('#send').on 'click', @sendMessage
-  $('#chat').on 'click','button.resend',{test:idy}, @resendMessage
+  $('button.resend').on 'click',{test:idy}, @resendMessage
 
 # サーバーからnew_messageを受け取ったらreceiveMessageを実行
   @channel.bind 'websocket_chat', @receiveMessage
@@ -477,14 +460,7 @@ class ChatClass
      sessionStorage.setItem('autoscl','off')
      $.cookie(cookid,'off')
   
-  $('.autoscl').click ->
-    if sessionStorage.getItem('autoscl') is "on"
-      sessionStorage.setItem('autoscl','off')
-      $(this).html("オート<br>スクロール<br>OFF")
-    else
-      sessionStorage.setItem('autoscl','on')
-      $(this).html("オート<br>スクロール<br>ON")
-
+ 
   topicEvents = new ChatClass($('#chat').data('uri'), true)
 
   $('.tnav').on 'click', ->
@@ -501,10 +477,6 @@ class ChatClass
     $("html,body").animate({scrollTop:sclbaa})
 
 #返信フォーム用
-  $('#chat').on 'click','a.res', ->
-    resid = $(this).attr('id')
-    $("div#form#{resid}").toggle(250)
-    $("#msgbody#{resid}").focus()
   #if textarea focus autoscl off
   $('body')
    .on 'focus scroll touchstart', ->
@@ -591,3 +563,82 @@ class ChatClass
       $('body,html').animate({scrollTop: 0}, 500)
   $("span#scldown").on 'click', ->
       $('body,html').animate({scrollTop:$(document).height()},500)
+
+
+
+  ################フッター処理####################################
+  
+  #footerタッチ処理
+  
+  $("li.fbtn")
+    .on 'touchstart', ->
+      $(this).attr class:"fbtn footer-touch"
+    .on 'touchend', ->
+      $(this).attr class:"fbtn"
+
+  #TOPボタン処理
+
+  $("li#goTop").on 'click', ->
+    $('body,html').animate({scrollTop: 0}, 500)
+  #オートスクロールボタン処理
+  $('li#onAutoscl,.autoscl').click ->
+    if sessionStorage.getItem('autoscl') is "on"
+      sessionStorage.setItem('autoscl','off')
+      $('li#onAutoscl').attr class:""
+    else
+      sessionStorage.setItem('autoscl','on')
+      $("li#onAutoscl").attr class:"btnactive"
+
+
+
+  #bottomに表示領域の一番下を指定するように
+  #投稿form処理
+  formp = $("div#chat")
+
+  $("li#hform").on 'click', ->
+    $("div.form-m").animate
+      bottom:'0'
+    ,500, ->
+      formp.attr class: "body-pad"
+      $("div.footer-cont").attr style: "display:none;"
+      $("#send").click ->
+        $("div.footer-cont").attr style: ""
+        formp.attr class: ""
+        $("div.form-m").animate
+          bottom:'-300'
+        ,500
+  
+  $("span.closebutton").on 'click', ->
+    $("div.footer-cont").attr style: ""
+    formp.attr class:""
+    $("div.form-m,div.reform-m").animate
+      bottom:'-300'
+      ,500
+  
+  #返信フォーム
+  $("#chat").on 'click',"a.res", ->
+    comid = $(this).attr "id"
+    $("input.resimg").attr id: "imgurl#{comid}"
+    $("textarea.restext").attr id: "msgbody#{comid}"
+    $("button.resend").attr id: "#{comid}"
+    $("div.reform-m").animate
+      bottom:'0'
+    ,500, ->
+      formp.attr class: "body-pad"
+      $("div.footer-cont").attr style: "display:none;"
+      $(".resend").click ->
+        $("div.footer-cont").attr style: ""
+        formp.attr class: ""
+        $("div.reform-m").animate
+          bottom:'-300'
+        ,500
+  
+  #オートスクロールオン
+  $("#chat").on 'inview','div.contarea:last', (event,isInView)->
+    if isInView
+      sessionStorage.setItem('autoscl','on')
+      $("li#onAutoscl").attr class:"btnactive"
+    else
+      sessionStorage.setItem('autoscl','off')
+      $('li#onAutoscl').attr class:""
+
