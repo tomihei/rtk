@@ -3,10 +3,9 @@ require 'sidekiq/web'
 WebsocketTest::Application.routes.draw do
   match '/addtopic' => 'topic_add_pages#mainpage', :via => :get
   post "topic_add_pages/senddata"
-  match '/topiclist' => 'topic_add_pages#topiclist', :via => :get
+  match '/' => 'topic_add_pages#topiclist', :via => :get
   #get "chat/index"
   match '/topic/:id' => 'chat#index', :via => :get 
-  match '/main' => 'chat#main', :via => :get
 
   mount Sidekiq::Web => '/sidekiq'
 

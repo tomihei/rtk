@@ -68,6 +68,11 @@ div.chat-box{
   box-shadow:0px 1px 2px 0px rgba(0,0,0,0.333);
 }
 
+.rescont{
+  padding-right:0;
+  padding-bottom:i0.5em;
+  box-shadow:-1px 0px 2px 0px rgba(0,0,0,0.333);
+}
 
 .contchild{
   padding-left:3px;
@@ -244,7 +249,6 @@ ul.footer-button li span.fli{
 //隠しFORM
 
 div.form-m{
-  margin:7px;
   padding-left:0.5em;
   padding-right:0.5em;
   position:fixed;
@@ -258,7 +262,7 @@ div.closebox{
   width:100%;
 }
 span.closebutton{
-  font-size:1.5em;
+  font-size:1.7em;
   display:inline-block;
   float:right;
   margin:7px;
@@ -285,7 +289,6 @@ span.reshead{
 }
 
 div.reform-m{
-  margin:7px;
   padding-left:0.5em;
   padding-right:0.5em;
   position:fixed;

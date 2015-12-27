@@ -95,7 +95,7 @@ class Output
                         <a class='res' id='#{message.comment_id}'>返信</a>
                         #{footerm}"
     else
-     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel}'>
+     $("div#child#{message.resid}").append "<div id='#{message.comment_id}' class='contarea  #{myreslabel} #{formelabel} rescont'>
                                        #{resnumAtime}
                                        <a class='res' id='#{message.comment_id}'>返信</a>
                                        #{footerm}"
