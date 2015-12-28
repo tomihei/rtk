@@ -500,7 +500,7 @@ class ChatClass
 
   $('#chat').on 'click','img.bigthum', ->
     $(this).colorbox(
-      href: $(this).attr 'src'
+      href: $(this).attr 'data-original'
       maxWidth:"100%"
       maxHeight:"100%"
     )
@@ -581,13 +581,13 @@ class ChatClass
   $("li#goTop").on 'click', ->
     $('body,html').animate({scrollTop: 0}, 500)
   #オートスクロールボタン処理
-  $('li#onAutoscl,.autoscl').click ->
+  $('div#autosclimg,.autoscl').click ->
     if sessionStorage.getItem('autoscl') is "on"
       sessionStorage.setItem('autoscl','off')
-      $('li#onAutoscl').attr class:""
+      $('div#autosclimg').attr class:"onautotag"
     else
       sessionStorage.setItem('autoscl','on')
-      $("li#onAutoscl").attr class:"btnactive"
+      $("div#autosclimg").attr class:"autotag"
 
 
 
@@ -637,8 +637,8 @@ class ChatClass
   $("#chat").on 'inview','div.contarea:last', (event,isInView)->
     if isInView
       sessionStorage.setItem('autoscl','on')
-      $("li#onAutoscl").attr class:"btnactive"
+      $("div#autosclimg").attr class:"onautotag"
     else
       sessionStorage.setItem('autoscl','off')
-      $('li#onAutoscl').attr class:""
+      $('div#autosclimg').attr class:"autotag"
 
