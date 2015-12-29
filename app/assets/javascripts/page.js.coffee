@@ -436,20 +436,22 @@ class ChatClass
     last_update = now
   , INTERVAL
   
+  #入室時はオートスクロールオフ
   sessionStorage.setItem('autoscl','off')
+
+
   #ボタンの状態判断用
   gcid = $('#group_id').text()
   bid = ['autopic']
-  bid.forEach (item) ->
-   if(!$.cookie(item) or $.cookie("nowload") isnt gcid and item isnt "autopic")
-    $.cookie(item,'off')
-   else if($.cookie(item) isnt 'off' )
-     $("##{item}").attr 'class','btn btn-default navbar-btn navbtn active'
-   else
-     $("##{item}").attr 'class','btn btn-default navbar-btn navbtn'
-  
+
+  if($.cookie(bid) isnt 'off' )
+    $("##{bid}").attr 'class','btn btn-default navbar-btn navbtn active'
+  else
+    $("##{bid}").attr 'class','btn btn-default navbar-btn navbtn'
+
   $.cookie("nowload",gcid)
 
+  #ヘッダーボタン処理
   $('.navbar-btn').click ->
     $(this).button('toggle')
     cookid = $(this).attr('id')
@@ -462,10 +464,10 @@ class ChatClass
   
  
   topicEvents = new ChatClass($('#chat').data('uri'), true)
-
+  
+  #タブ処理
   $('.tnav').on 'click', ->
     id = $(this).attr("id")
-    console.log id
     topicEvents.reset(id)
 
 
@@ -476,19 +478,7 @@ class ChatClass
     sclbaa = sclbaa - 100
     $("html,body").animate({scrollTop:sclbaa})
 
-#返信フォーム用
-  #if textarea focus autoscl off
-  $('body')
-   .on 'focus scroll touchstart', ->
-     $.cookie('restextfocus','on')
-   .on 'focusout','form.form-horizontal', ->
-     $.cookie('restextfocus','off')
-   .on 'touchend',->
-     setTimeout ->
-      $.cookie('restextfocus','off')
-     , 3000
-   .on 'click','.resend', ->
-     $("div.resform").hide(250)
+  #colorbox読み込み
   $('#chat').on 'click','a.colgm', ->
     iden = $(this).attr('name')
     idena = $(this).attr('id')
@@ -497,14 +487,15 @@ class ChatClass
      maxWidth:"100%"
      maxHeight:"100%"
     )
-
+  #thumbnail colorbox読み込み
   $('#chat').on 'click','img.bigthum', ->
     $(this).colorbox(
       href: $(this).attr 'data-original'
       maxWidth:"100%"
       maxHeight:"100%"
     )
-
+  
+  #返信用バッチのポップオーバー
   $(document).popover(
     html: true,
     selector:'.badge',
@@ -598,7 +589,7 @@ class ChatClass
   $("li#hform").on 'click', ->
     $("div.form-m").animate
       bottom:'0'
-    ,500, ->
+    ,200, ->
       formp.attr class: "body-pad"
       $("div.footer-cont").attr style: "display:none;"
       $("#send").click ->
@@ -606,14 +597,14 @@ class ChatClass
         formp.attr class: ""
         $("div.form-m").animate
           bottom:'-300'
-        ,500
+        ,200
   
   $("span.closebutton").on 'click', ->
     $("div.footer-cont").attr style: ""
     formp.attr class:""
     $("div.form-m,div.reform-m").animate
       bottom:'-300'
-      ,500
+      ,200
   
   #返信フォーム
   $("#chat").on 'click',"a.res", ->
@@ -623,7 +614,7 @@ class ChatClass
     $("button.resend").attr id: "#{comid}"
     $("div.reform-m").animate
       bottom:'0'
-    ,500, ->
+    ,200, ->
       formp.attr class: "body-pad"
       $("div.footer-cont").attr style: "display:none;"
       $(".resend").click ->
@@ -631,7 +622,7 @@ class ChatClass
         formp.attr class: ""
         $("div.reform-m").animate
           bottom:'-300'
-        ,500
+        ,200
   
   #オートスクロールオン
   $("#chat").on 'inview','div.contarea:last', (event,isInView)->
