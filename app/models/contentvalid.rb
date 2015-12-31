@@ -5,7 +5,7 @@ class Contentvalid
   
   NUMORALP_REGEX = /\A[a-z\d]+\z/
   VALID_IMGURURL_REGEX = /\A(http\:\/\/i.imgur.com\/)(\w*)(\W*\w*)\z/
-  
+
   validates :group_id, presence: true, length:{minimum:15,maximum:17},
             format: {with: NUMORALP_REGEX}
  
