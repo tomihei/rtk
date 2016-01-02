@@ -1,7 +1,7 @@
  class Callist
  
   constructor: (@list) ->
-  
+   
   #新着順
   sort_by: (sort)->
     compSort_By.call @,sort

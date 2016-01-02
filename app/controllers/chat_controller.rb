@@ -7,7 +7,7 @@ class ChatController < ApplicationController
 
   def index
     gid = params[:id]
-    if Topic.exists?(:key => "#{gid}")
+    if Topic.exists?(:key => "#{gid}") and $redistopic.exists(gid)
       session[:group_id] = gid
       @title = $redistopic.hget(gid,"title")
       talks = $rediscont.lrange gid, 0,-1

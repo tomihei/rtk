@@ -1,11 +1,10 @@
 class TopiceraseJob < ActiveJob::Base
   queue_as :default
 
-  def perform(message)
-    gid = message[:group_id]
-    newtime = message[:time]
-    $rediscont.rpush gid,message
-    $redistopic.hincrby(gid,"rescount",1)
-    $redistopic.hset(gid,"lastpost",newtime)
+  def perform(gid)
+    if Topic.exists?(:key => "#{gid}")
+      Topic.destroy_all(:key => "#{gid}")
+      $residcont.del(gid)
+    end
   end
 end

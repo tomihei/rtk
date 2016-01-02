@@ -23,6 +23,7 @@ class TopicAddPagesController < ApplicationController
     #トピックデータを追加
     $redistopic.mapped_hmset(hashkey, {"title" => toptitle,"rescount"=> 1, "visitor"=> 0, "lastpost"=> ntime,"buildtime" => now,"imgurl" => imgurl})
     #最初の投稿を追加
+    $redistopic.expire(hashkey,7200)
     $rediscont.rpush hashkey,message
     cookies[:build] = hashkey
     redirect_to "/topic/#{hashkey}"
@@ -41,12 +42,26 @@ class TopicAddPagesController < ApplicationController
    @listary = $redistopic.pipelined do
      allkey.each do |topic|
        #トピックデータ取り出し配列形式
-       $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime","imgurl")
+       
+        $redistopic.hmget("#{topic[:key]}","title","rescount","visitor","lastpost","buildtime","imgurl")
+
+       
      end
    end
    allkey.each do |topicinfo|
-     @listary[num].push("#{topicinfo[:key]}")
-     num = num + 1
+     
+       if $redistopic.exists(topicinfo[:key])
+        @listary[num].push("#{topicinfo[:key]}")
+       else
+        TopiceraseJob.perform_later(topicinfo[:key])
+       end
+       
+       if @listary[num][0].blank?
+        @listary.delete_at(num)
+       else
+        num = num + 1
+       end
+     
    end
    gon.list = @listary
   end
