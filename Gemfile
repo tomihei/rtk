@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.2.1'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.2.4'
@@ -57,7 +57,7 @@ group :production do
 end
 
 gem 'faye-websocket','0.10.0'
-gem 'websocket-rails', github: 'websocket-rails/websocket-rails' 
+gem 'websocket-rails', github: 'websocket-rails/websocket-rails'
 gem 'redis'
 gem 'redis-rails'
 gem 'gon'
@@ -65,4 +65,3 @@ gem 'resque'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'font-awesome-sass'
-

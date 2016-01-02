@@ -31,6 +31,8 @@ module WebsocketTest
     config.assets.precompile += %w( topic_add_pages.js )
     config.assets.precompile += %w( chat.js )
 
+    config.autoload_paths += Dir["#{config.root}/app/validators"]
+      
     config.active_job.queue_adapter = :sidekiq
   end
 end

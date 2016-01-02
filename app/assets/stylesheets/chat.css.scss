@@ -65,18 +65,30 @@ div.chat-box{
   padding-top:0.5em;
   padding-bottom:0.5em;
   margin-top:5px;
-  box-shadow:0px 1px 2px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 1px 2px 0px #ccb;
+}
+
+@media only screen and (min-width:768px){
+  .contarea{
+    z-index:0;
+    position:relative;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    margin-top:5px;
+    box-shadow:0px 1px 3px 0px #ccb;
+  }
 }
 
 .rescont{
   padding-right:0;
-  padding-bottom:i0.5em;
-  box-shadow:-1px 0px 2px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 1px 3px 0px #ccb;
 }
 
 .contchild{
   padding-left:3px;
-  margin-left:3%;
+  margin-left:2%;
 }
 
 .thumbnail{
@@ -111,14 +123,14 @@ img.movie{
 
 .nav-pills > li:hover{
   border-radius:4px;
-  box-shadow:0px 2px 3px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 2px 3px 0px #ccb;
 
 
 }
 
 .active{
   border-radius:4px;
-  box-shadow:0px 2px 3px 0px rgba(0,0,0,0.333);
+  box-shadow:0px 2px 3px 0px #ccb;
 
 }
 
@@ -210,7 +222,7 @@ input[type="file"] {
   height:50px;
   background-color:#FAFAFA;
   color:#0e7ac4;
-  box-shadow:0px 4px 7px 3px rgba(0,0,0,0.333);
+  box-shadow:0px 4px 7px 3px #ccb;
 }
 
 ul.footer-button{
@@ -251,36 +263,38 @@ ul.footer-button li span.fli{
 
 }
 
-.autotag{
-  border:0;
+div.autotag{
+  border:none;
+  font-size:14px;
   cursor:pointer;
   width:50px;
   height:50px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: image-url("auto.png");
+  color:#9fa8da;
+}
+
+span.autoicon{
+  font-size:25px !important;
 }
 
 .onautotag{
-  border:0;
+  font-size:14px;
   cursor:pointer;
   width:50px;
   height:50px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: image-url("autoTap.png");
 }
 
-.toptag{
-  border:0;
+
+div.toptag{
+  border:none;
+  font-size:14px;
   cursor:pointer;
   width:50px;
   height:50px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: image-url("top.png");
-
+  color:#0e7ac4;
 }
+
+
+
 //隠しFORM
 
 div.form-m{
@@ -290,7 +304,7 @@ div.form-m{
   bottom:-300px;
   z-index:6;
   background-color:#ffffff;
-  box-shadow:0px 4px 7px 4px rgba(0,0,0,0.333);
+  box-shadow:0px 2px 5px 0px #ccb;
 }
 
 div.closebox{
@@ -303,12 +317,12 @@ span.closebutton{
   margin:7px;
   // color:#315fb5;
   color:#0e7ac4;
-  text-shadow:0px 2px 3px rgba(0,0,0,0.333);
+  text-shadow:0px 2px 3px #ccb;
 }
 
 span.closebutton:hover{
   color:#303f9f;
-  text-shadow:0px 6px 9px rgba(0,0,0,0.333);
+  text-shadow:0px 6px 9px #ccb;
 }
 
 .body-pad{
@@ -332,21 +346,21 @@ div.reform-m{
   bottom:-300px;
   z-index:6;
   background-color:#fafafa;
-  box-shadow:0px 4px 7px 4px rgba(0,0,0,0.333);
+  box-shadow:0px 4px 7px 4px #ccb;
 }
 
 @media only screen and (min-width:768px){
 
-div.reform-m{
-  width:auto;
-  padding-left:0.5em;
-  padding-right:0.5em;
-  position:fixed;
-  bottom:-300px;
-  z-index:6;
-  background-color:#fafafa;
-  box-shadow:0px 4px 7px 4px rgba(0,0,0,0.333);
-}
+  div.reform-m{
+    width:auto;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    position:fixed;
+    bottom:-300px;
+    z-index:6;
+    background-color:#fafafa;
+    box-shadow:0px 4px 7px 4px #ccb;
+  }
 
 
 
