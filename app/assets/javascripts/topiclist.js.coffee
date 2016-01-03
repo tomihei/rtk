@@ -80,17 +80,34 @@
     @view.output_list(@listm.pubfunc())
   
  $ ->
-  open = new UserModel(2)
+  
+  tabnum = $.cookie("listt")
+    
+  switch tabnum
+      when "4"
+        open = new UserModel(4)
+        $(".tnav").attr('class','tnav')
+        $("#new").attr('class','tnav active')
+      when "1"
+        open = new UserModel(1)
+        $(".tnav").attr('class','tnav')
+        $("#come").attr('class','tnav active')
+      else
+        open = new UserModel(2)
+        $(".tnav").attr('class','tnav')
+        $("#pop").attr('class','tnav active')  
   $("#pop").on 'click', ->
     open.cal(2)
     $(".tnav").attr('class','tnav')
     $(this).attr('class','tnav active')
+    $.cookie("listt","2")
   $("#new").on 'click', ->
     open.cal(4)
     $(".tnav").attr('class','tnav')
     $(this).attr('class','tnav active')
+    $.cookie("listt","4")
   $("#come").on 'click', ->
     open.cal(1)
     $(".tnav").attr('class','tnav')
     $(this).attr('class','tnav active')
-
+    $.cookie("listt","1")
