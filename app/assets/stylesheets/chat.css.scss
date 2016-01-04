@@ -218,7 +218,7 @@ input[type="file"] {
   z-index:5;
   width:100%;
   position:fixed;
-  bottom:0;
+  bottom:5px;
   height:50px;
   background-color:#FAFAFA;
   color:#0e7ac4;
@@ -385,4 +385,13 @@ div.reform-m{
 
 .buttonIcon{
   margin-left: -5px;
+}
+
+.footer-bottom{
+  z-index:5;
+  background: #0e7ac4;
+  width:100%;
+  height:5px;
+  position:fixed;
+  bottom:0px;
 }
