@@ -41,7 +41,8 @@ class WebsocketChatController < WebsocketRails::BaseController
     
     logger.debug("new_message")
     #クライアントからのメッセージを取得
-    if @paraml.valid?
+    resnum = $rediscont.llen(message[:group_id])
+    if @paraml.valid? and resnum < 1000
       cid = Time.zone.now.strftime("%d%H%M%S%N").to_i.to_s(36)
       newtime = Time.zone.now.strftime("%Y/%m/%d %H:%M:%S")
       message[:comment_id] = cid
@@ -61,7 +62,6 @@ class WebsocketChatController < WebsocketRails::BaseController
     logger.debug("disconnected user")
     gid = session[:group_id]
     controller_store[:topic].hincrby(gid,"visitor", -1)
-
   end
 
   private

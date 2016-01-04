@@ -585,14 +585,17 @@ class ChatClass
   #bottomに表示領域の一番下を指定するように
   #投稿form処理
   formp = $("div#chat")
-
+  moi = $.cookie("restextfocus")
+    
   $("li#hform").on 'click', ->
+    $.cookie("restextfocus","on")
     $("div.form-m").animate
       bottom:'0'
     ,200, ->
       formp.attr class: "body-pad"
       $("div.footer-cont").attr style: "display:none;"
       $("#send").click ->
+        $.cookie("restextfocus","off")
         $("div.footer-cont").attr style: ""
         formp.attr class: ""
         $("div.form-m").animate
@@ -600,6 +603,7 @@ class ChatClass
         ,200
   
   $("span.closebutton").on 'click', ->
+    $.cookie("restextfocus","off")
     $("div.footer-cont").attr style: ""
     formp.attr class:""
     $("div.form-m,div.reform-m").animate
@@ -608,6 +612,7 @@ class ChatClass
   
   #返信フォーム
   $("#chat").on 'click',"a.res", ->
+    $.cookie("restextfocus","on")
     comid = $(this).attr "id"
     $("input.resimg").attr id: "imgurl#{comid}"
     $("textarea.restext").attr id: "msgbody#{comid}"
@@ -618,6 +623,7 @@ class ChatClass
       formp.attr class: "body-pad"
       $("div.footer-cont").attr style: "display:none;"
       $(".resend").click ->
+        $.cookie("restextfocus","off")
         $("div.footer-cont").attr style: ""
         formp.attr class: ""
         $("div.reform-m").animate

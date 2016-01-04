@@ -7,6 +7,6 @@ class DatawriteJob < ActiveJob::Base
     $rediscont.rpush gid,message
     $redistopic.hincrby(gid,"rescount",1)
     $redistopic.hset(gid,"lastpost",newtime)
-    $redistopic.expire(gid,21600)
+    $redistopic.expire(gid,259200)
   end
 end
