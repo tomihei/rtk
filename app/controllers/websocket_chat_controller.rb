@@ -62,7 +62,6 @@ class WebsocketChatController < WebsocketRails::BaseController
     logger.debug("disconnected user")
     gid = session[:group_id]
     controller_store[:topic].hincrby(gid,"visitor", -1)
-
   end
 
   private
