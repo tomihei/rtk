@@ -10,8 +10,11 @@ class Contentvalid
   validates :group_id, presence: true, length:{minimum:15,maximum:17},
             format: {with: NUMORALP_REGEX}
  
-  validates :body, presence: true, length:{minimum:2,maximum:1500},kai: true
+  validates :body, presence: true, length:{minimum:2},kai: true,
+            if: "imgurl.blank?"
   
+  validates :body, length:{maximum:1500} 
+
   validates :imgurl, format: {with: VALID_IMGURURL_REGEX},
             unless: Proc.new {|a| a.imgurl.blank?}
   
