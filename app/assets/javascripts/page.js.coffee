@@ -37,7 +37,7 @@ class Output
   messagebody = @mescape(message.body,resnum,message.comment_id)
   #共通部品
   #本文アンカーが自分のレスに対してなら
-  if messagebody[2] = 1
+  if messagebody[2] is 1
     resforme = 1
 
   if(newpost is "on")
