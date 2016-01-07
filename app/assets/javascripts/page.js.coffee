@@ -72,7 +72,7 @@ class Output
 
 
   resnumAtime   = "<div class='head'><div class='anker'>
-                   <a  name='ank#{message.comment_id}'>#{resnum}</a>
+                   <a class='anker'  name='ank#{message.comment_id}'>#{resnum}</a>
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
                    </div>
                    <small> #{message.time}</small> #{newlabel} #{hyou}"
@@ -360,6 +360,24 @@ class ChatClass
 # サーバーからnew_messageを受け取ったらreceiveMessageを実行
   @channel.bind 'websocket_chat', @receiveMessage
   @dispatcher.bind 'websocket_chat', @receiveMessage
+  @channel.bind 'leave',@leave
+  @channel.bind 'in',@in
+ 
+ leave: (m) =>
+  num = $("span#visitor-num").text()
+  num = num - 1
+  $("span#visitor-num").text(num)
+  
+ in: (m) =>
+  terget = $("div#visit-c")
+  beforeclass = target.attr "class"
+  target.attr class: "#{beforeclass} visitor-come"
+  num = $("span#visitor-num").text()
+  num = num + 1
+  $("span#visitor-num").text(num)
+  setTimeout ->
+    target.attr class: "#{beforeclass}"
+  ,3000
 
  sendMessage: (event) =>
 # サーバ側にsend_messageのイベントを送信
