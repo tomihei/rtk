@@ -372,8 +372,8 @@ class ChatClass
   t = $("div#visit-c")
   beforeclass = t.attr "class"
   t.attr style: "color:#e53935; opacity:1;"
-  num = $("span#visitor-num").text()
-  num = num + 0
+  num1 = $("span#visitor-num").text()
+  num = Number(num1)
   num = num + 1
   $("span#visitor-num").text(num)
   setTimeout ->
