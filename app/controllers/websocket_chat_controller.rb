@@ -31,7 +31,8 @@ class WebsocketChatController < WebsocketRails::BaseController
     dig = ipac.to_i * Time.zone.now.strftime("%d").to_i
     @client_ip = Digest::SHA1.hexdigest(dig.to_s).to_i(16).to_s(36)
     msg["first_id"] = @client_ip 
-    send_message :websocket_chat,msg  
+    send_message :websocket_chat,msg
+    WebsocketRails["#{gid}"].trigger(:in,"1")
   end
 
   def new_message

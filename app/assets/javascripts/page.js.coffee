@@ -369,6 +369,7 @@ class ChatClass
   $("span#visitor-num").text(num)
   
  in: (m) =>
+  console.log "hyoooooooo"
   terget = $("div#visit-c")
   beforeclass = target.attr "class"
   target.attr class: "#{beforeclass} visitor-come"
