@@ -371,12 +371,13 @@ class ChatClass
  in: (m) =>
   t = $("div#visit-c")
   beforeclass = t.attr "class"
-  t.attr class: "#{beforeclass} visitor-come"
+  t.attr style: "color:#e53935; opacity:1;"
   num = $("span#visitor-num").text()
+  num = num + 0
   num = num + 1
   $("span#visitor-num").text(num)
   setTimeout ->
-    t.attr class: "#{beforeclass}"
+    t.attr style: ""
   ,3000
 
  sendMessage: (event) =>
