@@ -369,15 +369,14 @@ class ChatClass
   $("span#visitor-num").text(num)
   
  in: (m) =>
-  console.log "hyoooooooo"
-  terget = $("div#visit-c")
-  beforeclass = target.attr "class"
-  target.attr class: "#{beforeclass} visitor-come"
+  t = $("div#visit-c")
+  beforeclass = t.attr "class"
+  t.attr class: "#{beforeclass} visitor-come"
   num = $("span#visitor-num").text()
   num = num + 1
   $("span#visitor-num").text(num)
   setTimeout ->
-    target.attr class: "#{beforeclass}"
+    t.attr class: "#{beforeclass}"
   ,3000
 
  sendMessage: (event) =>
