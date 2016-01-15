@@ -36,19 +36,33 @@
       time.setTime(value[3] * 1000)
       date = formatDate.call @,time
       top = "<a class='list-group-item' href='/topic/#{value[6]}' >
-                  <div class='row10 row'>
-                    <div class='rowr imgdiv col-xs-2 col-md-1 col-sm-2'>"
+                  <div class='row3 row'>
+                    <div class=' row3 imgdiv col-xs-2 col-md-1 col-sm-2'>"
       if value[4] isnt null and value[4] isnt ""
         url = value[4].replace(/\.(\w*)$/g,"m.$1")
         img =        "<img class='list_thumb' src='#{url}'>"
         top = top + img
       bottom ="     </div>
-                    <div class='rowr col-xs-10 col-md-11 col-sm-10'>
+                    <div class='col-xs-10 col-md-11 col-sm-10'>
                       <h4 class='overf list-group-item-heading'>#{value[0]}</h4>
-                      <p class='list-group-item-text'><span class='user'>&nbsp;</span><span>:&nbsp;<strong>#{value[5]}</strong></span></p>
-                      <p class='list-group-item-text'><span class='comeimg'>&nbsp;</span><span>:&nbsp;<strong>#{value[1]}</strong></span></p>
-                      <p class='list-group-item-text'><span class='text-primary'>open:</span><small>#{date}</small>
-                      <span class='text-primary'> last:</span><small>#{value[2]}<small></p>
+                      <span class='count-badge'>
+                        <span class='user fa fa-user'></span>
+                        <span><strong>   #{value[5]}</strong></span>
+                      </span> 
+                      <span class='count-badge'> 
+                        <span class='comeimg fa fa-comment'></span>
+                        <span><strong>   #{value[1]}</strong></span>
+                      </span>
+                      <div class='time-badge'>
+                        <span class='mobile-badge'>
+                          <span class='label moi'>open</span>
+                          <span><small>#{date}</small></span>
+                        </span>
+                        <span class='mobile-badge'>
+                          <span class='label moi'>last</span>
+                          <span><small>#{value[2]}<small></span>
+                        </span>
+                      </div>
                     </div>
                   </div>
             </a>"

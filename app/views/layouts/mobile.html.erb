@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RTK</title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= Gon::Base.render_data  %>
-    <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag 'websocket_rails/main'%>
-    <%= javascript_include_tag 'page'%>
-    <%= csrf_meta_tags %>
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <![endif]-->
-      <script type="text/javascript"
-              src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-60506150-2', 'auto');
-  ga('send', 'pageview');
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Identifier-URL" content="http://www.rtk.space/" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RTK</title>
+        <%= stylesheet_link_tag    "application", media: "all" %>
+        <%= Gon::Base.render_data  %>
+        <%= javascript_include_tag "application" %>
+        <%= javascript_include_tag 'websocket_rails/main'%>
+        <%= javascript_include_tag 'page'%>
+        <%= csrf_meta_tags %>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+            <script type="text/javascript"
+                    src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+            <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  </script>
-  </head>
-  <body class="mobile">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar123">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#">
-          <%= image_tag("RTKmini.png", :class => "rtkRogo") %>
-          </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar123">
-          <ul class="nav navbar-nav">
-            <li><a href="/">一覧</a></li>
-            <li><a href="/addtopic">トピック作成</a></li>
+ga('create', 'UA-60506150-2', 'auto');
+ga('send', 'pageview');
 
-            <li><button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <%= yield %>
+            </script>
+    </head>
+    <body class="mobile">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar123">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#">
+                        <%= image_tag("mini.png", :class => "rtkRogo") %>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar123">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">一覧</a></li>
+                        <li><a href="/addtopic">トピック作成</a></li>
 
-  </body>
+                        <li><button type="button" id="autopic" class="btn btn-default navbar-btn navbtn" autocomplate="off">画像自動読み込み</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <%= yield %>
+
+    </body>
 </html>

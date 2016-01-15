@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 ">
+    <!-- サイトの正式なURLを伝えるmetaタグ -->
+    <meta name="Identifier-URL" content="http://www.rtk.space/" />
+
+    <!-- ページの要約を伝えるmetaタグ（検索エンジンに表示される） -->
+    <meta content="RTK" name="title">
+    <meta content="チャット感覚で投稿できる、リアルタイム画像掲示板です" name="description">
     <title>RTK</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= Gon::Base.render_data  %>
@@ -36,7 +42,7 @@
             <span class="icon-bar"></span>
           </button>
           <a href="#">
-          <%= image_tag("RTKmini.png", :class => "rtkRogo") %>
+          <%= image_tag("mini.png", :class => "rtkRogo") %>
           </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar123">

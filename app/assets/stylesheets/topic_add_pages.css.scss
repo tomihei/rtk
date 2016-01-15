@@ -60,7 +60,7 @@ body.mobile{
 }
 
 .row10{
-  margin-top:0.5em;
+  margin-top:0.7em;
   padding-right:7px;
   padding-left:7px;
 
@@ -90,8 +90,8 @@ body.mobile{
   padding-left:5px;
   padding-right:5px;
   border:none;
-  padding-top:15px;
-  padding-bottom:15px;
+  padding-top:8px;
+  padding-bottom:8px;
   z-index:0;
 }
 
@@ -136,20 +136,56 @@ img.image-preview{
   text-align:center;
 }
 
+span.count-badge{
 
+    display:inline-block;
+    width:100px;
+
+}
 
 .user{
-  padding-left:1em;
   font-size:1em;
-  background-image:image-url("user.svg");
-  background-repeat:no-repeat;
+  width:22px;
+  text-align:center;
+  display:inline-block;
 }
 
 .comeimg{
-  padding-left:1em;
   font-size:1em;
-  background-image:image-url("comment.svg");
-  background-repeat:no-repeat;
+  width:22px;
+  text-align:center;
+  display:inline-block;
+}
+
+.mobile-badge{
+    display:block; 
+}
+
+@media only screen and (min-width:768px){
+
+    .mobile-badge{
+        display:inline-block;
+    }
+
+}
+
+.moi{
+    color:#757575;
+    display:inline-block;
+    width:40px;
+
+}
+.time-badge{    
+    font-size:0.9em;
+    color:#9e9e9e;
+}
+
+@media only screen and (min-width:768px){
+
+    .time-badge{    
+        font-size:0.9em;
+        color:#9e9e9e;
+    }
 }
 
 .space{
