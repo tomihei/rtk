@@ -36,7 +36,7 @@
       time.setTime(value[3] * 1000)
       date = formatDate.call @,time
       top = "<a class='list-group-item' href='/topic/#{value[6]}' >
-                  <div class='row3 row'>
+                  <div class='row3'>
                     <div class=' row3 imgdiv col-xs-2 col-md-1 col-sm-2'>"
       if value[4] isnt null and value[4] isnt ""
         url = value[4].replace(/\.(\w*)$/g,"m.$1")
