@@ -68,20 +68,20 @@ class Output
   else
     ngstyle = ""
 
-  hyou = "<button class='btn btn-default btn-xs nguser' data-cid='#{message.client_id}'>NG</button>"
+  hyou = "<span class='fa fa-ban nguser' data-cid='#{message.client_id}'></span>"
 
 
   resnumAtime   = "<div class='head'><div class='anker'>
                    <a class='anker'  name='ank#{message.comment_id}'>#{resnum}</a>
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span>
                    </div>
-                   <small> #{message.time}</small> #{newlabel} #{hyou}"
+                   <span class='message-time'> #{message.time}</span> #{newlabel} #{hyou}"
   resnumAtimer  = "<div class='head'>
                    <div class='anker'>
                    <a class='anker' name='ank#{message.comment_id}'>#{resnum}</a>
                    </div>
                    <span class='badge' data-content='' data-title='#{resnum}への返信' id='rec#{message.comment_id}'></span> 
-                   <small> #{message.time}</small> #{newlabel} #{hyou}"
+                   <span class='message-time'> #{message.time}</span> #{newlabel} #{hyou}"
   footerm       = "</span></div>
                    <div class='m#{message.client_id}' style='#{ngstyle}'> 
                    <img id='thum#{resnum}' style='display:none;' ><p class='word'>#{messagebody[0]} </p>
