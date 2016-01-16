@@ -6,6 +6,7 @@ class ChatController < ApplicationController
 
 
   def index
+    expires_in 1.year 
     gid = params[:id]
     if Topic.exists?(:key => "#{gid}") and $redistopic.exists(gid)
       session[:group_id] = gid

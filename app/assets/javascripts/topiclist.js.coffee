@@ -93,7 +93,7 @@
     @listm.sort_by(target).escape_html(0)
     @view.output_list(@listm.pubfunc())
   
- $(window).on "load" ,->
+ $ ->
   
   tabnum = $.cookie("listt")
     
