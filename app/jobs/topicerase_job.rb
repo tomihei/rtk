@@ -5,6 +5,7 @@ class TopiceraseJob < ActiveJob::Base
     if Topic.exists?(:key => "#{gid}")
       Topic.destroy_all(:key => "#{gid}")
       $residcont.del(gid)
+      $visitor.del(gid)
     end
   end
 end
