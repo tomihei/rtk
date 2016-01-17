@@ -472,7 +472,7 @@ class ChatClass
 
 
 
- $(window).on "load", ->
+ $ ->
   #スマホスリープ明け再接続処理
   last_update = new Date()
   TIMEOUT = 30000
