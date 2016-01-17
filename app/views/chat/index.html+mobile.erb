@@ -2,7 +2,7 @@
 
 <div class="container chat-box">
   <div class="row">
-    <div class="backg row3 col-xs-12 col-md-12 col-sm-12">
+    <div class="backg row3">
       <h1 id="headeri"><%= @title  %></h1>
       <ul class="nav nav-pills grey">
         <li id="lnew" class="tnav active" role="presentation"><a >レス順</a></li>
@@ -14,7 +14,7 @@
     <div id="group_id" style="display:none;"><%= session[:group_id]%></div>
     <!-- jsに食わせたい情報などなど -->
     <!-- チャットのタイムラインとかテキストボックスとか -->
-    <div class="row3 col-xs-12 col-md-12 col-sm-12">
+    <div>
       <div id="chat" style="" data-uri="<%= request.host%>/websocket"></div>
 
 

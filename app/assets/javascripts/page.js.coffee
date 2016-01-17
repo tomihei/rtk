@@ -119,12 +119,8 @@ class Output
                         #{footerm}"
      @resinc($("span#rec#{message.resid}"),messagebody[0],resnum,message.time,message.resid,onlyforme)
 
-  $("div#childpm#{resnum}").append "<div class='row'>
-                                            <div class ='col-xs-10 col-md-10 col-sm-10'>
+  $("div#childpm#{resnum}").append "
                                             <div id='pmrow#{resnum}'></div>
-                                            </div>
-                                            <div class='col-xs-2 col-md-2 col-sm-2'></div>
-                                            </div>
                                             "
   
   #大きいサムネイル表示
@@ -145,7 +141,7 @@ class Output
     pmurl = $(this).attr('href')
     vic++
     
-    $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
+    $("div#pmrow#{resnum}").append "<div class='url-thumnail'>
                                             <a id='gm#{resnum}#{vic}'class='gm#{resnum} colgm' name='gm#{resnum}' href='#{pmurl}'>
                                             <img id='lazy#{resnum}'class='lazy' data-original='#{pmurl}' width='80px' height='80px'>
                                             <span id='hide#{resnum}' style='display:none;'></span>
@@ -192,7 +188,7 @@ class Output
     #gifv,webmのサムネイル
   $("a#gw#{resnum}").each ->
     pmurl = $(this).attr('href')
-    $("div#pmrow#{resnum}").append "<div class='col-md-1 col-xs-1 col-sm-1'>
+    $("div#pmrow#{resnum}").append "<div class='url-thumnail'>
                                             <a class='thumbnail' href='#{pmurl}'>
                                             <img class='movie'>
                                             </a>
@@ -201,7 +197,7 @@ class Output
     #youtube,vimeo用この3つどうにかしろよ
   $("a#gy#{resnum}").each ->
     pmurl = $(this).attr('href')
-    $("div#pmrow#{resnum}").append "<div class='span1'>
+    $("div#pmrow#{resnum}").append "<div class='url-thumnail'>
                                             <a id='movie#{resnum}' class='thumbnail' href='#{pmurl}'>
                                             <img class='movie'>
                                             </a>

@@ -36,14 +36,14 @@
       time.setTime(value[3] * 1000)
       date = formatDate.call @,time
       top = "<a class='list-group-item' href='/topic/#{value[6]}' >
-                  <div class='row3'>
-                    <div class=' row3 imgdiv col-xs-2 col-md-1 col-sm-2'>"
+                  <div class='topic-cont'>
+                    <div class='imgdiv'>"
       if value[4] isnt null and value[4] isnt ""
         url = value[4].replace(/\.(\w*)$/g,"m.$1")
         img =        "<img class='list_thumb' src='#{url}'>"
         top = top + img
       bottom ="     </div>
-                    <div class='col-xs-10 col-md-11 col-sm-10'>
+                    <div class='div80'>
                       <h4 class='overf list-group-item-heading'>#{value[0]}</h4>
                       <span class='count-badge'>
                         <span class='user fa fa-user'></span>
