@@ -17,6 +17,8 @@ a{
 }
 
 p.word{
+    padding-left:0.5em;
+    padding-right:0.5em;
     margin-bottom:0px;
     word-wrap: break-word;
 
@@ -32,11 +34,16 @@ p.word{
     margin-bottom:5px;
 }
 
+.resanker{
+
+    padding-left:0.5em;
+
+}
+
 .anker{
     font-size:18px;
     color:#757575;
     width:35px;
-    text-align:center;
     display:inline-block;
 }
 
