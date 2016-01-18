@@ -20,9 +20,15 @@ class ChatController < ApplicationController
         num = num + 1
       end
 
+      if Rails.env.production?
+          @request_host = request.host
+      else
+          @request_host = request.host + ":3000"
+      end
+
       gon.list = cont
     else 
-      render :text => "そんなのないよ", :status => 404
+      render :text => "そんなのないよ <a href='http://www.rtk.space/'>HOMEへ</a> ", :status => 404
     end
   end
   
