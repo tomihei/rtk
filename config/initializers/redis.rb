@@ -5,8 +5,8 @@ else
 end
 
 if ENV["REDISCLOUD_URL"]
-  uri = URI.parse(ENV["REDISCLOUD_URL"])
-  $rediscont = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :driver => "hiredis")
+  $rediscont = Redis.new(url:ENV["REDISCLOUD_URL"],driver:"hiredis")
+
 else
   $rediscont  = Redis.new(:host => "localhost", :port => 6379 ,:db => 1,:driver => "hiredis") 
 end
